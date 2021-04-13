@@ -1,0 +1,11 @@
+{
+  "name": "ecommerence-frontend",
+  "version": "1.0.0",
+  "description": "ecommerce frontend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Josef Laurin",
+  "license": "ISC"
+}
