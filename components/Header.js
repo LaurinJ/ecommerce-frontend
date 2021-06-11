@@ -1,133 +1,157 @@
 import React, { useState } from "react";
 import Link from "next/link";
 
-import { Container, Row, Col, Form, Button, InputGroup } from "react-bootstrap";
-
 function Header() {
   const [showLinks, setShowLinks] = useState(true);
 
   return (
     <React.Fragment>
-      <div className="top_part">
-        <Container>
-          <Row>
-            <Col lg={6} md={7} sm={8}>
-              <nav>
-                <ul className="topbar">
-                  <li>
-                    <a href="#">Home</a>
-                  </li>
-                  |
-                  <li>
-                    <a href="#">Jak nakupovat</a>
-                  </li>
-                  |
-                  <li>
-                    <a href="#">Obchodní podmínky</a>
-                  </li>
-                  |
-                  <li>
-                    <a href="#">Kontaktujte nás</a>
-                  </li>
-                </ul>
-              </nav>
-            </Col>
-            <Col lg={6} md={7} sm={8}>
-              <div className="clearfix">
-                <div className="right-links float-right">
-                  <a href="#">Přihlásit</a>/<a href="#">Registrovat</a>
-                </div>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-      </div>
-      <div className="middle_part">
-        <Container>
-          <Row>
-            <Col sm={3}>
-              <div className="logo">
-                <img
-                  className="img-responsive"
-                  src="https://www.apollos.cz/images/logo_apollos.png"
-                ></img>
-              </div>
-            </Col>
-            <Col sm={{ span: 4, offset: 1 }}>
-              <div className="input-group search_form">
-                <input type="search" className="form-control" placeholder="Vyhledat" />
-                <span class="input-group-btn">
-                  <button type="button" className="btn btn-default btn-lg">
-                    <i className="fa fa-search" aria-hidden="true"></i>
-                  </button>
-                </span>
-              </div>
+      <nav class="flex bg-gray-100 text-xs overflow-hidden">
+        <ul class="flex flex-none ml-20 my-2">
+          <li class="px-2 hover:text-blue-700">
+            <a href="#">Home</a>
+          </li>
+          |
+          <li class="px-2 hover:text-blue-700">
+            <a href="#">Jak nakupovat</a>
+          </li>
+          |
+          <li class="px-2 hover:text-blue-700">
+            <a href="#">Obchodní podmínky</a>
+          </li>
+          |
+          <li class="px-2 hover:text-blue-700">
+            <a href="#">Kontaktujte nás</a>
+          </li>
+        </ul>
+        <ul class="flex ml-auto my-2 mr-20">
+          <li class="px-2 hover:text-blue-700">
+            <a href="#">Přihlásit</a>
+          </li>
+          /
+          <li class="px-2 hover:text-blue-700">
+            <a href="#">Registrovat</a>
+          </li>
+        </ul>
+      </nav>
 
-              {/* <div id="search" className="input-group">
-                <input
-                  type="text"
-                  name="search"
-                  value=""
-                  placeholder="Vyhledat"
-                  className="form-control input-lg"
-                />
-                <span className="input-group-btn">
-                  <button type="button" className="btn btn-default btn-lg">
-                    <i className="fa fa-search" aria-hidden="true"></i>
-                  </button>
-                </span>
-              </div> */}
-            </Col>
-            <Col sm={{ span: 3, offset: 1 }} className="cart_wrap">
-              <div id="cart" class="btn-group btn-block">
-                <button type="button" class="btn btn-inverse btn-block btn-lg">
-                  <i></i> <span id="cart-total">0 ks - 0 Kč</span>
-                </button>
-                <ul class="dropdown-menu pull-right">
-                  <li>
-                    <p class="text-center">Váš nákupní košík je prázdný!</p>
-                  </li>
-                </ul>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-      </div>
-      <div className="Navbar">
-        <div className="leftSite">
-          <div className="links" id={showLinks ? "hidden" : ""}>
-            <nav className="wrap">
-              <ul>
-                <li>
-                  <a href="#">Home</a>
-                </li>
-                <li>
-                  <a href="#">Feedback</a>
-                </li>
-                <li>
-                  <a href="#">About us</a>
-                </li>
-                <li>
-                  <a href="#">Contact</a>
-                </li>
-                <li>
-                  <a href="#">Product</a>
-                </li>
-                <li>
-                  <a href="#">Info</a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-          <span className="">Kategorie</span>
-          <button onClick={() => setShowLinks(!showLinks)}>
-            <i className="bi bi-list"></i>
+      <header class="flex flex-col space-y-5 md:flex-row my-5 items-center md:justify-around">
+        <img class="-ml-10" src="https://www.apollos.cz/images/logo_apollos.png"></img>
+
+        <div class="flex">
+          <input
+            type="search"
+            class="p-4 rounded-l-sm bg-gray-100 focus:outline-none"
+            placeholder="Vyhledat"
+          />
+          <button
+            type="button"
+            class="px-5 rounded-r-sm bg-blue-400 focus:outline-none hover:bg-blue-800"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
           </button>
         </div>
-        {/* <div className="rightSite">
-        <input type="text" placeholder="Search..." />
-        <button>Search</button>
-      </div> */}
+
+        <button type="button" class="py-10 px-3 flex items-center space-x-5 text-xl">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-12 w-12"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+            />
+          </svg>
+          <span class="">0 ks - 0 Kč</span>
+        </button>
+        <ul class="hidden">
+          <li>
+            <p class="text-center">Váš nákupní košík je prázdný!</p>
+          </li>
+        </ul>
+      </header>
+
+      <div class="bg-gray-800 text-gray-100 flex justify-between sm:hidden">
+        <span class="p-4 pl-10 text-white font-bold">Kategorie</span>
+
+        <button class="mr-5 px-4 py-2 focus:outline-none focus:bg-gray-700">
+          <svg
+            class="h-5 w-5"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <div
+        class="bg-blue-800 text-blue-100 w-full transform md:relative md:translate-y-0
+     transition duration-200 ease-in-out"
+      >
+        <nav class="bg-gray-800 text-white border-t border-white">
+          <ul class="px-5 font-bold sm:flex sm:flex-wrap sm:flex-none md:px-16">
+            <li class="p-5 hover:bg-blue-500">
+              <a href="#">Home</a>
+            </li>
+            <li class="p-5 hover:bg-blue-500">
+              <a href="#">Feedback</a>
+            </li>
+            <li class="flex-none p-5 hover:bg-blue-500">
+              <a href="#">About us</a>
+            </li>
+            <li class="p-5 hover:bg-blue-500">
+              <a href="#">Contact</a>
+            </li>
+            <li class="p-5 hover:bg-blue-500">
+              <a href="#">Product</a>
+            </li>
+            <li class="p-5 hover:bg-blue-500">
+              <a href="#">Info</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="bg-gray-100 text-gray-500 text-sm">
+        <ul class="flex p-3 px-20 -ml-2">
+          <li class="px-3">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+            </svg>
+          </li>
+          /<li class="px-3">Zboží</li>/<li class="px-3">Slevy</li>
+        </ul>
       </div>
     </React.Fragment>
   );

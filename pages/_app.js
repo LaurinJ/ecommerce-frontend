@@ -3,7 +3,8 @@ import App from "next/app";
 import Head from "next/head";
 import Layout from "../components/Layout";
 import Link from "next/link";
-import "../styles/global.css";
+// import "../styles/global.css";
+import "../styles/style.css";
 
 class MyApp extends App {
   render() {
@@ -12,7 +13,7 @@ class MyApp extends App {
     return (
       <React.Fragment>
         <Head>
-          <link
+          {/* <link
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
             integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
@@ -21,7 +22,7 @@ class MyApp extends App {
           <link
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
-          ></link>
+          ></link> */}
 
           <link rel="preconnect" href="https://fonts.gstatic.com"></link>
           <link
