@@ -95,7 +95,7 @@ function Footer() {
             </div>
           </div>
           <div className="lg:w-1/3 mx-auto">
-            <div className="footer_download">
+            <div className="">
               <div className="flex flex-col">
                 <div className="col-lg-6 w-full px-3">
                   <h4 className="mt-2 mb-5 text-lg uppercase font-medium">Contact</h4>
