@@ -2,12 +2,14 @@ import React, { useState, useContext } from "react";
 import AppContext from "../context/AppContext";
 
 function LeftMenu() {
-  const [showMenu, setShowMenu] = useState(false);
   const context = useContext(AppContext);
 
   const handleClick = (e) => {
     e.preventDefault();
-    context.setMenu(!context.leftMenu);
+    context.setMenu((prevState) => ({
+      ...prevState,
+      state: !context.leftMenu.state,
+    }));
   };
 
   return (
@@ -19,17 +21,17 @@ function LeftMenu() {
         left-0
         w-full
         h-full        
-        ${context.leftMenu ? "z-10 bg-gray-200 bg-opacity-75" : "invisible"}
+        ${context.leftMenu.state ? "z-10 bg-gray-200 bg-opacity-75 duration-500" : "invisible"}
         opacity-100
       `}
     >
       <div
         className={`relative w-80 h-full bg-white duration-300 ${
-          context.leftMenu ? "left-0" : "-left-80"
+          context.leftMenu.state ? "left-0" : "-left-80"
         }`}
       >
         <h5 class="py-3.5 text-white bg-red-600 text-xl text-center font-bold">
-          Menu
+          {context.leftMenu.type}
           <svg
             onClick={(e) => handleClick(e)}
             xmlns="http://www.w3.org/2000/svg"
@@ -44,6 +46,8 @@ function LeftMenu() {
             />
           </svg>
         </h5>
+
+        <p>agasgasg agag a</p>
       </div>
     </div>
   );

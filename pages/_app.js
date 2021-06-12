@@ -10,7 +10,7 @@ import "../styles/style.css";
 function MyApp({ Component, pageProps }) {
   // const { Component, pageProps } = this.props;
 
-  const [leftMenu, setLeftMenu] = useState(false);
+  const [leftMenu, setLeftMenu] = useState({ state: false, type: "Menu" });
 
   return (
     <React.Fragment>
