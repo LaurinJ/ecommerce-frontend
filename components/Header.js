@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import { categories } from "../data/categories";
+import Cart from "../components/Cart";
+import { cart } from "../data/cart";
 
 function Header() {
   const [showLinks, setShowLinks] = useState(true);
@@ -64,29 +67,28 @@ function Header() {
             </svg>
           </button>
         </div>
-
-        <button type="button" class="py-10 px-3 flex items-center space-x-5 text-xl">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-12 w-12"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-            />
-          </svg>
-          <span class="">0 ks - 0 Kč</span>
-        </button>
-        <ul class="hidden">
-          <li>
-            <p class="text-center">Váš nákupní košík je prázdný!</p>
-          </li>
-        </ul>
+        <div className="relative">
+          <button type="button" class="py-10 px-3 flex items-center space-x-5 text-xl">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-12 w-12"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+              />
+            </svg>
+            <span class="">0 ks - 0 Kč</span>
+          </button>
+          <div class="w-64 hover:block absolute rounded-b-lg z-10 bg-gray-300">
+            <Cart cart={cart} />
+          </div>
+        </div>
       </header>
 
       <div class="bg-gray-800 text-gray-100 flex justify-between sm:hidden">
@@ -110,34 +112,25 @@ function Header() {
         </button>
       </div>
 
+      {/* categorie */}
       <div
         class="bg-blue-800 text-blue-100 w-full transform md:relative md:translate-y-0
      transition duration-200 ease-in-out"
       >
         <nav class="bg-gray-800 text-white border-t border-white">
           <ul class="px-5 font-bold sm:flex sm:flex-wrap sm:flex-none md:px-16">
-            <li class="p-5 hover:bg-blue-500">
-              <a href="#">Home</a>
-            </li>
-            <li class="p-5 hover:bg-blue-500">
-              <a href="#">Feedback</a>
-            </li>
-            <li class="flex-none p-5 hover:bg-blue-500">
-              <a href="#">About us</a>
-            </li>
-            <li class="p-5 hover:bg-blue-500">
-              <a href="#">Contact</a>
-            </li>
-            <li class="p-5 hover:bg-blue-500">
-              <a href="#">Product</a>
-            </li>
-            <li class="p-5 hover:bg-blue-500">
-              <a href="#">Info</a>
-            </li>
+            {categories.map((cat, i) => {
+              return (
+                <li key={i} class="p-5 hover:bg-blue-500">
+                  <a href="#">{cat}</a>
+                </li>
+              );
+            })}
           </ul>
         </nav>
       </div>
 
+      {/* aktualni pozice */}
       <div class="bg-gray-100 text-gray-500 text-sm">
         <ul class="flex p-3 px-20 -ml-2">
           <li class="px-3">

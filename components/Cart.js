@@ -29,7 +29,7 @@ function Cart({ cart }) {
                     <img width="60px" height="75px" src={product.img} />
                   </div>
                   <div className="pl-4">
-                    <h5 className="font-bold">{product.name}</h5>
+                    <h5 className="font-bold mr-2">{product.name}</h5>
                     <p className="text-sm">{product.price} Kč</p>
                   </div>
                 </a>
@@ -51,7 +51,7 @@ function Cart({ cart }) {
           </a>
           <a
             href="#"
-            className="w-1/2 ml-4 py-1.5 px-2 duration-300 text-center bg-white border border-red-600 rounded-sm text-red-600 font-bold hover:bg-red-600 hover:text-white"
+            className="w-1/2 ml-4 py-1.5 px-2 lg:py-4 duration-300 text-center bg-white border border-red-600 rounded-sm text-red-600 font-bold hover:bg-red-600 hover:text-white"
           >
             Dokončit
           </a>

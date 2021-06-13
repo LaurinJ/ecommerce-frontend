@@ -59,46 +59,6 @@ function LeftMenu() {
         ) : (
           <Cart cart={cart} />
         )}
-        {/* <LinksLeftMenu links={links} /> */}
-
-        {/* <nav class="flex flex-col text-md overflow-hidden">
-          <ul class="flex flex-col my-2">
-            <li class="text-gray-700 hover:text-blue-700">
-              <a href="#" className="block py-2.5 pl-6 pr-4 border-b border-gray-200">
-                Home
-              </a>
-            </li>
-
-            <li class="text-gray-700 hover:text-blue-700">
-              <a href="#" className="block py-2.5 pl-6 pr-4 border-b border-gray-200">
-                Jak nakupovat
-              </a>
-            </li>
-
-            <li class="text-gray-700 hover:text-blue-700">
-              <a href="#" className="block py-2.5 pl-6 pr-4 border-b border-gray-200">
-                Obchodní podmínky
-              </a>
-            </li>
-
-            <li class="text-gray-700 hover:text-blue-700">
-              <a href="#" className="block py-2.5 pl-6 pr-4 border-b border-gray-200">
-                Kontaktujte nás
-              </a>
-            </li>
-            <li class="text-gray-700 hover:text-blue-700">
-              <a href="#" className="block py-2.5 pl-6 pr-4 border-b border-gray-200">
-                Přihlásit
-              </a>
-            </li>
-
-            <li class="text-gray-700 hover:text-blue-700">
-              <a href="#" className="block py-2.5 pl-6 pr-4 border-b border-gray-200">
-                Registrovat
-              </a>
-            </li>
-          </ul>
-        </nav> */}
       </div>
     </div>
   );
