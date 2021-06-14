@@ -67,7 +67,7 @@ function Header() {
             </svg>
           </button>
         </div>
-        <div className="relative">
+        <div className="hidden lg:block cart-h">
           <button type="button" class="py-10 px-3 flex items-center space-x-5 text-xl">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -85,7 +85,7 @@ function Header() {
             </svg>
             <span class="">0 ks - 0 Kč</span>
           </button>
-          <div class="w-64 hover:block absolute rounded-b-lg z-10 bg-gray-300">
+          <div class="lg-cart w-64 d-block hidden absolute rounded-b-lg z-10 bg-gray-300">
             <Cart cart={cart} />
           </div>
         </div>
@@ -143,7 +143,7 @@ function Header() {
               <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
             </svg>
           </li>
-          /<li class="px-3">Zboží</li>/<li class="px-3">Slevy</li>
+          /<li class="px-3 ">Zboží</li>/<li class="px-3">Slevy</li>
         </ul>
       </div>
     </React.Fragment>
