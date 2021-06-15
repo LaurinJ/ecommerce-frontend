@@ -11,7 +11,6 @@ const Layout = ({ children }) => {
 
       <BottonMenu />
       <LeftMenu />
-      <h1>Layout</h1>
       {children}
       <Footer />
     </React.Fragment>

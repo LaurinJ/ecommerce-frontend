@@ -122,7 +122,9 @@ function Header() {
             {categories.map((cat, i) => {
               return (
                 <li key={i} class="p-5 hover:bg-blue-500">
-                  <a href="#">{cat}</a>
+                  <Link href="products">
+                    <a>{cat}</a>
+                  </Link>
                 </li>
               );
             })}
