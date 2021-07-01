@@ -11,6 +11,7 @@ function MyApp({ Component, pageProps }) {
   // const { Component, pageProps } = this.props;
 
   const [leftMenu, setLeftMenu] = useState({ state: false, type: "Menu" });
+  const [openFilter, setOpenFilter] = useState(true);
 
   return (
     <React.Fragment>
@@ -30,7 +31,14 @@ function MyApp({ Component, pageProps }) {
         ></link>
       </Head>
 
-      <AppContext.Provider value={{ leftMenu: leftMenu, setMenu: setLeftMenu }}>
+      <AppContext.Provider
+        value={{
+          leftMenu: leftMenu,
+          setMenu: setLeftMenu,
+          filter: openFilter,
+          setFilter: setOpenFilter,
+        }}
+      >
         <Layout>
           <Component {...pageProps} />
         </Layout>

@@ -19,14 +19,15 @@ function LeftMenu() {
 
   return (
     <div
-      class={`
+      className={`
         lg:hidden
         fixed
         top-0
         left-0
         w-full
-        h-full        
-        ${context.leftMenu.state ? "z-10 bg-gray-200 bg-opacity-75 duration-500" : "invisible"}
+        h-full 
+        z-10       
+        ${context.leftMenu.state ? "bg-gray-200 bg-opacity-75 duration-500" : "invisible"}
         opacity-100
       `}
     >
