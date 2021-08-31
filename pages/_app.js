@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { ApolloProvider } from "@apollo/client";
+import { useApollo } from "../apollo-client";
 import App from "next/app";
 import Head from "next/head";
 import Layout from "../components/Layout";
@@ -8,7 +10,7 @@ import Link from "next/link";
 import "../styles/style.css";
 
 function MyApp({ Component, pageProps }) {
-  // const { Component, pageProps } = this.props;
+  const client = useApollo(pageProps.initialApolloState);
 
   const [leftMenu, setLeftMenu] = useState({ state: false, type: "Menu" });
   const [openFilter, setOpenFilter] = useState(true);
@@ -39,9 +41,11 @@ function MyApp({ Component, pageProps }) {
           setFilter: setOpenFilter,
         }}
       >
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <ApolloProvider client={client}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ApolloProvider>
       </AppContext.Provider>
     </React.Fragment>
   );
