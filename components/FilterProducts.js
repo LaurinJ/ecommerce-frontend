@@ -4,12 +4,8 @@ import AppContext from "../context/AppContext";
 function FilterProducts() {
   const context = useContext(AppContext);
   return (
-    <div
-      className={`relative ${
-        context.filter ? "z-10 top-12 lg:top-0" : "hidden"
-      }`}
-    >
-      <div className="filter_box1 absolute bg-gray-100">
+    <div className={`relative ${context.filter ? "z-10 " : "hidden"}`}>
+      <div className="filter_box  bg-red-700">
         <div
           className="mr-2 pt-2"
           onClick={() => context.setFilter(!context.filter)}

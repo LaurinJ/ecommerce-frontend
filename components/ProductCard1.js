@@ -59,7 +59,7 @@ function ProductCard({ product }) {
           </div>
           <div className="flex mb-1">
             <div className="">
-              <button className="block h-[30px] px-[10px] leading-[28px] text-sm font-bold text-white items-center justify-center cursor-pointer bg-red-700 border-2 border-transparent rounded-sm">
+              <button className="block h-[45px] px-[10px] leading-[28px] text-sm font-bold text-white items-center justify-center cursor-pointer bg-red-700 border-2 border-transparent rounded-sm">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-4 w-4 inline-block relative align-text-top top-[2px] mr-[3px]"
