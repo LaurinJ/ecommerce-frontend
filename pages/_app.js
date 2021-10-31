@@ -8,6 +8,7 @@ import AppContext from "../context/AppContext";
 import Link from "next/link";
 // import "../styles/global.css";
 import "../styles/style.css";
+import "tailwindcss/tailwind.css";
 
 function MyApp({ Component, pageProps }) {
   const client = useApollo(pageProps.initialApolloState);
