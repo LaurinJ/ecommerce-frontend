@@ -9,37 +9,39 @@ function Header() {
   const [showLinks, setShowLinks] = useState(true);
 
   return (
-    <header className="max-w-[1430px] mx-auto">
-      <nav className="flex bg-gray-100 text-xs overflow-hidden">
-        <ul className="flex flex-none ml-20 my-2">
-          <li className="px-2 hover:text-blue-700">
-            <a href="#">Home</a>
-          </li>
-          |
-          <li className="px-2 hover:text-blue-700">
-            <a href="#">Jak nakupovat</a>
-          </li>
-          |
-          <li className="px-2 hover:text-blue-700">
-            <a href="#">Obchodní podmínky</a>
-          </li>
-          |
-          <li className="px-2 hover:text-blue-700">
-            <a href="#">Kontaktujte nás</a>
-          </li>
-        </ul>
-        <ul className="flex ml-auto my-2 mr-20">
-          <li className="px-2 hover:text-blue-700">
-            <a href="#">Přihlásit</a>
-          </li>
-          /
-          <li className="px-2 hover:text-blue-700">
-            <a href="#">Registrovat</a>
-          </li>
-        </ul>
-      </nav>
+    <header className="mx-auto">
+      <div className="bg-gray-100 hidden lg:block">
+        <nav className="flex max-w-[1600px] mx-auto text-xs overflow-hidden">
+          <ul className="flex  flex-none ml-20 my-2">
+            <li className="px-2 hover:text-blue-700">
+              <a href="#">Home</a>
+            </li>
+            |
+            <li className="px-2 hover:text-blue-700">
+              <a href="#">Jak nakupovat</a>
+            </li>
+            |
+            <li className="px-2 hover:text-blue-700">
+              <a href="#">Obchodní podmínky</a>
+            </li>
+            |
+            <li className="px-2 hover:text-blue-700">
+              <a href="#">Kontaktujte nás</a>
+            </li>
+          </ul>
+          <ul className="flex ml-auto my-2 mr-20 ">
+            <li className="px-2 hover:text-blue-700">
+              <a href="#">Přihlásit</a>
+            </li>
+            /
+            <li className="px-2 hover:text-blue-700">
+              <a href="#">Registrovat</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
 
-      <div className="flex flex-col space-y-5 md:flex-row my-5 items-center md:justify-around">
+      <div className="flex flex-col max-w-[1600px] mx-auto space-y-5 md:flex-row my-5 items-center md:justify-around">
         <Image
           className="-ml-10 border-8"
           width="200"
@@ -47,7 +49,7 @@ function Header() {
           src="https://www.apollos.cz/images/logo_apollos.png"
         ></Image>
 
-        <div className="flex">
+        <div className="hidden lg:flex">
           <input
             type="search"
             className="p-4 rounded-l-md bg-gray-100 w-72"
@@ -100,7 +102,7 @@ function Header() {
         </div>
       </div>
 
-      <div className="bg-gray-800 text-gray-100 flex justify-between sm:hidden">
+      {/* <div className="bg-gray-800 text-gray-100 flex justify-between sm:hidden">
         <span className="p-4 pl-10 text-white font-bold">Kategorie</span>
 
         <button className="mr-5 px-4 py-2 focus:outline-none focus:bg-gray-700">
@@ -119,15 +121,12 @@ function Header() {
             />
           </svg>
         </button>
-      </div>
+      </div> */}
 
       {/* categorie */}
-      <div
-        className="bg-blue-800 text-blue-100 w-full transform md:relative md:translate-y-0
-     transition duration-200 ease-in-out"
-      >
-        <nav className="bg-gray-800 text-white border-t border-white">
-          <ul className="px-5 font-bold sm:flex sm:flex-wrap sm:flex-none md:px-16">
+      <div className="bg-gray-800 hidden lg:block">
+        <nav className="max-w-[1600px] mx-auto text-white">
+          <ul className="px-5 font-bold flex flex-wrap lg:px-16 ">
             {categories.map((cat, i) => {
               return (
                 <li key={i} class="p-5 hover:bg-blue-500">
@@ -143,7 +142,7 @@ function Header() {
 
       {/* aktualni pozice */}
       <div className="bg-gray-100 text-gray-500 text-sm">
-        <ul className="flex p-3 px-20 -ml-2">
+        <ul className="max-w-[1600px] mx-auto flex py-3 px-[40px] lg:px-[70px]">
           <li className="px-3">
             <svg
               xmlns="http://www.w3.org/2000/svg"
