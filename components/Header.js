@@ -57,7 +57,7 @@ function Header() {
           />
           <button
             type="button"
-            className="px-5 rounded-r-md bg-blue-400 focus:outline-none hover:bg-blue-800"
+            className="px-5 rounded-r-md bg-blue-400 focus:outline-none hover:bg-red-700"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +130,7 @@ function Header() {
             {categories.map((cat, i) => {
               return (
                 <li key={i} class="p-5 hover:bg-blue-500">
-                  <Link href="products">
+                  <Link href="/products">
                     <a>{cat}</a>
                   </Link>
                 </li>
@@ -153,7 +153,12 @@ function Header() {
               <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
             </svg>
           </li>
-          /<li className="px-3 ">Zboží</li>/<li className="px-3">Slevy</li>
+          /<li className="px-3 ">Zboží</li>/
+          <li className="px-3">
+            <Link href="products/1">
+              <a>Slevy / produkt</a>
+            </Link>
+          </li>
         </ul>
       </div>
     </header>

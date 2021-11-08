@@ -2,7 +2,7 @@ import React from "react";
 
 function Rating({ count }) {
   return (
-    <ul className="flex">
+    <ul className="flex text-yellow-400">
       {[1, 2, 3, 4, 5].map((n) => {
         return n <= count ? (
           <li key={n}>

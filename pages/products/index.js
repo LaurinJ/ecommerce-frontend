@@ -7,6 +7,7 @@ import Pagination from "../../components/Pagination";
 
 function Products({ product }) {
   const context = useContext(AppContext);
+  console.log("render");
 
   return (
     <div className="flex mx-auto max-w-[1430px] lg:px-[30px]">
