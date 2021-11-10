@@ -40,7 +40,12 @@ function Cart({ cart }) {
       <div className="mt-auto">
         <div className="flex justify-between border-t mt-4 pt-4">
           <h4>Součet:</h4>
-          <h4>{cart.reduce((acc, product) => acc + Number(product.price), 0).toFixed(2)} Kč</h4>
+          <h4>
+            {cart
+              .reduce((acc, product) => acc + Number(product.price), 0)
+              .toFixed(2)}{" "}
+            Kč
+          </h4>
         </div>
         <div className="flex justify-around mt-4">
           <a

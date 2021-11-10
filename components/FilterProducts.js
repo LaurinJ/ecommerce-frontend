@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import AppContext from "../context/AppContext";
+import MenuContext from "../context/MenuContext";
 
 function FilterProducts() {
-  const context = useContext(AppContext);
+  const context = useContext(MenuContext);
   return (
     <div className={`relative ${context.filter ? "z-10 " : "hidden"}`}>
       <div className="filter_box  bg-gray-200">

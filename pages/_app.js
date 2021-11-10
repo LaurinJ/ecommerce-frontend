@@ -4,7 +4,7 @@ import { useApollo } from "../apollo-client";
 import App from "next/app";
 import Head from "next/head";
 import Layout from "../components/Layout";
-import AppContext from "../context/AppContext";
+// import AppContext from "../context/MenuContext";
 import Link from "next/link";
 // import "../styles/global.css";
 import "../styles/style.css";
@@ -13,8 +13,8 @@ import "tailwindcss/tailwind.css";
 function MyApp({ Component, pageProps }) {
   const client = useApollo(pageProps.initialApolloState);
 
-  const [leftMenu, setLeftMenu] = useState({ state: false, type: "Menu" });
-  const [openFilter, setOpenFilter] = useState(true);
+  // const [leftMenu, setLeftMenu] = useState({ state: false, type: "Menu" });
+  // const [openFilter, setOpenFilter] = useState(true);
 
   return (
     <React.Fragment>
@@ -34,20 +34,20 @@ function MyApp({ Component, pageProps }) {
         ></link>
       </Head>
 
-      <AppContext.Provider
+      {/* <AppContext.Provider
         value={{
           leftMenu: leftMenu,
           setMenu: setLeftMenu,
           filter: openFilter,
           setFilter: setOpenFilter,
         }}
-      >
-        <ApolloProvider client={client}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </ApolloProvider>
-      </AppContext.Provider>
+      > */}
+      <ApolloProvider client={client}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ApolloProvider>
+      {/* </AppContext.Provider> */}
     </React.Fragment>
   );
 }

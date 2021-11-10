@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import AppContext from "../context/AppContext";
+import MenuContext from "../context/MenuContext";
 import LinksLeftMenu from "./LinksLeftMenu";
 import Cart from "./Cart";
 import { links } from "../data/links";
@@ -7,7 +7,7 @@ import { categories } from "../data/categories";
 import { cart } from "../data/cart";
 
 function LeftMenu() {
-  const context = useContext(AppContext);
+  const context = useContext(MenuContext);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -27,7 +27,11 @@ function LeftMenu() {
         w-full
         h-full 
         z-10       
-        ${context.leftMenu.state ? "bg-gray-200 bg-opacity-75 duration-500" : "invisible"}
+        ${
+          context.leftMenu.state
+            ? "bg-gray-200 bg-opacity-75 duration-500"
+            : "invisible"
+        }
         opacity-100
       `}
     >

@@ -2,7 +2,7 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer className="bg-gray-100 py-14">
+    <footer className="bg-gray-100 py-14 mb-2">
       <div className="container mx-auto">
         <div className="flex flex-wrap">
           <div className="lg:w-1/3 mb-4">
@@ -17,14 +17,17 @@ function Footer() {
                 </div>
                 <div className="mt-5 leading-6">
                   <p className="xl:max-w-7xl">
-                    Lorem ipsum, or lipsum as it is sometimes kno wn, is dummy text used in laying
-                    out print, gra phic or web designs the passage.
+                    Lorem ipsum, or lipsum as it is sometimes kno wn, is dummy
+                    text used in laying out print, gra phic or web designs the
+                    passage.
                   </p>
                 </div>
               </div>
               <div className="w-full md:w-3/6 lg:w-full px-3">
                 <div className="mx-auto">
-                  <h4 className="mt-6 mb-3.5 text-lg uppercase font-medium">Newsletter</h4>
+                  <h4 className="mt-6 mb-3.5 text-lg uppercase font-medium">
+                    Newsletter
+                  </h4>
                   <form className="flex">
                     <input
                       type="text"
@@ -54,8 +57,13 @@ function Footer() {
             <div className="flex flex-wrap">
               <div className="w-3/6 px-3">
                 <div className="">
-                  <h4 className="mt-2 mb-5 text-lg uppercase font-medium">My Account</h4>
-                  <a href="account-order-history.html" className="block mb-3 leading-6">
+                  <h4 className="mt-2 mb-5 text-lg uppercase font-medium">
+                    My Account
+                  </h4>
+                  <a
+                    href="account-order-history.html"
+                    className="block mb-3 leading-6"
+                  >
                     Orders
                   </a>
                   <a href="wish-list.html" className="block mb-3 leading-6">
@@ -74,17 +82,25 @@ function Footer() {
               </div>
               <div className="w-3/6 px-3">
                 <div className="">
-                  <h4 className="mt-2 mb-5 text-lg uppercase font-medium">Information</h4>
+                  <h4 className="mt-2 mb-5 text-lg uppercase font-medium">
+                    Information
+                  </h4>
                   <a href="about-us.html" className="block mb-3 leading-6">
                     About Us
                   </a>
                   <a href="return-policy.html" className="block mb-3 leading-6">
                     Return Policy
                   </a>
-                  <a href="terms-condition.html" className="block mb-3 leading-6">
+                  <a
+                    href="terms-condition.html"
+                    className="block mb-3 leading-6"
+                  >
                     Terms & condition
                   </a>
-                  <a href="privacy-policy.html" className="block mb-3 leading-6">
+                  <a
+                    href="privacy-policy.html"
+                    className="block mb-3 leading-6"
+                  >
                     Privacy Policy
                   </a>
                   <a href="faq.html" className="block mb-3 leading-6">
@@ -98,7 +114,9 @@ function Footer() {
             <div className="">
               <div className="flex flex-col">
                 <div className="col-lg-6 w-full px-3">
-                  <h4 className="mt-2 mb-5 text-lg uppercase font-medium">Contact</h4>
+                  <h4 className="mt-2 mb-5 text-lg uppercase font-medium">
+                    Contact
+                  </h4>
                   <p className="mb-3.5 leading-6 pl-8 relative">
                     <span>
                       <svg

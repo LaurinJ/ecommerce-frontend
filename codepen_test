@@ -1,0 +1,175 @@
+import React from "react";
+import "./styles.css";
+
+const initialState = {
+  todoList: [],
+  count: 1,
+};
+
+const actions = {
+  ADD_TODO_ITEM: "ADD_TODO_ITEM",
+  REMOVE_TODO_ITEM: "REMOVE_TODO_ITEM",
+  TOGGLE_COMPLETED: "TOGGLE_COMPLETED",
+  TEST_ADD: "TEST_ADD",
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case actions.TEST_ADD:
+      console.log("reducer ll");
+      return { todoList: [...state.todoList], count: Math.random() * 100 };
+    case actions.ADD_TODO_ITEM:
+      return {
+        ...state,
+        todoList: [
+          ...state.todoList,
+          {
+            id: new Date().valueOf(),
+            label: action.todoItemLabel,
+            completed: false,
+          },
+        ],
+      };
+    case actions.REMOVE_TODO_ITEM: {
+      const filteredTodoItem = state.todoList.filter(
+        (todoItem) => todoItem.id !== action.todoItemId
+      );
+      return { todoList: filteredTodoItem };
+    }
+    case actions.TOGGLE_COMPLETED: {
+      const updatedTodoList = state.todoList.map((todoItem) =>
+        todoItem.id === action.todoItemId
+          ? { ...todoItem, completed: !todoItem.completed }
+          : todoItem
+      );
+      return { todoList: updatedTodoList };
+    }
+    default:
+      return state;
+  }
+};
+
+const TodoListContext = React.createContext();
+
+const Provider = ({ children }) => {
+  const [state, dispatch] = React.useReducer(reducer, initialState);
+
+  const value = {
+    count: state.count,
+    testadd: () => {
+      console.log("disp");
+
+      dispatch({ type: actions.TEST_ADD });
+    },
+    todoList: state.todoList,
+    addTodoItem: (todoItemLabel) => {
+      dispatch({ type: actions.ADD_TODO_ITEM, todoItemLabel });
+    },
+    removeTodoItem: (todoItemId) => {
+      dispatch({ type: actions.REMOVE_TODO_ITEM, todoItemId });
+    },
+    markAsCompleted: (todoItemId) => {
+      dispatch({ type: actions.TOGGLE_COMPLETED, todoItemId });
+    },
+  };
+
+  return (
+    <TodoListContext.Provider value={value}>
+      {children}
+    </TodoListContext.Provider>
+  );
+};
+
+const Test1 = () => {
+  return (
+    <>
+      <h1>{Math.random() * 100}</h1>
+      <TodoList />
+    </>
+  );
+};
+
+const Test2 = () => {
+  const { count } = React.useContext(TodoListContext);
+  return (
+    <>
+      <h1>{count}</h1>
+    </>
+  );
+};
+
+const Test3 = () => {
+  const { testadd, count } = React.useContext(TodoListContext);
+  return (
+    <>
+      <button
+        onClick={() => {
+          testadd();
+        }}
+      >
+        Add test
+      </button>
+    </>
+  );
+};
+
+const AddTodo = () => {
+  const [inputValue, setInputValue] = React.useState("");
+  const { addTodoItem } = React.useContext(TodoListContext);
+
+  return (
+    <>
+      <input
+        type="text"
+        value={inputValue}
+        placeholder={"Type and add todo item"}
+        onChange={(e) => setInputValue(e.target.value)}
+      />
+      <button
+        onClick={() => {
+          addTodoItem(inputValue);
+          setInputValue("");
+        }}
+      >
+        Add
+      </button>
+    </>
+  );
+};
+
+const TodoList = () => {
+  const { todoList, removeTodoItem, markAsCompleted } =
+    React.useContext(TodoListContext);
+  return (
+    <>
+      <ul>
+        {todoList.map((todoItem) => (
+          <li
+            className={`todoItem ${todoItem.completed ? "completed" : ""}`}
+            key={todoItem.id}
+            onClick={() => markAsCompleted(todoItem.id)}
+          >
+            {todoItem.label}
+            <button
+              className="delete"
+              onClick={() => removeTodoItem(todoItem.id)}
+            >
+              X
+            </button>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+};
+
+export default function App() {
+  return (
+    <Provider>
+      <AddTodo />
+      <Test1 />
+      <Test2 />
+      <Test3 />
+    </Provider>
+  );
+}

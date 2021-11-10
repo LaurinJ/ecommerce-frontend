@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import AppContext from "../context/AppContext";
+import MenuContext from "../context/MenuContext";
 
 function BottonMenu() {
-  const context = useContext(AppContext);
+  const context = useContext(MenuContext);
 
   const handleClick = (e, name) => {
     e.preventDefault();
@@ -25,7 +25,11 @@ function BottonMenu() {
       "
     >
       <div class="flex justify-evenly">
-        <a href="#" onClick={(e) => handleClick(e, "Menu")} class="relative ml-5 text-center">
+        <a
+          href="#"
+          onClick={(e) => handleClick(e, "Menu")}
+          class="relative ml-5 text-center"
+        >
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +48,11 @@ function BottonMenu() {
           </span>
           <span>Menu</span>
         </a>
-        <a href="#" onClick={(e) => handleClick(e, "Kategorie")} class="relative ml-5 text-center">
+        <a
+          href="#"
+          onClick={(e) => handleClick(e, "Kategorie")}
+          class="relative ml-5 text-center"
+        >
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -63,7 +71,11 @@ function BottonMenu() {
           </span>
           <span>Kategorie</span>
         </a>
-        <a href="#" onClick={(e) => console.log("search")} class="relative ml-5 text-center">
+        <a
+          href="#"
+          onClick={(e) => console.log("search")}
+          class="relative ml-5 text-center"
+        >
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -82,7 +94,11 @@ function BottonMenu() {
           </span>
           <span>Search</span>
         </a>
-        <a href="#" onClick={(e) => handleClick(e, "Košík")} class="relative ml-5 text-center">
+        <a
+          href="#"
+          onClick={(e) => handleClick(e, "Košík")}
+          class="relative ml-5 text-center"
+        >
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -100,7 +116,9 @@ function BottonMenu() {
             </svg>
           </span>
           <span>Košík</span>
-          <span class="absolute -right-2 -top-2 bg-red-600 w-5 h-5 rounded-full text-white">9</span>
+          <span class="absolute -right-2 -top-2 flex justify-center items-center bg-red-600 w-5 h-5 rounded-full text-white">
+            9
+          </span>
         </a>
       </div>
     </div>
