@@ -181,7 +181,7 @@ function singleProduct({ id }) {
         </div>
       </div>
       {/* detail comment */}
-      <div className="mx-auto max-w-[1430px] px-5">
+      <div className="mx-auto max-w-[1430px] px-5 mb-10">
         <ul className="flex">
           <li className="pr-[30px] pb-[30px]">
             <a className="relative -bottom-px pb-[30px] text-gray-600 font-medium hover:text-black cursor-pointer border-b">

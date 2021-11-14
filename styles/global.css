@@ -57,3 +57,140 @@ input[type="range"]::-webkit-slider-thumb {
     box-shadow: 0 0 10px #00000017;
   }
 }
+
+/* order */
+.progressbar:before {
+  content: "";
+  display: block;
+  height: 0.125rem;
+  background-color: black;
+  position: relative;
+  top: 0.6875rem;
+  margin: 0 3.125rem -0.125rem 2.125rem;
+  z-index: -1;
+}
+
+@media (min-width: 640px) {
+  .progressbar:before {
+    top: 1.375rem;
+  }
+}
+
+/* checkout cart */
+.cartitem_product_info {
+  width: calc(100% - 6.25rem);
+  margin: 0 0 1.25rem 0;
+}
+
+@media (min-width: 640px) {
+  .cartitem_product_info {
+    width: calc(100% - 20.125rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .cartitem_product_info {
+    width: calc(100% - 31.325rem);
+  }
+}
+
+/* btn */
+.base_btn_form {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+  border-radius: 0.125rem;
+  border: 0.0625rem solid;
+  border-color: #0050aa;
+  display: inline-flex;
+  padding: 0.875rem 1rem 0.8125rem;
+  background: none;
+  color: #0050aa;
+  cursor: pointer;
+}
+
+.base_btn_form:hover,
+.base_btn_form_primary:hover {
+  background: #0050aa;
+  color: #fff;
+  transition: 200ms;
+  border-color: transparent;
+  background-clip: padding-box;
+  box-shadow: inset 3000px 0 rgb(0 0 0 / 32%);
+}
+
+.base_btn_form_primary {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+  border-radius: 0.125rem;
+  border: none;
+  display: inline-flex;
+  padding: 0.875rem 1rem 0.8125rem;
+  background: #0050aa;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* radio input */
+.radio {
+  width: 100%;
+  font-size: 16px;
+  /* display: inline-block; */
+  vertical-align: middle;
+  position: relative;
+  @apply text-gray-600;
+}
+
+.radio input[type="radio"] {
+  display: none;
+}
+
+.radio span {
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  border: 3px solid #0050aa;
+  display: block;
+  position: absolute;
+  left: 7px;
+  top: 11px;
+}
+
+.radio span:after {
+  content: "";
+  height: 12px;
+  width: 12px;
+  background: #0050aa;
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  border-radius: 50%;
+  transition: 300ms ease-in-out 0s;
+}
+
+.radio input[type="radio"]:checked ~ span:after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+@media (min-width: 640px) {
+  .radio {
+    width: 49%;
+  }
+}
+
+/* form input */
+.form_input {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+@media (min-width: 960px) {
+  .form_input {
+    width: 49%;
+  }
+}

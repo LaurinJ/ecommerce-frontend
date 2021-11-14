@@ -24,8 +24,21 @@ module.exports = {
     //   },
     // },
     extend: {
+      backgroundColor: {
+        primary: "#0050aa",
+        lg_blue: "#f5f8fc",
+      },
+
+      textColor: {
+        primary: "#0050aa",
+      },
+
       width: {
         calc: "calc(100% - 300px)",
+      },
+
+      borderColor: {
+        primary: "#0050aa",
       },
     },
   },

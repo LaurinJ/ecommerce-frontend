@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 function Cart({ cart }) {
   return (
@@ -54,12 +55,11 @@ function Cart({ cart }) {
           >
             Zobrazit košík
           </a>
-          <a
-            href="#"
-            className="w-1/2 ml-4 py-1.5 px-2 lg:py-4 duration-300 text-center bg-white border border-red-600 rounded-sm text-red-600 font-bold hover:bg-red-600 hover:text-white"
-          >
-            Dokončit
-          </a>
+          <Link href="/checkout/cart">
+            <a className="w-1/2 ml-4 py-1.5 px-2 lg:py-4 duration-300 text-center bg-white border border-red-600 rounded-sm text-red-600 font-bold hover:bg-red-600 hover:text-white">
+              Dokončit
+            </a>
+          </Link>
         </div>
       </div>
     </div>
