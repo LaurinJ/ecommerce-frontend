@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import MenuContext from "../../context/MenuContext";
-import ProductCard from "../../components/ProductCard1";
+import ProductCard from "../../components/ProductCard";
 import FilterProducts from "../../components/FilterProducts";
 import { products } from "../../data/products";
 import Pagination from "../../components/Pagination";
