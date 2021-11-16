@@ -134,6 +134,11 @@ input[type="range"]::-webkit-slider-thumb {
   cursor: pointer;
 }
 
+/* check input */
+#deli_address:checked ~ .check-1 {
+  @apply text-opacity-100;
+}
+
 /* radio input */
 .radio {
   width: 100%;
@@ -193,4 +198,20 @@ input[type="range"]::-webkit-slider-thumb {
   .form_input {
     width: 49%;
   }
+}
+
+/* input form */
+.base_input_form {
+  width: 100%;
+  border-radius: 0.125rem;
+  border: 0.0625rem solid;
+  text-overflow: ellipsis;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  color: #0050aa;
+  background: #fff;
+  border-color: #4e5761;
+  outline-color: #0050aa;
 }
