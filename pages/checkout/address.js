@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import OrderProgressBar from "../../components/OrderProgressBar";
 
 function address() {
@@ -280,7 +281,7 @@ function address() {
               </div>
               <div className="flex">
                 {/* input */}
-                <div className="form_input min-w-[9%] w-[10%] mt-2 mb-1">
+                <div className="form_input min-w-[75px] w-[10%] mt-2 mb-1">
                   <div>
                     <input
                       id="phone_number_label"
@@ -321,7 +322,17 @@ function address() {
               </div>
             </div>
           </div>
-          <div>button</div>
+          {/* button section */}
+          <div className="flex flex-col md:flex-row md:justify-end w-full my-8">
+            <a className="base_btn_form md:mr-4 mb-4 md:mb-0 justify-center">
+              ZPĚT
+            </a>
+            <Link href="/checkout/payment">
+              <a className="base_btn_form_primary justify-center">
+                POKRAČOVAT K PLATBĚ
+              </a>
+            </Link>
+          </div>
         </form>
       </div>
     </div>
