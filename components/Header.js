@@ -31,11 +31,20 @@ function Header() {
           </ul>
           <ul className="flex ml-auto my-2 mr-20 ">
             <li className="px-2 hover:text-blue-700">
-              <a href="#">Přihlásit</a>
+              <Link href="/account/login">
+                <a>Přihlásit</a>
+              </Link>
             </li>
             /
             <li className="px-2 hover:text-blue-700">
-              <a href="#">Registrovat</a>
+              <Link href="/account/register">
+                <a>Registrovat</a>
+              </Link>
+            </li>
+            <li className="px-2 hover:text-blue-700">
+              <Link href="/account/">
+                <a>Ferda</a>
+              </Link>
             </li>
           </ul>
         </nav>
