@@ -8,7 +8,7 @@ function address() {
       <OrderProgressBar state={1} />
 
       {/* adress form */}
-      <div className=" w-full">
+      <div className="w-full">
         <form>
           <div className="p-4 shadow-md">
             <h3 className="my-7 leading-5 font-bold lg:text-2xl">

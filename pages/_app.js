@@ -12,6 +12,7 @@ import "tailwindcss/tailwind.css";
 
 function MyApp({ Component, pageProps }) {
   const client = useApollo(pageProps.initialApolloState);
+  const getLayout = Component.getLayout || ((page) => page);
 
   // const [leftMenu, setLeftMenu] = useState({ state: false, type: "Menu" });
   // const [openFilter, setOpenFilter] = useState(true);
@@ -43,9 +44,7 @@ function MyApp({ Component, pageProps }) {
         }}
       > */}
       <ApolloProvider client={client}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <Layout>{getLayout(<Component {...pageProps} />)}</Layout>
       </ApolloProvider>
       {/* </AppContext.Provider> */}
     </React.Fragment>

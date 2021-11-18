@@ -6,7 +6,7 @@ function AccountNavbar() {
   const [myContent, setMyContent] = useState(false);
   const [setting, setSetting] = useState(false);
   return (
-    <div className="bg-lg_blue w-1/5">
+    <div className="bg-lg_blue w-full lg:w-1/5">
       {/* navbar */}
       {/* order */}
       <h3
@@ -126,14 +126,14 @@ function AccountNavbar() {
       </h3>
       <ul className={setting ? "" : "hidden"}>
         <li>
-          <Link href="">
+          <Link href="/account/userdata">
             <a className="py-[10px] pl-5 pr-10 border-b border-gray-300 block">
               Registrační údaje
             </a>
           </Link>
         </li>
         <li>
-          <Link href="">
+          <Link href="/account/changepassword">
             <a className="py-[10px] pl-5 pr-10 border-b border-gray-300 block">
               Změna hesla
             </a>
