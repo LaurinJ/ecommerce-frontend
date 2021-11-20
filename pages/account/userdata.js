@@ -65,7 +65,7 @@ function userdata() {
         </div>
       </div>
       {/* button section */}
-      <div className="flex flex-col md:flex-row md:justify-end w-full my-8">
+      <div className="flex flex-col md:flex-row md:justify-end w-full my-8 lg:pr-4">
         <Link href="/account/changeaddress">
           <a className="base_btn_form_primary justify-center">ZMĚNIT ÚDAJE</a>
         </Link>

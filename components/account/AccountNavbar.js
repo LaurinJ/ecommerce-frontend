@@ -31,7 +31,7 @@ function AccountNavbar() {
       </h3>
       <ul className={myShop ? "" : "hidden"}>
         <li>
-          <Link href="">
+          <Link href="/account/">
             <a className="py-[10px] pl-5 pr-10 border-b border-gray-300 block">
               Objednávky
             </a>
