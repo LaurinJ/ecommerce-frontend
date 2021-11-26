@@ -1,4 +1,6 @@
 import React, { useContext, useEffect } from "react";
+import { useQuery, gql } from "@apollo/client";
+import { initializeApollo } from "../../apollo-client";
 import MenuContext from "../../context/MenuContext";
 import ProductCard from "../../components/ProductCard";
 import FilterProducts from "../../components/FilterProducts";
@@ -43,6 +45,29 @@ function Products({ product }) {
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  const QUERY = gql`
+    query Query {
+      getProducts {
+        title
+        price
+        imgurl
+      }
+    }
+  `;
+  const apolloClient = initializeApollo();
+  await apolloClient.query({
+    query: QUERY,
+  });
+  console.log(apolloClient.cache.extract()[1]);
+
+  return {
+    props: {
+      products: apolloClient.cache.extract(),
+    },
+  };
 }
 
 export default Products;

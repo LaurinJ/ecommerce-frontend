@@ -8,9 +8,7 @@ const QUERY = gql`
       title
       price
       description
-      images {
-        filename
-      }
+      imgurl
     }
   }
 `;
@@ -61,7 +59,12 @@ export default function index() {
       {products.map((product, i) => (
         <div key={i} className="m-5 p-2 border-2 border-black">
           <h3>
-            <a href="#country-name" aria-hidden="true" class="aal_anchor" id="country-name">
+            <a
+              href="#country-name"
+              aria-hidden="true"
+              class="aal_anchor"
+              id="country-name"
+            >
               <svg
                 aria-hidden="true"
                 class="aal_svg"
@@ -79,7 +82,10 @@ export default function index() {
             {product.title}
           </h3>
           <p>
-            {product.description} - {product.images.length > 0 ? product.images[0].filename : ""}
+            {product.description}
+            <div className="m-10">
+              <img src={`http://localhost:4000/${product.imgurl}`}></img>
+            </div>
           </p>
         </div>
       ))}

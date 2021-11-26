@@ -14,7 +14,9 @@ function Header() {
         <nav className="flex max-w-[1600px] mx-auto text-xs overflow-hidden">
           <ul className="flex  flex-none ml-20 my-2">
             <li className="px-2 hover:text-blue-700">
-              <a href="#">Home</a>
+              <Link href="/">
+                <a>Home</a>
+              </Link>
             </li>
             |
             <li className="px-2 hover:text-blue-700">
