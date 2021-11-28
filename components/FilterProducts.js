@@ -1,34 +1,15 @@
-import React, { useContext } from "react";
-import MenuContext from "../context/MenuContext";
+import React, { useState } from "react";
 
 function FilterProducts() {
-  const context = useContext(MenuContext);
   return (
-    <div className={`relative ${context.filter ? "z-10 " : "hidden"}`}>
-      <div className="filter_box  bg-gray-200">
-        <div
-          className="mr-2 pt-2"
-          onClick={() => context.setFilter(!context.filter)}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 ml-auto text-red-600 lg:hidden"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-              clip-rule="evenodd"
-            />
-          </svg>
-        </div>
+    <div className="relative">
+      <div className="shadow-2xl">
         <aside className="w-full lg:pt-1 -mt-9 lg:mt-0">
           {/* <h3 className="py-3 px-5 bg-blue-500 text-white font-bold">Filtr</h3> */}
           <div className="mx-4 my-4">
             <h5 className="ml-1 font-bold text-xl">Typ</h5>
             <ul className="py-2">
-              <li className="flex py-1 px-1 hover:bg-green-600">
+              <li className="flex py-1 px-1 hover:bg-red-600">
                 <label className="flex-grow cursor-pointer">
                   <input type="checkbox" />
                   <span className="pl-1">Akce</span>
@@ -235,7 +216,7 @@ function FilterProducts() {
                   <div>
                     <input
                       type="text"
-                      maxlength="5"
+                      maxLength="5"
                       // x-on:input="mintrigger"
                       x-model="minprice"
                       className="px-3 py-2 border border-gray-200 rounded w-20 text-center"
@@ -245,7 +226,7 @@ function FilterProducts() {
                   <div>
                     <input
                       type="text"
-                      maxlength="5"
+                      maxLength="5"
                       // x-on:input="maxtrigger"
                       x-model="maxprice"
                       className="px-3 py-2 border border-gray-200 rounded w-20 text-center"

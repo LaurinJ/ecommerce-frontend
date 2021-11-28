@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Rating from "./Rating";
 
 function ProductCard({ product }) {
@@ -10,37 +11,43 @@ function ProductCard({ product }) {
       (product.old_price / 100)
     ).toFixed(0);
   }
+
   return (
     <div className="-mt-px -mr-px  border border-gray-300 ">
       <article className="p-[10px]">
-        <a className="block relative mx-2.5">
-          <Image
-            src={product.img}
-            layout="responsive"
-            width="200"
-            height="240"
-          />
-          {product.price < product.old_price ? (
-            <div className=" w-9 h-9 flex items-center justify-center absolute top-3 right-2 bg-yellow-400 text-xs font-bold rounded-full">
-              -{discount}%
-            </div>
-          ) : (
-            ""
-          )}
-        </a>
+        <Link href={`/products/${product.slug}`}>
+          <a className="block relative mx-2.5">
+            <Image
+              src={`${process.env.IMG_LINK}${product.imgurl}`}
+              layout="responsive"
+              width="200"
+              height="240"
+            />
+
+            {product.price < product.old_price ? (
+              <div className=" w-9 h-9 flex items-center justify-center absolute top-3 right-2 bg-yellow-400 text-xs font-bold rounded-full">
+                -{discount}%
+              </div>
+            ) : (
+              ""
+            )}
+          </a>
+        </Link>
         <div className="flex flex-col mt-3">
           {/* rating */}
           <div className="flex items-center space-x-2">
             <Rating count={product.rating} />
-            <span>{Math.floor(Math.random() * 1000)}x</span>
+            <span>{product.rating_sum}x</span>
           </div>
 
           {/* title */}
-          <a href="" className="mt-2">
-            <h3 className="h-[72px] md:h-[130px] lg:h-[72px] text-lg leading-6 font-light">
-              {product.title}
-            </h3>
-          </a>
+          <Link href={`/products/${product.slug}`}>
+            <a className="mt-2">
+              <h3 className="h-[72px] md:h-[130px] lg:h-[72px] text-lg leading-6 font-light">
+                {product.title}
+              </h3>
+            </a>
+          </Link>
 
           {/* price */}
           <div className="flex flex-col my-[10px]">

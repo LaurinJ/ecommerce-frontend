@@ -14,9 +14,6 @@ function MyApp({ Component, pageProps }) {
   const client = useApollo(pageProps.initialApolloState);
   const getLayout = Component.getLayout || ((page) => page);
 
-  // const [leftMenu, setLeftMenu] = useState({ state: false, type: "Menu" });
-  // const [openFilter, setOpenFilter] = useState(true);
-
   return (
     <React.Fragment>
       <Head>
@@ -35,18 +32,9 @@ function MyApp({ Component, pageProps }) {
         ></link>
       </Head>
 
-      {/* <AppContext.Provider
-        value={{
-          leftMenu: leftMenu,
-          setMenu: setLeftMenu,
-          filter: openFilter,
-          setFilter: setOpenFilter,
-        }}
-      > */}
       <ApolloProvider client={client}>
         <Layout>{getLayout(<Component {...pageProps} />)}</Layout>
       </ApolloProvider>
-      {/* </AppContext.Provider> */}
     </React.Fragment>
   );
 }

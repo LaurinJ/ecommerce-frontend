@@ -4,14 +4,14 @@ import Link from "next/link";
 function Cart({ cart }) {
   return (
     <div className="flex flex-col p-4">
-      <div class="mb-3 border-b border-gray-300">
-        <h4 class="text-md">Total {cart.length} Items</h4>
+      <div className="mb-3 border-b border-gray-300">
+        <h4 className="text-md">Total {cart.length} Items</h4>
       </div>
       <div className="">
         {cart.length !== 0
           ? cart.map((product, i) => {
               return (
-                <a className="flex mb-4 pr-5 relative">
+                <a key={i} className="flex mb-4 pr-5 relative">
                   <span className="absolute right-0">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -20,9 +20,9 @@ function Cart({ cart }) {
                       fill="currentColor"
                     >
                       <path
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                        clip-rule="evenodd"
+                        clipRule="evenodd"
                       />
                     </svg>
                   </span>
