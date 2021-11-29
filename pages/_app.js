@@ -4,7 +4,7 @@ import { useApollo } from "../apollo-client";
 import App from "next/app";
 import Head from "next/head";
 import Layout from "../components/Layout";
-// import AppContext from "../context/MenuContext";
+import CartProvider from "../context/CartProvider";
 import Link from "next/link";
 // import "../styles/global.css";
 import "../styles/style.css";
@@ -33,7 +33,9 @@ function MyApp({ Component, pageProps }) {
       </Head>
 
       <ApolloProvider client={client}>
-        <Layout>{getLayout(<Component {...pageProps} />)}</Layout>
+        <CartProvider>
+          <Layout>{getLayout(<Component {...pageProps} />)}</Layout>
+        </CartProvider>
       </ApolloProvider>
     </React.Fragment>
   );

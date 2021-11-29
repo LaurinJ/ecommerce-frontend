@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import CartContext from "../context/CartContext";
 
-function Cart({ cart }) {
+function Cart() {
+  const { cart, itemCount, totalPrice, removeItem } = useContext(CartContext);
+  console.log("render cart");
   return (
     <div className="flex flex-col p-4">
       <div className="mb-3 border-b border-gray-300">
-        <h4 className="text-md">Total {cart.length} Items</h4>
+        <h4 className="text-md">Total {itemCount} Items</h4>
       </div>
       <div className="">
         {cart.length !== 0
@@ -18,6 +22,9 @@ function Cart({ cart }) {
                       className="h-6 w-6 text-black cursor-pointer"
                       viewBox="0 0 20 20"
                       fill="currentColor"
+                      onClick={() => {
+                        removeItem(product.id, i);
+                      }}
                     >
                       <path
                         fillRule="evenodd"
@@ -27,10 +34,14 @@ function Cart({ cart }) {
                     </svg>
                   </span>
                   <div className="flex-shrink-0">
-                    <img width="60px" height="75px" src={product.img} />
+                    <Image
+                      width="60"
+                      height="75"
+                      src={`${process.env.IMG_LINK}${product.img}`}
+                    />
                   </div>
                   <div className="pl-4">
-                    <h5 className="font-bold mr-2">{product.name}</h5>
+                    <h5 className="font-bold mr-2">{product.title}</h5>
                     <p className="text-sm">{product.price} Kč</p>
                   </div>
                 </a>
@@ -42,10 +53,10 @@ function Cart({ cart }) {
         <div className="flex justify-between border-t mt-4 pt-4">
           <h4>Součet:</h4>
           <h4>
-            {cart
+            {totalPrice} Kč
+            {/* {cart
               .reduce((acc, product) => acc + Number(product.price), 0)
-              .toFixed(2)}{" "}
-            Kč
+              .toFixed(2)}{" "} */}
           </h4>
         </div>
         <div className="flex justify-around mt-4">

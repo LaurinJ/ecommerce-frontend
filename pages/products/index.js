@@ -10,9 +10,9 @@ import Pagination from "../../components/Pagination";
 import { PRODUCTS_QUERY } from "../../queries/Query";
 
 function Products() {
+  console.log("render index");
   const router = useRouter();
   const page = router.query.page ? Number(router.query.page) : 1;
-  console.log(page);
   const { data, loading, error } = useQuery(PRODUCTS_QUERY, {
     variables: { skip: page },
   });

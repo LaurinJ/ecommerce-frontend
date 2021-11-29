@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Rating from "./Rating";
+import CartContext from "../context/CartContext";
 
 function ProductCard({ product }) {
+  console.log("render product");
+  const { addItem } = useContext(CartContext);
   let discount = 0;
   if (product.price < product.old_price) {
     discount = (
@@ -66,7 +69,12 @@ function ProductCard({ product }) {
           </div>
           <div className="flex mb-1">
             <div className="">
-              <button className="block h-[45px] px-[10px] leading-[28px] text-sm font-bold text-white items-center justify-center cursor-pointer bg-red-700 border-2 border-transparent rounded-sm">
+              <button
+                className="block h-[45px] px-[10px] leading-[28px] text-sm font-bold text-white items-center justify-center cursor-pointer bg-red-700 border-2 border-transparent rounded-sm"
+                onClick={() => {
+                  addItem(product, 1);
+                }}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-4 w-4 inline-block relative align-text-top top-[2px] mr-[3px]"
