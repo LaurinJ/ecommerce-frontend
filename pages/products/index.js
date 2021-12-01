@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { initializeApollo } from "../../apollo-client";
 import ProductCard from "../../components/ProductCard";
 import FilterProducts from "../../components/FilterProducts";

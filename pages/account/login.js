@@ -1,34 +1,68 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useMutation } from "@apollo/client";
 import InputField from "../../components/form/InputField";
+import { LOGIN_MUTATION } from "../../queries/Mutation";
 
 function login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState({});
+  const [formValues, setFormValues] = useState({ email: "", password: "" });
+  const [error1, setError1] = useState({});
+  const [login, { data, loading, error }] = useMutation(LOGIN_MUTATION);
 
+  // if (loading) return "Submitting...";
+  // if (error) return `Submission error! ${error.message}`;
+  useEffect(() => {
+    if (data) {
+      console.log("log inn");
+      console.log(data);
+    }
+  }, [data]);
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (!value) {
-      setError({ ...error, [name]: true });
-    } else {
-      setError({ ...error, [name]: false });
-    }
-    console.log(error);
-    if (name === "email") {
-      setEmail(value);
-    } else if (name === "password") {
-      setPassword(value);
+    setFormValues({ ...formValues, [name]: value });
+    console.log(formValues);
+    // if (!value) {
+    //   setError({ ...error, [name]: true });
+    // } else {
+    //   setError({ ...error, [name]: false });
+    // }
+    // console.log(error);
+    // if (name === "email") {
+    //   setEmail(value);
+    // } else if (name === "password") {
+    //   setPassword(value);
+    // }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError1(validate(formValues));
+    if (error1) {
+      console.log("apollo");
+      await login({
+        variables: { user: { ...formValues } },
+      });
+      console.log(data);
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const validate = (values) => {
+    const errors = {};
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    if (!values.email) {
+      errors.email = "Toto pole je povinné";
+    } else if (!regex.test(values.email)) {
+      errors.email = "Email je ve špatném formátu";
+    }
+    if (!values.password) {
+      errors.password = "Toto pole je povinné";
+    }
+    return errors;
   };
 
   return (
     <div className="mx-auto max-w-[450px] p-4">
-      <form className="p-8 shadow-xl lg:text-lg">
+      <form className="p-8 shadow-xl lg:text-lg" onSubmit={handleSubmit}>
         <h2 className="mb-4 lg:text-3xl font-semibold text-gray-600">
           Přihlášení do účtu
         </h2>
@@ -39,53 +73,31 @@ function login() {
           name="email"
           label="Email"
           prompt="Zadejte email"
-          error={error.email}
-          value={email}
+          error={error1.email}
+          value={formValues.email}
           handleChange={handleChange}
         />
-        {/* <div className="form_input">
-          <div className="mb-2 text-base font-semibold text-gray-700 xl:text-lg">
-            <label htmlFor="email">E-mail</label>
-          </div>
-          <div>
-            <input id="email" type="email" className="base_input_form" />
-          </div>
-          <div className="flex items-center mt-1 lg:text-base xl:text-lg text-red-600">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 mr-2 mt-1"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-              />
-            </svg>
-            Toto pole je povinné
-          </div>
-        </div> */}
-        {/* password input */}
+
         <InputField
           required={true}
           type="password"
           name="password"
           label="Heslo"
           prompt="Zadejte heslo"
-          error={error.password}
-          value={password}
+          error={error1.password}
+          value={formValues.password}
           handleChange={handleChange}
         />
         {/* button login */}
         <div className="w-full my-2">
-          <Link href="/checkout/payment">
+          <button className="base_btn_form_primary w-full justify-center">
+            PŘIHLÁSIT
+          </button>
+          {/* <Link href="/checkout/payment">
             <a className="base_btn_form_primary w-full justify-center">
               PŘIHLÁSIT
             </a>
-          </Link>
+          </Link> */}
         </div>
         <div className="relative">
           <hr className="mt-6 mb-4 border-gray-300" />
