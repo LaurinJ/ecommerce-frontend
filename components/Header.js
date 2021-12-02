@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { categories } from "../data/categories";
 import CartHeader from "../components/CartHeader";
+import Logout from "../components/account/Logout";
+import { isAuth } from "../actions/auth";
 
 function Header() {
-  const [showLinks, setShowLinks] = useState(true);
-
   return (
     <header className="mx-auto">
       <div className="bg-gray-100 hidden lg:block">
@@ -31,22 +31,33 @@ function Header() {
             </li>
           </ul>
           <ul className="flex ml-auto my-2 mr-20 ">
-            <li className="px-2 hover:text-blue-700">
-              <Link href="/account/login">
-                <a>Přihlásit</a>
-              </Link>
-            </li>
-            /
-            <li className="px-2 hover:text-blue-700">
-              <Link href="/account/register">
-                <a>Registrovat</a>
-              </Link>
-            </li>
-            <li className="px-2 hover:text-blue-700">
-              <Link href="/account/">
-                <a>Ferda</a>
-              </Link>
-            </li>
+            {isAuth() ? (
+              <React.Fragment>
+                <li className="px-2 hover:text-blue-700">
+                  <Link href="/account/">
+                    <a>{isAuth().name}</a>
+                  </Link>
+                </li>
+                /
+                <li className="px-2 hover:text-blue-700">
+                  <Logout />
+                </li>
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <li className="px-2 hover:text-blue-700">
+                  <Link href="/account/login">
+                    <a>Přihlásit</a>
+                  </Link>
+                </li>
+                /
+                <li className="px-2 hover:text-blue-700">
+                  <Link href="/account/register">
+                    <a>Registrovat</a>
+                  </Link>
+                </li>
+              </React.Fragment>
+            )}
           </ul>
         </nav>
       </div>

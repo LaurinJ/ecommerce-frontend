@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Router from "next/router";
 import { useMutation } from "@apollo/client";
 import InputField from "../../components/form/InputField";
 import { LOGIN_MUTATION } from "../../queries/Mutation";
+import { authenticate } from "../../actions/auth";
 
 function login() {
   const [formValues, setFormValues] = useState({ email: "", password: "" });
@@ -15,6 +17,9 @@ function login() {
     if (data) {
       console.log("log inn");
       console.log(data);
+      authenticate(data.login, () => {
+        Router.push(`/account`);
+      });
     }
   }, [data]);
   const handleChange = (e) => {
@@ -38,7 +43,6 @@ function login() {
     e.preventDefault();
     setError1(validate(formValues));
     if (error1) {
-      console.log("apollo");
       await login({
         variables: { user: { ...formValues } },
       });

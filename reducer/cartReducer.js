@@ -1,3 +1,5 @@
+import { setLocalStorage } from "../actions/auth";
+
 export const initialState = {
   cart: [],
   itemCount: 0,
@@ -15,7 +17,7 @@ export const actions = {
 const reducer = (state, action) => {
   switch (action.type) {
     case actions.ADD_ITEM:
-      return {
+      const cart = {
         cart: [
           ...state.cart,
           {
@@ -30,10 +32,28 @@ const reducer = (state, action) => {
         ],
         itemCount: state.itemCount + Number(action.count),
         totalPrice: state.totalPrice + action.count * action.price,
-        // totalPrice: state.cart
-        //   .reduce((acc, product) => acc + Number(product.price), 0)
-        //   .toFixed(2),
       };
+      setLocalStorage("cart", cart);
+      return cart;
+    // return {
+    // cart: [
+    //   ...state.cart,
+    //   {
+    //     id: new Date().valueOf(),
+    //     title: action.title,
+    //     price: action.price,
+    //     old_price: action.old_price,
+    //     description: action.description,
+    //     count: action.count,
+    //     img: action.imgurl,
+    //   },
+    // ],
+    // itemCount: state.itemCount + Number(action.count),
+    // totalPrice: state.totalPrice + action.count * action.price,
+    // totalPrice: state.cart
+    //   .reduce((acc, product) => acc + Number(product.price), 0)
+    //   .toFixed(2),
+    // };
     case actions.REMOVE_ITEM: {
       const count = state.itemCount - state.cart[action.i].count;
       const total =
