@@ -1,18 +1,24 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import CartContext from "../context/CartContext";
 
 function Cart() {
-  const { cart, itemCount, totalPrice, removeItem } = useContext(CartContext);
+  const { cart, itemCount, totalPrice, removeItem, getLocalCart } =
+    useContext(CartContext);
   console.log("render cart");
+
+  useEffect(() => {
+    getLocalCart();
+  }, []);
+
   return (
     <div className="flex flex-col p-4">
       <div className="mb-3 border-b border-gray-300">
         <h4 className="text-md">Total {itemCount} Items</h4>
       </div>
       <div className="">
-        {cart.length !== 0
+        {cart.length != 0
           ? cart.map((product, i) => {
               return (
                 <a key={i} className="flex mb-4 pr-5 relative">

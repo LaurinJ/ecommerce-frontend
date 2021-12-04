@@ -5,7 +5,6 @@ import { getLocalStorage } from "../actions/auth";
 
 function CartProvider({ children }) {
   const cartState = getLocalStorage("cart");
-  console.log(cartState);
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const value = {
@@ -20,6 +19,9 @@ function CartProvider({ children }) {
     },
     removeAll: () => {
       dispatch({ type: actions.REMOVE_ITEM });
+    },
+    getLocalCart: () => {
+      dispatch({ type: actions.INITIAL_LOCAL_CART });
     },
   };
 

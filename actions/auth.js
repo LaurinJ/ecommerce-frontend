@@ -29,9 +29,9 @@ export const getCookie = (key) => {
   }
 };
 // localstorage
-export const getLocalStorage = (key, value) => {
+export const getLocalStorage = (key) => {
   if (process.browser) {
-    localStorage.getItem(key);
+    return JSON.parse(localStorage.getItem(key));
   }
 };
 

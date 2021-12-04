@@ -14,6 +14,7 @@ function login() {
   // if (loading) return "Submitting...";
   // if (error) return `Submission error! ${error.message}`;
   useEffect(() => {
+    console.log(Object.keys(error1).length === 0);
     if (data) {
       console.log("log inn");
       console.log(data);
@@ -26,27 +27,21 @@ function login() {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
     console.log(formValues);
-    // if (!value) {
-    //   setError({ ...error, [name]: true });
-    // } else {
-    //   setError({ ...error, [name]: false });
-    // }
-    // console.log(error);
-    // if (name === "email") {
-    //   setEmail(value);
-    // } else if (name === "password") {
-    //   setPassword(value);
-    // }
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError1(validate(formValues));
-    if (error1) {
-      await login({
-        variables: { user: { ...formValues } },
-      });
-      console.log(data);
+    try {
+      e.preventDefault();
+      const err = validate(formValues);
+      setError1(err);
+      if (Object.keys(err).length === 0) {
+        await login({
+          variables: { user: { ...formValues } },
+        });
+        console.log(data);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -70,6 +65,8 @@ function login() {
         <h2 className="mb-4 lg:text-3xl font-semibold text-gray-600">
           Přihlášení do účtu
         </h2>
+        {/* <h3>{error}</h3> */}
+        <span className="text-red-700">{error && error.message}</span>
         {/* email input */}
         <InputField
           required={true}
@@ -83,7 +80,7 @@ function login() {
         />
 
         <InputField
-          required={true}
+          // required={true}
           type="password"
           name="password"
           label="Heslo"
