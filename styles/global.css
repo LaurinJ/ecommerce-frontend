@@ -215,3 +215,9 @@ input[type="range"]::-webkit-slider-thumb {
   border-color: #4e5761;
   outline-color: #0050aa;
 }
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

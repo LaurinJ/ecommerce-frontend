@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useQuery, gql } from "@apollo/client";
 import { initializeApollo } from "../../apollo-client";
 import Rating from "../../components/Rating";
 import ImagesView from "../../components/ImagesView";
+import Counter from "../../components/form/Counter";
+import CartContext from "../../context/CartContext";
 
 const QUERY = gql`
   query GetProduct($slug: String!) {
@@ -24,10 +26,13 @@ const QUERY = gql`
 `;
 
 function singleProduct() {
+  const [count, setCount] = useState(1);
   const router = useRouter();
   const { data, loading, error } = useQuery(QUERY, {
     variables: { slug: router.query.slug },
   });
+
+  const { addItem } = useContext(CartContext);
 
   if (loading) {
     return (
@@ -63,6 +68,14 @@ function singleProduct() {
   }
 
   const product = data.getProduct;
+
+  const countHandle = (count) => {
+    count <= 0 ? setCount(1) : setCount(count);
+  };
+
+  const addCart = (count) => {
+    addItem(product, count);
+  };
 
   let discount = 0;
   if (product.price < product.old_price) {
@@ -108,17 +121,7 @@ function singleProduct() {
               </div>
               {/* <div>variant</div> */}
               <div className="flex justify-between items-center py-7 border-b border-gray-300">
-                <div className="h-14 p-[10px] inline-block border border-gray-300 rounded-md text-2xl leading-6">
-                  <button className="w-6">-</button>
-                  <input
-                    className="w-12 text-center"
-                    value={1}
-                    onChange={() => {
-                      console.log("change amount");
-                    }}
-                  />
-                  <button className="w-6">+</button>
-                </div>
+                <Counter count={count} countHandle={countHandle} />
                 <div className="flex flex-col my-[10px]">
                   <div className="min-h-[21px] text-xl text-gray-500">
                     <del>
@@ -138,7 +141,12 @@ function singleProduct() {
                 <span className="text-[13px] pb-5">
                   PRODUKT SKLADEM. PŘEDPOKLÁDANÉ DORUČENÍ: 3 DNÍ
                 </span>
-                <button className="max-w-[360px] sm:w-[350px] min-w-i h-auto py-[15px] px-5 text-2xl leading-[1.4rem] font-bold bg-blue-800 text-white">
+                <button
+                  className="max-w-[360px] sm:w-[350px] min-w-i h-auto py-[15px] px-5 text-2xl leading-[1.4rem] font-bold bg-blue-800 text-white"
+                  onClick={() => {
+                    addCart(count);
+                  }}
+                >
                   PŘIDAT DO KOŠÍKU
                 </button>
               </div>

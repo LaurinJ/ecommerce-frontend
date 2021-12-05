@@ -7,6 +7,7 @@ export const PRODUCTS_QUERY = gql`
       price
       old_price
       slug
+      description
       imgurl
       rating
       rating_sum

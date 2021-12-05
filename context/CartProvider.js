@@ -14,6 +14,9 @@ function CartProvider({ children }) {
     addItem: (product, count) => {
       dispatch({ type: actions.ADD_ITEM, ...product, count });
     },
+    updateItem: (id, count, i) => {
+      dispatch({ type: actions.UPDATE_ITEM, id, count, i });
+    },
     removeItem: (id, i) => {
       dispatch({ type: actions.REMOVE_ITEM, id, i });
     },

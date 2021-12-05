@@ -8,13 +8,10 @@ import { authenticate } from "../../actions/auth";
 
 function login() {
   const [formValues, setFormValues] = useState({ email: "", password: "" });
-  const [error1, setError1] = useState({});
+  const [err, setErr] = useState({});
   const [login, { data, loading, error }] = useMutation(LOGIN_MUTATION);
 
-  // if (loading) return "Submitting...";
-  // if (error) return `Submission error! ${error.message}`;
   useEffect(() => {
-    console.log(Object.keys(error1).length === 0);
     if (data) {
       console.log("log inn");
       console.log(data);
@@ -26,19 +23,17 @@ function login() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
-    console.log(formValues);
   };
 
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      const err = validate(formValues);
-      setError1(err);
-      if (Object.keys(err).length === 0) {
+      const errors = validate(formValues);
+      setErr(errors);
+      if (Object.keys(errors).length === 0) {
         await login({
           variables: { user: { ...formValues } },
         });
-        console.log(data);
       }
     } catch (error) {
       console.log(error);
@@ -65,8 +60,8 @@ function login() {
         <h2 className="mb-4 lg:text-3xl font-semibold text-gray-600">
           Přihlášení do účtu
         </h2>
-        {/* <h3>{error}</h3> */}
-        <span className="text-red-700">{error && error.message}</span>
+        {/* error response */}
+        <span className="text-red-600">{error && error.message}</span>
         {/* email input */}
         <InputField
           required={true}
@@ -74,18 +69,18 @@ function login() {
           name="email"
           label="Email"
           prompt="Zadejte email"
-          error={error1.email}
+          error={err.email}
           value={formValues.email}
           handleChange={handleChange}
         />
-
+        {/* password input */}
         <InputField
-          // required={true}
+          required={true}
           type="password"
           name="password"
           label="Heslo"
           prompt="Zadejte heslo"
-          error={error1.password}
+          error={err.password}
           value={formValues.password}
           handleChange={handleChange}
         />
@@ -94,11 +89,6 @@ function login() {
           <button className="base_btn_form_primary w-full justify-center">
             PŘIHLÁSIT
           </button>
-          {/* <Link href="/checkout/payment">
-            <a className="base_btn_form_primary w-full justify-center">
-              PŘIHLÁSIT
-            </a>
-          </Link> */}
         </div>
         <div className="relative">
           <hr className="mt-6 mb-4 border-gray-300" />
