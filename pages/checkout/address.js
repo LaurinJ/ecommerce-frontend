@@ -10,7 +10,8 @@ import { setLocalStorage, getLocalStorage } from "../../actions/auth";
 
 function address() {
   const [formValues, setFormValues] = useState({
-    delive: "",
+    deliver: "",
+    email: "",
     name: "",
     firstname: "",
     lastname: "",
@@ -62,6 +63,12 @@ function address() {
   const validate = (values) => {
     const errors = {};
     const regex = /^[a-zA-Z]+$/;
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    if (!values.email) {
+      errors.email = "Toto pole je povinné";
+    } else if (!regexEmail.test(values.email)) {
+      errors.email = "Email je ve špatném formátu";
+    }
     if (!values.firstname) {
       errors.firstname = "Toto pole je povinné";
     } else if (!regex.test(values.firstname)) {
@@ -107,7 +114,7 @@ function address() {
                 <div className="flex flex-wrap w-full justify-between">
                   <InputCheck
                     type="radio"
-                    name="delive"
+                    name="deliver"
                     label="Doručení na adresu - PPL"
                     value="ppl"
                     checked={true}
@@ -115,7 +122,7 @@ function address() {
                   />
                   <InputCheck
                     type="radio"
-                    name="delive"
+                    name="deliver"
                     label="Doručení na adresu - DHL"
                     value="dhl"
                     handleChange={handleChange}
@@ -126,6 +133,17 @@ function address() {
               {/* first and last name */}
               <div className="flex flex-wrap justify-between">
                 {/* input */}
+                <InputFieldBold
+                  required={true}
+                  type="email"
+                  name="email"
+                  label="Email"
+                  prompt="Zadejte Email"
+                  error={err.email}
+                  value={formValues.email}
+                  handleChange={handleChange}
+                />
+                {/* input firstname */}
                 <InputFieldBold
                   // required={true}
                   type="text"
