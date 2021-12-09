@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useMutation } from "@apollo/client";
+import { PERSON_ADDRESS_MUTATION } from "../../queries/Mutation";
 import OrderProgressBar from "../../components/OrderProgressBar";
 import InputFieldBold from "../../components/form/InputFieldBold";
 import InputField33 from "../../components/form/InputField33";
@@ -12,30 +14,31 @@ function address() {
   const [formValues, setFormValues] = useState({
     deliver: "",
     email: "",
-    name: "",
-    firstname: "",
-    lastname: "",
-    post_code: "",
+    first_name: "",
+    last_name: "",
+    postCode: 0,
     village: "",
     street: "",
-    s_number: "",
-    phone: "",
+    numberDescriptive: 0,
+    phone: 0,
   });
   const [err, setErr] = useState({});
-  // const [login, { data, loading, error }] = useMutation(LOGIN_MUTATION);
+  const [address, { data, loading, error }] = useMutation(
+    PERSON_ADDRESS_MUTATION
+  );
 
   useEffect(() => {
     const address = getLocalStorage("address");
     address ? setFormValues(address) : null;
 
-    // if (data) {
-    //   console.log("log inn");
-    //   console.log(data);
-    //   authenticate(data.login, () => {
-    //     Router.push(`/account`);
-    //   });
-    // }
-  }, []);
+    if (data) {
+      console.log("ok");
+      console.log(data.personAdress.token);
+      // authenticate(data.login, () => {
+      //   Router.push(`/account`);
+      // });
+    }
+  }, [data]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -51,9 +54,23 @@ function address() {
       setErr(errors);
       if (Object.keys(errors).length === 0) {
         setLocalStorage("address", formValues);
-        // await login({
-        //   variables: { user: { ...formValues } },
-        // });
+
+        await address({
+          variables: {
+            person: {
+              email: formValues.email,
+              first_name: formValues.first_name,
+              last_name: formValues.last_name,
+              phone: Number(formValues.phone),
+            },
+            address: {
+              village: formValues.village,
+              street: formValues.street,
+              postCode: Number(formValues.postCode),
+              numberDescriptive: Number(formValues.numberDescriptive),
+            },
+          },
+        });
       }
     } catch (error) {
       console.log(error);
@@ -69,18 +86,18 @@ function address() {
     } else if (!regexEmail.test(values.email)) {
       errors.email = "Email je ve špatném formátu";
     }
-    if (!values.firstname) {
-      errors.firstname = "Toto pole je povinné";
-    } else if (!regex.test(values.firstname)) {
-      errors.firstname = "Jméno je ve špatném formátu";
+    if (!values.first_name) {
+      errors.first_name = "Toto pole je povinné";
+    } else if (!regex.test(values.first_name)) {
+      errors.first_name = "Jméno je ve špatném formátu";
     }
-    if (!values.lastname) {
-      errors.lastname = "Toto pole je povinné";
-    } else if (!regex.test(values.lastname)) {
-      errors.lastname = "Přijmení je ve špatném formátu";
+    if (!values.last_name) {
+      errors.last_name = "Toto pole je povinné";
+    } else if (!regex.test(values.last_name)) {
+      errors.last_name = "Přijmení je ve špatném formátu";
     }
-    if (!values.post_code) {
-      errors.post_code = "Toto pole je povinné";
+    if (!values.postCode) {
+      errors.postCode = "Toto pole je povinné";
     }
     if (!values.village) {
       errors.village = "Toto pole je povinné";
@@ -88,8 +105,8 @@ function address() {
     if (!values.street) {
       errors.street = "Toto pole je povinné";
     }
-    if (!values.s_number) {
-      errors.s_number = "Toto pole je povinné";
+    if (!values.numberDescriptive) {
+      errors.numberDescriptive = "Toto pole je povinné";
     }
     if (!values.phone) {
       errors.phone = "Toto pole je povinné";
@@ -147,22 +164,22 @@ function address() {
                 <InputFieldBold
                   // required={true}
                   type="text"
-                  name="firstname"
+                  name="first_name"
                   label="Jméno"
                   prompt="Zadejte Jméno"
-                  error={err.firstname}
-                  value={formValues.firstname}
+                  error={err.first_name}
+                  value={formValues.first_name}
                   handleChange={handleChange}
                 />
                 {/* input lastname */}
                 <InputFieldBold
                   required={true}
                   type="text"
-                  name="lastname"
+                  name="last_name"
                   label="Přijmení"
                   prompt="Zadejte přijmení"
-                  error={err.lastname}
-                  value={formValues.lastname}
+                  error={err.last_name}
+                  value={formValues.last_name}
                   handleChange={handleChange}
                 />
               </div>
@@ -173,11 +190,11 @@ function address() {
                 <InputField33
                   required={true}
                   type="number"
-                  name="post_code"
+                  name="postCode"
                   label="PSČ"
                   prompt="Zadejte PSČ"
-                  error={err.post_code}
-                  value={formValues.post_code}
+                  error={err.postCode}
+                  value={formValues.postCode}
                   handleChange={handleChange}
                 />
                 {/* input obec */}
@@ -210,11 +227,11 @@ function address() {
                 <InputField33
                   required={true}
                   type="number"
-                  name="s_number"
+                  name="numberDescriptive"
                   label="Č. p."
                   prompt="Zadejte Č. p."
-                  error={err.s_number}
-                  value={formValues.s_number}
+                  error={err.numberDescriptive}
+                  value={formValues.numberDescriptive}
                   handleChange={handleChange}
                 />
               </div>

@@ -33,3 +33,11 @@ export const REGISTER_MUTATION = gql`
     }
   }
 `;
+
+export const PERSON_ADDRESS_MUTATION = gql`
+  mutation Mutation($address: AddressData, $person: PersonData) {
+    personAdress(address: $address, person: $person) {
+      token
+    }
+  }
+`;
