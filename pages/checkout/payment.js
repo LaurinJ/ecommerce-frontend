@@ -1,6 +1,8 @@
 import React from "react";
 import Link from "next/link";
 import OrderProgressBar from "../../components/OrderProgressBar";
+import InputCheck from "../../components/form/InputCheck";
+import { box, paypal } from "../../icons/icons";
 
 function payment() {
   return (
@@ -17,6 +19,15 @@ function payment() {
             <div className="w-full">
               {/* delivery method */}
               <div className="flex flex-col w-full space-y-6">
+                <InputCheck
+                  type="radio"
+                  name="deliver"
+                  label="Doručení na adresu - PPL"
+                  value="ppl"
+                  img="https://cdn.iconscout.com/icon/free/png-256/paypal-52-675725.png"
+                  checked={true}
+                  // handleChange={handleChange}
+                />
                 <label className="flex justify-between items-center radio w-full px-10 py-1 mb-3 sm:mb-0 leading-9 border border-primary bg-lg_blue xl:text-[22px]">
                   <input type="radio" value="ppl" name="deliver" />
                   Dobírka

@@ -84,7 +84,7 @@ function register() {
         <h2 className="mb-4 lg:text-3xl font-semibold text-gray-600">
           Vytvořit účet
         </h2>
-        <span className="text-red-600">{error && printErr(error)}</span>
+        <div className="text-red-600">{error && printErr(error)}</div>
         {/* name input */}
         <InputField
           required={true}

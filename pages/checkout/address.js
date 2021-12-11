@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Router from "next/router";
 import { useMutation } from "@apollo/client";
 import { PERSON_ADDRESS_MUTATION } from "../../queries/Mutation";
 import OrderProgressBar from "../../components/OrderProgressBar";
@@ -8,7 +9,11 @@ import InputField33 from "../../components/form/InputField33";
 import InputField65 from "../../components/form/InputField65";
 import InputFieldPhone from "../../components/form/InputFieldPhone";
 import InputCheck from "../../components/form/InputCheck";
-import { setLocalStorage, getLocalStorage } from "../../actions/auth";
+import {
+  setLocalStorage,
+  getLocalStorage,
+  setCookie,
+} from "../../actions/auth";
 
 function address() {
   const [formValues, setFormValues] = useState({
@@ -34,9 +39,8 @@ function address() {
     if (data) {
       console.log("ok");
       console.log(data.personAdress.token);
-      // authenticate(data.login, () => {
-      //   Router.push(`/account`);
-      // });
+      setCookie("person_token", data.personAdress.token);
+      Router.push(`/checkout/payment`);
     }
   }, [data]);
 
@@ -74,6 +78,7 @@ function address() {
       }
     } catch (error) {
       console.log(error);
+      setErr(error.graphQLErrors[0].extensions.errors);
     }
   };
 
@@ -162,7 +167,7 @@ function address() {
                 />
                 {/* input firstname */}
                 <InputFieldBold
-                  // required={true}
+                  required={true}
                   type="text"
                   name="first_name"
                   label="Jméno"
