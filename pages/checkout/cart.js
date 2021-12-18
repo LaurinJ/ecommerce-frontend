@@ -4,7 +4,7 @@ import CartContext from "../../context/CartContext";
 import CartCheckoutProduct from "../../components/CartCheckoutProduct";
 
 function cart() {
-  const { cart, totalPrice } = useContext(CartContext);
+  const { cart, totalPrice, deliveryPrice } = useContext(CartContext);
   return (
     <div className="mx-auto max-w-[1280px] px-2">
       <div className="p-4 shadow-xl">
@@ -36,7 +36,7 @@ function cart() {
             <div className="mb-3">
               <div className="flex justify-between">
                 <div className="mb-3">Přepravní náklady</div>
-                <div>0 Kč</div>
+                <div>{deliveryPrice} Kč</div>
               </div>
               <hr className="my-2 text-gray-300" />
             </div>
@@ -44,7 +44,7 @@ function cart() {
               <div className="flex justify-between">
                 <div className="mb-3 font-bold">Celkem</div>
                 <div className="mt-2 text-3xl font-black">
-                  {totalPrice} Kč
+                  {totalPrice + deliveryPrice} Kč
                   <div className="text-right pt-2 text-sm font-normal">
                     včetně DPH
                   </div>

@@ -30,7 +30,7 @@ function CartCheckoutProduct({ product, i }) {
         <div className="cartitem_product_info mb-5">
           <h4 className="mb-2 sm:text-lg font-semibold">{product.title}</h4>
           <div className="my-4 text-sm sm:text-base text-gray-600">
-            <span>{product.description}</span>
+            <span>{product.short_description}</span>
           </div>
         </div>
         {/* amount section */}

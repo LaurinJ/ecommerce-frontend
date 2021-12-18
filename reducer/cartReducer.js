@@ -4,6 +4,7 @@ export const initialState = {
   cart: [],
   itemCount: 0,
   totalPrice: 0,
+  deliveryPrice: 0,
 };
 
 export const actions = {
@@ -12,6 +13,7 @@ export const actions = {
   REMOVE_ITEM: "REMOVE_ITEM",
   REMOVE_ALL: "REMOVE_ALL",
   INITIAL_LOCAL_CART: "INITIAL_LOCAL_CART",
+  ADD_DELIVERY: "ADD_DELIVERY",
 };
 
 //Reducer to Handle Actions
@@ -30,11 +32,11 @@ const reducer = (state, action) => {
       });
       if (newItem) {
         filteredCartItem.push({
-          id: new Date().valueOf(),
+          id: action._id,
           title: action.title,
           price: action.price,
           old_price: action.old_price,
-          description: action.description,
+          short_description: action.short_description,
           count: action.count,
           img: action.imgurl,
         });
@@ -43,6 +45,7 @@ const reducer = (state, action) => {
         cart: [...filteredCartItem],
         itemCount: state.itemCount + Number(action.count),
         totalPrice: state.totalPrice + action.count * action.price,
+        deliveryPrice: state.deliveryPrice,
       };
       setLocalStorage("cart", cart);
       return cart;
@@ -71,6 +74,7 @@ const reducer = (state, action) => {
         cart: filteredCartItem,
         itemCount: count,
         totalPrice: total,
+        deliveryPrice: state.deliveryPrice,
       };
       console.log(cart);
       setLocalStorage("cart", cart);
@@ -89,20 +93,29 @@ const reducer = (state, action) => {
         cart: filteredCartItem,
         itemCount: count,
         totalPrice: total,
+        deliveryPrice: state.deliveryPrice,
       };
       setLocalStorage("cart", cart);
       return cart;
     }
     case actions.REMOVE_ALL: {
-      return { cart: [], itemCount: 0, totalPrice: 0 };
+      return { cart: [], itemCount: 0, totalPrice: 0, deliveryPrice: 0 };
     }
     case actions.INITIAL_LOCAL_CART: {
       const cart = getLocalStorage("cart");
       if (!cart || cart.length == 0) {
-        return { cart: [], itemCount: 0, totalPrice: 0 };
+        return { cart: [], itemCount: 0, totalPrice: 0, deliveryPrice: 0 };
       } else {
         return { ...cart };
       }
+    }
+    case actions.ADD_DELIVERY: {
+      const cart = {
+        ...state,
+        deliveryPrice: action.price,
+      };
+      setLocalStorage("cart", cart);
+      return cart;
     }
     default:
       return state;

@@ -11,6 +11,7 @@ function CartProvider({ children }) {
     cart: state.cart,
     itemCount: state.itemCount,
     totalPrice: state.totalPrice,
+    deliveryPrice: state.deliveryPrice,
     addItem: (product, count) => {
       dispatch({ type: actions.ADD_ITEM, ...product, count });
     },
@@ -25,6 +26,9 @@ function CartProvider({ children }) {
     },
     getLocalCart: () => {
       dispatch({ type: actions.INITIAL_LOCAL_CART });
+    },
+    addDelivery: (price) => {
+      dispatch({ type: actions.ADD_DELIVERY, price });
     },
   };
 

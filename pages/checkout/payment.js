@@ -1,15 +1,70 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Link from "next/link";
+import { useQuery, useMutation } from "@apollo/client";
 import OrderProgressBar from "../../components/OrderProgressBar";
 import InputCheck from "../../components/form/InputCheck";
-import { box, paypal } from "../../icons/icons";
+import CartContext from "../../context/CartContext";
+import { CREATE_ORDER, PAYMENT_DELIVERY_METHODS } from "../../queries/Query";
+import { getCookie, getLocalStorage } from "../../actions/auth";
 
 function payment() {
+  const { cart, totalPrice, itemCount, deliveryPrice, addDelivery } =
+    useContext(CartContext);
+  const { data, loading, error } = useQuery(PAYMENT_DELIVERY_METHODS);
+  // const [order, { data, loading, error }] = useMutation(
+  //   CREATE_ORDER
+  // );
+  const [payment, setPayment] = useState("");
+  const [delivery, setDelivery] = useState("");
+
+  const handleChange = (e, price) => {
+    const { name, value } = e.target;
+    if (name === "payment") {
+      setPayment(value);
+    }
+    if (name === "delivery") {
+      addDelivery(Number(price));
+      setDelivery(value);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      console.log("pay - ", payment, ", del - ", delivery);
+      const token = getCookie("person_token");
+      console.log(token);
+      console.log(cart);
+      console.log(totalPrice, itemCount, deliveryPrice);
+      if (payment & delivery) {
+        // await order({
+        //   variables: {
+        //     order: {
+        //       email: formValues.email,
+        //       first_name: formValues.first_name,
+        //       last_name: formValues.last_name,
+        //       phone: Number(formValues.phone),
+        //     },
+        //     token: {
+        //       village: formValues.village,
+        //       street: formValues.street,
+        //       postCode: Number(formValues.postCode),
+        //       numberDescriptive: Number(formValues.numberDescriptive),
+        //     },
+        //   },
+        // });
+      }
+    } catch (error) {
+      console.log(error);
+      setErr(error.graphQLErrors[0].extensions.errors);
+    }
+  };
+
   return (
     <div className="mx-auto max-w-[900px]">
       <OrderProgressBar state={2} />
 
-      {/* adress form */}
+      {/* payment and delivery form */}
       <div className=" w-full">
         <form>
           <div className="p-4 shadow-md">
@@ -17,38 +72,26 @@ function payment() {
               Zvolte způsob platby:
             </h3>
             <div className="w-full">
-              {/* delivery method */}
+              {/* payment method */}
               <div className="flex flex-col w-full space-y-6">
-                <InputCheck
-                  type="radio"
-                  name="deliver"
-                  label="Doručení na adresu - PPL"
-                  value="ppl"
-                  img="https://cdn.iconscout.com/icon/free/png-256/paypal-52-675725.png"
-                  checked={true}
-                  // handleChange={handleChange}
-                />
-                <label className="flex justify-between items-center radio w-full px-10 py-1 mb-3 sm:mb-0 leading-9 border border-primary bg-lg_blue xl:text-[22px]">
-                  <input type="radio" value="ppl" name="deliver" />
-                  Dobírka
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-7 w-7"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                    />
-                  </svg>
-                  <span></span>
-                </label>
-                <label className="flex justify-between items-center radio w-full px-10 py-1 leading-9 border border-primary  xl:text-[22px]">
-                  <input type="radio" value="dhl" name="deliver" />
+                {data
+                  ? data.getPaymentMethod.map((payment) => {
+                      return (
+                        <InputCheck
+                          key={payment._id}
+                          type="radio"
+                          name="payment"
+                          label={payment.name}
+                          value={payment._id}
+                          img={payment.image}
+                          handleChange={handleChange}
+                        />
+                      );
+                    })
+                  : "loading"}
+
+                {/* <label className="flex justify-between items-center radio w-full px-10 py-1 leading-9 border border-primary  xl:text-[22px]">
+                  <input type="radio" value="dhl" name="payment" />
                   Platební karta
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +108,31 @@ function payment() {
                     />
                   </svg>
                   <span></span>
-                </label>
+                </label> */}
+              </div>
+            </div>
+            <h3 className="my-7 leading-5 font-bold lg:text-2xl">
+              Zvolte způsob dopravy:
+            </h3>
+            <div className="w-full">
+              {/* delivery method */}
+              <div className="flex flex-col w-full space-y-6">
+                {data
+                  ? data.getDeliverMethod.map((delivery) => {
+                      return (
+                        <InputCheck
+                          key={delivery._id}
+                          type="radio"
+                          name="delivery"
+                          label={`${delivery.name} - ${delivery.price} Kč`}
+                          price={delivery.price}
+                          value={delivery._id}
+                          img={delivery.image}
+                          handleChange={handleChange}
+                        />
+                      );
+                    })
+                  : "loading"}
               </div>
             </div>
           </div>
@@ -76,11 +143,13 @@ function payment() {
                 ZPĚT K ADRESE
               </a>
             </Link>
-            <Link href="/checkout/summary">
-              <a className="base_btn_form_primary justify-center">
-                POKRAČOVAT NA SHRNUTÍ OBJEDNÁVKY
-              </a>
-            </Link>
+
+            <button
+              className="base_btn_form_primary justify-center"
+              onClick={handleSubmit}
+            >
+              POKRAČOVAT NA SHRNUTÍ OBJEDNÁVKY
+            </button>
           </div>
         </form>
       </div>

@@ -41,3 +41,11 @@ export const PERSON_ADDRESS_MUTATION = gql`
     }
   }
 `;
+
+export const CREATE_ORDER = gql`
+  mutation Mutation($token: PersonTokenData!, $order: OrderData) {
+    createOrder(token: $token, order: $order) {
+      status
+    }
+  }
+`;

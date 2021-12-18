@@ -11,6 +11,7 @@ import CartContext from "../../context/CartContext";
 const QUERY = gql`
   query GetProduct($slug: String!) {
     getProduct(slug: $slug) {
+      _id
       title
       description
       short_description
