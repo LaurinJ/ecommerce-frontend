@@ -6,21 +6,14 @@ import OrderProgressBar from "../../components/OrderProgressBar";
 import InputCheck from "../../components/form/InputCheck";
 import CartContext from "../../context/CartContext";
 import { PAYMENT_DELIVERY_METHODS } from "../../queries/Query";
-import { CREATE_ORDER } from "../../queries/Mutation";
-import { getCookie, getLocalStorage } from "../../actions/auth";
+import { PAYMENT_DELIVERY_MUTATION } from "../../queries/Mutation";
+import { getCookie } from "../../actions/auth";
 
 function payment() {
-  const {
-    cart,
-    totalPrice,
-    itemCount,
-    delivery,
-    addDelivery,
-    paymentId,
-    addPayment,
-  } = useContext(CartContext);
+  const { delivery, addDelivery, paymentId, addPayment } =
+    useContext(CartContext);
   const { data } = useQuery(PAYMENT_DELIVERY_METHODS);
-  const [order] = useMutation(CREATE_ORDER, {
+  const [payment_delivery] = useMutation(PAYMENT_DELIVERY_MUTATION, {
     onCompleted: () => {
       Router.push(`/checkout/summary`);
     },
@@ -40,16 +33,15 @@ function payment() {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      const token = getCookie("person_token");
+      const token = getCookie("order_token");
       if (paymentId && delivery.id) {
-        await order({
+        await payment_delivery({
           variables: {
-            order: {
-              items: cart,
-              total_price: Number(totalPrice),
-              total_qty: Number(itemCount),
-              payment_method: paymentId,
-              deliver_method: delivery.id,
+            payment: {
+              _id: paymentId,
+            },
+            delivery: {
+              _id: delivery.id,
             },
             token: {
               token: token,
@@ -123,7 +115,7 @@ function payment() {
               {/* delivery method */}
               <div className="flex flex-col w-full space-y-6">
                 {data
-                  ? data.getDeliverMethod.map((deliveryM) => {
+                  ? data.getDeliveryMethod.map((deliveryM) => {
                       return (
                         <InputCheck
                           key={deliveryM._id}

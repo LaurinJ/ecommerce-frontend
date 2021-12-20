@@ -26,11 +26,50 @@ export const PAYMENT_DELIVERY_METHODS = gql`
       name
       image
     }
-    getDeliverMethod {
+    getDeliveryMethod {
       _id
       name
       image
       price
+    }
+  }
+`;
+
+export const GET_ORDER = gql`
+  query Query($token: OrderTokenData) {
+    getOrder(token: $token) {
+      person {
+        address {
+          numberDescriptive
+          postCode
+          street
+          village
+        }
+        person_detail {
+          phone
+          last_name
+          first_name
+          email
+        }
+      }
+      order {
+        deliver_method {
+          price
+          name
+        }
+        payment_method {
+          name
+        }
+        total_price
+        items {
+          short_description
+          title
+          price
+          old_price
+          count
+          img
+        }
+      }
     }
   }
 `;

@@ -34,18 +34,26 @@ export const REGISTER_MUTATION = gql`
   }
 `;
 
-export const PERSON_ADDRESS_MUTATION = gql`
-  mutation Mutation($address: AddressData, $person: PersonData) {
-    personAdress(address: $address, person: $person) {
-      token
+export const PAYMENT_DELIVERY_MUTATION = gql`
+  mutation PaymentDelivery(
+    $token: OrderTokenData!
+    $delivery: DeliveryData
+    $payment: PaymentData
+  ) {
+    paymentDelivery(token: $token, delivery: $delivery, payment: $payment) {
+      status
     }
   }
 `;
 
 export const CREATE_ORDER = gql`
-  mutation Mutation($token: PersonTokenData!, $order: OrderData) {
-    createOrder(token: $token, order: $order) {
-      status
+  mutation Mutation(
+    $person: PersonData
+    $address: AddressData
+    $order: OrderData
+  ) {
+    createOrder(person: $person, address: $address, order: $order) {
+      token
     }
   }
 `;

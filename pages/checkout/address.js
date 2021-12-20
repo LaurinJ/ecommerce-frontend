@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Link from "next/link";
 import Router from "next/router";
 import { useMutation } from "@apollo/client";
-import { PERSON_ADDRESS_MUTATION } from "../../queries/Mutation";
+import { CREATE_ORDER } from "../../queries/Mutation";
+import CartContext from "../../context/CartContext";
+import { getCookie } from "../../actions/auth";
 import OrderProgressBar from "../../components/OrderProgressBar";
 import InputFieldBold from "../../components/form/InputFieldBold";
 import InputField33 from "../../components/form/InputField33";
@@ -16,6 +18,15 @@ import {
 } from "../../actions/auth";
 
 function address() {
+  const {
+    cart,
+    totalPrice,
+    itemCount,
+    delivery,
+    addDelivery,
+    paymentId,
+    addPayment,
+  } = useContext(CartContext);
   const [formValues, setFormValues] = useState({
     deliver: "",
     email: "",
@@ -28,17 +39,12 @@ function address() {
     phone: 0,
   });
   const [err, setErr] = useState({});
-  const [address, { data, loading, error }] = useMutation(
-    PERSON_ADDRESS_MUTATION,
-    {
-      onCompleted: (data) => {
-        console.log("ok");
-        console.log(data.personAdress.token);
-        setCookie("person_token", data.personAdress.token);
-        Router.push(`/checkout/payment`);
-      },
-    }
-  );
+  const [order, { data, loading, error }] = useMutation(CREATE_ORDER, {
+    onCompleted: (data) => {
+      setCookie("order_token", data.createOrder.token);
+      Router.push(`/checkout/payment`);
+    },
+  });
 
   useEffect(() => {
     const address = getLocalStorage("address");
@@ -58,7 +64,7 @@ function address() {
       if (Object.keys(errors).length === 0) {
         setLocalStorage("address", formValues);
 
-        await address({
+        await order({
           variables: {
             person: {
               email: formValues.email,
@@ -71,6 +77,11 @@ function address() {
               street: formValues.street,
               postCode: Number(formValues.postCode),
               numberDescriptive: Number(formValues.numberDescriptive),
+            },
+            order: {
+              items: cart,
+              total_price: Number(totalPrice),
+              total_qty: Number(itemCount),
             },
           },
         });
