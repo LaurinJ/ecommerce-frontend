@@ -1,62 +1,65 @@
 import React, { useEffect, useState, useContext } from "react";
 import Link from "next/link";
+import Router from "next/router";
 import { useQuery, useMutation } from "@apollo/client";
 import OrderProgressBar from "../../components/OrderProgressBar";
 import InputCheck from "../../components/form/InputCheck";
 import CartContext from "../../context/CartContext";
-import { CREATE_ORDER, PAYMENT_DELIVERY_METHODS } from "../../queries/Query";
+import { PAYMENT_DELIVERY_METHODS } from "../../queries/Query";
+import { CREATE_ORDER } from "../../queries/Mutation";
 import { getCookie, getLocalStorage } from "../../actions/auth";
 
 function payment() {
-  const { cart, totalPrice, itemCount, deliveryPrice, addDelivery } =
-    useContext(CartContext);
-  const { data, loading, error } = useQuery(PAYMENT_DELIVERY_METHODS);
-  // const [order, { data, loading, error }] = useMutation(
-  //   CREATE_ORDER
-  // );
-  const [payment, setPayment] = useState("");
-  const [delivery, setDelivery] = useState("");
+  const {
+    cart,
+    totalPrice,
+    itemCount,
+    delivery,
+    addDelivery,
+    paymentId,
+    addPayment,
+  } = useContext(CartContext);
+  const { data } = useQuery(PAYMENT_DELIVERY_METHODS);
+  const [order] = useMutation(CREATE_ORDER, {
+    onCompleted: () => {
+      Router.push(`/checkout/summary`);
+    },
+  });
+  const [err, setErr] = useState("");
 
   const handleChange = (e, price) => {
     const { name, value } = e.target;
     if (name === "payment") {
-      setPayment(value);
+      addPayment(value);
     }
     if (name === "delivery") {
-      addDelivery(Number(price));
-      setDelivery(value);
+      addDelivery(value, Number(price));
     }
   };
 
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      console.log("pay - ", payment, ", del - ", delivery);
       const token = getCookie("person_token");
-      console.log(token);
-      console.log(cart);
-      console.log(totalPrice, itemCount, deliveryPrice);
-      if (payment & delivery) {
-        // await order({
-        //   variables: {
-        //     order: {
-        //       email: formValues.email,
-        //       first_name: formValues.first_name,
-        //       last_name: formValues.last_name,
-        //       phone: Number(formValues.phone),
-        //     },
-        //     token: {
-        //       village: formValues.village,
-        //       street: formValues.street,
-        //       postCode: Number(formValues.postCode),
-        //       numberDescriptive: Number(formValues.numberDescriptive),
-        //     },
-        //   },
-        // });
+      if (paymentId && delivery.id) {
+        await order({
+          variables: {
+            order: {
+              items: cart,
+              total_price: Number(totalPrice),
+              total_qty: Number(itemCount),
+              payment_method: paymentId,
+              deliver_method: delivery.id,
+            },
+            token: {
+              token: token,
+            },
+          },
+        });
       }
     } catch (error) {
       console.log(error);
-      setErr(error.graphQLErrors[0].extensions.errors);
+      setErr(error.message);
     }
   };
 
@@ -68,6 +71,7 @@ function payment() {
       <div className=" w-full">
         <form>
           <div className="p-4 shadow-md">
+            <span>{err}</span>
             <h3 className="my-7 leading-5 font-bold lg:text-2xl">
               Zvolte způsob platby:
             </h3>
@@ -84,6 +88,7 @@ function payment() {
                           label={payment.name}
                           value={payment._id}
                           img={payment.image}
+                          checked={payment._id === paymentId}
                           handleChange={handleChange}
                         />
                       );
@@ -118,16 +123,17 @@ function payment() {
               {/* delivery method */}
               <div className="flex flex-col w-full space-y-6">
                 {data
-                  ? data.getDeliverMethod.map((delivery) => {
+                  ? data.getDeliverMethod.map((deliveryM) => {
                       return (
                         <InputCheck
-                          key={delivery._id}
+                          key={deliveryM._id}
                           type="radio"
                           name="delivery"
-                          label={`${delivery.name} - ${delivery.price} Kč`}
-                          price={delivery.price}
-                          value={delivery._id}
-                          img={delivery.image}
+                          label={`${deliveryM.name} - ${deliveryM.price} Kč`}
+                          price={deliveryM.price}
+                          value={deliveryM._id}
+                          img={deliveryM.image}
+                          checked={deliveryM._id === delivery.id}
                           handleChange={handleChange}
                         />
                       );

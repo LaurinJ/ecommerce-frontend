@@ -29,20 +29,21 @@ function address() {
   });
   const [err, setErr] = useState({});
   const [address, { data, loading, error }] = useMutation(
-    PERSON_ADDRESS_MUTATION
+    PERSON_ADDRESS_MUTATION,
+    {
+      onCompleted: (data) => {
+        console.log("ok");
+        console.log(data.personAdress.token);
+        setCookie("person_token", data.personAdress.token);
+        Router.push(`/checkout/payment`);
+      },
+    }
   );
 
   useEffect(() => {
     const address = getLocalStorage("address");
     address ? setFormValues(address) : null;
-
-    if (data) {
-      console.log("ok");
-      console.log(data.personAdress.token);
-      setCookie("person_token", data.personAdress.token);
-      Router.push(`/checkout/payment`);
-    }
-  }, [data]);
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,9 +53,7 @@ function address() {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      console.log(formValues);
       const errors = validate(formValues);
-      console.log(errors);
       setErr(errors);
       if (Object.keys(errors).length === 0) {
         setLocalStorage("address", formValues);
