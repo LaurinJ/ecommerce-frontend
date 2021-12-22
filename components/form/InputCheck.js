@@ -22,7 +22,7 @@ function InputCheck(props) {
         value={props.value}
         defaultChecked={checked}
         onClick={(e) => {
-          props.handleChange(e, props.price);
+          props.handleChange(e, props.label, props.price);
         }}
       />
       {props.label}

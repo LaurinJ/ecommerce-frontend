@@ -10,7 +10,7 @@ import { PAYMENT_DELIVERY_MUTATION } from "../../queries/Mutation";
 import { getCookie } from "../../actions/auth";
 
 function payment() {
-  const { delivery, addDelivery, paymentId, addPayment } =
+  const { delivery, addDelivery, payment, addPayment } =
     useContext(CartContext);
   const { data } = useQuery(PAYMENT_DELIVERY_METHODS);
   const [payment_delivery] = useMutation(PAYMENT_DELIVERY_MUTATION, {
@@ -20,13 +20,13 @@ function payment() {
   });
   const [err, setErr] = useState("");
 
-  const handleChange = (e, price) => {
+  const handleChange = (e, _name, price) => {
     const { name, value } = e.target;
     if (name === "payment") {
-      addPayment(value);
+      addPayment(value, _name);
     }
     if (name === "delivery") {
-      addDelivery(value, Number(price));
+      addDelivery(value, _name, Number(price));
     }
   };
 
@@ -34,11 +34,11 @@ function payment() {
     try {
       e.preventDefault();
       const token = getCookie("order_token");
-      if (paymentId && delivery.id) {
+      if (payment.id && delivery.id) {
         await payment_delivery({
           variables: {
             payment: {
-              _id: paymentId,
+              _id: payment.id,
             },
             delivery: {
               _id: delivery.id,
@@ -71,16 +71,16 @@ function payment() {
               {/* payment method */}
               <div className="flex flex-col w-full space-y-6">
                 {data
-                  ? data.getPaymentMethod.map((payment) => {
+                  ? data.getPaymentMethod.map((paymentM) => {
                       return (
                         <InputCheck
-                          key={payment._id}
+                          key={paymentM._id}
                           type="radio"
                           name="payment"
-                          label={payment.name}
-                          value={payment._id}
-                          img={payment.image}
-                          checked={payment._id === paymentId}
+                          label={paymentM.name}
+                          value={paymentM._id}
+                          img={paymentM.image}
+                          checked={paymentM._id === payment.id}
                           handleChange={handleChange}
                         />
                       );

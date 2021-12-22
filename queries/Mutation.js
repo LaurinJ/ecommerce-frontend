@@ -46,13 +46,13 @@ export const PAYMENT_DELIVERY_MUTATION = gql`
   }
 `;
 
-export const CREATE_ORDER = gql`
+export const CREATE_ADDRESS_ORDER = gql`
   mutation Mutation(
-    $person: PersonData
+    $token: OrderTokenData
     $address: AddressData
-    $order: OrderData
+    $person: PersonData
   ) {
-    createOrder(person: $person, address: $address, order: $order) {
+    createOrder(token: $token, address: $address, person: $person) {
       token
     }
   }

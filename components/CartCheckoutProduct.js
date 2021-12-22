@@ -8,9 +8,9 @@ function CartCheckoutProduct({ product, i }) {
 
   const countHandle = (count) => {
     if (count < 1) {
-      removeItem(product.id, i);
+      removeItem(product._id, i);
     } else {
-      updateItem(product.id, count, i);
+      updateItem(product._id, count, i);
     }
   };
 
@@ -89,7 +89,7 @@ function CartCheckoutProduct({ product, i }) {
       <div className="sm:ml-40 lg:ml-36">
         <button
           onClick={() => {
-            removeItem(product.id, i);
+            removeItem(product._id, i);
           }}
           className="flex font-normal lg:text-lg text-blue-600"
         >

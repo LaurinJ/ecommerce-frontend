@@ -1,26 +1,40 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useQuery, useMutation } from "@apollo/client";
+import CartContext from "../../context/CartContext";
 import OrderProgressBar from "../../components/OrderProgressBar";
 import CartCheckoutProduct from "../../components/CartCheckoutProduct";
 import { GET_ORDER } from "../../queries/Query";
-import { getCookie } from "../../actions/auth";
+import { getCookie, getLocalStorage } from "../../actions/auth";
 
 function summary() {
-  // const { delivery, paymentId } = useContext(CartContext);
-  const orderToken = getCookie("order_token");
-  const { data, loading } = useQuery(GET_ORDER, {
-    variables: { token: { token: orderToken } },
-  });
-  const product = { price: 123, old_price: 555 };
-  if (data) {
-    const order = { ...data.getOrder };
-    console.log(order);
-  }
-  if (loading) {
-    return <span>loading.....</span>;
-  }
+  const { cart, totalPrice, delivery, payment } = useContext(CartContext);
+  // const orderToken = getCookie("order_token");
+  // const { data, loading } = useQuery(GET_ORDER, {
+  //   variables: { token: { token: orderToken } },
+  // });
+  let address = {
+    email: "",
+    first_name: "",
+    last_name: "",
+    postCode: 0,
+    village: "",
+    street: "",
+    numberDescriptive: 0,
+    phone: 0,
+  };
+  // if (data) {
+  //   const order = { ...data.getOrder };
+  //   console.log(order);
+  // }
+
+  // useEffect(() => {
+  //   let address = getLocalStorage("address");
+  //   let cart = getLocalStorage("cart");
+  //   console.log(cart);
+  // }, []);
+
   return (
     <div className="mx-auto max-w-[900px]">
       <OrderProgressBar state={3} />
@@ -55,13 +69,11 @@ function summary() {
                   </svg>
                 </span>
                 <span className="">
-                  {order.person.person_detail.first_name}{" "}
-                  {order.person.person_detail.last_name}
+                  {address.first_name} {address.last_name}
                   <br />
-                  {order.person.address.street}{" "}
-                  {order.person.address.numberDescriptive}
+                  {address.street} {address.numberDescriptive}
                   <br />
-                  {order.person.address.postCode} {order.person.address.village}
+                  {address.postCode} {address.village}
                   <br />
                   Česká republika
                 </span>
@@ -85,13 +97,11 @@ function summary() {
                   </svg>
                 </span>
                 <span className="">
-                  {order.person.person_detail.first_name}{" "}
-                  {order.person.person_detail.last_name}
+                  {address.first_name} {address.last_name}
                   <br />
-                  {order.person.address.street}{" "}
-                  {order.person.address.numberDescriptive}
+                  {address.street} {address.numberDescriptive}
                   <br />
-                  {order.person.address.postCode} {order.person.address.village}
+                  {address.postCode} {address.village}
                   <br />
                   Česká republika
                 </span>
@@ -114,7 +124,7 @@ function summary() {
                     />
                   </svg>
                 </span>
-                <span className="">{order.order.payment_method.name}</span>
+                <span className="">{payment.name}</span>
                 <span className="flex justify-between xl:text-lg font-semibold mt-4">
                   ZPŮSOB DOPRAVY{" "}
                   <svg
@@ -132,10 +142,7 @@ function summary() {
                     />
                   </svg>
                 </span>
-                <span className="">
-                  {order.order.deliver_method.name} -{" "}
-                  {order.order.deliver_method.price} Kč
-                </span>
+                <span className="">{delivery.name}</span>
               </div>
             </div>
           </div>
@@ -149,8 +156,8 @@ function summary() {
             {/* container products */}
             <div>
               {/* single basket product */}
-              {order.order.items.length ? (
-                order.order.items.map((product, i) => {
+              {cart.length ? (
+                cart.map((product, i) => {
                   return (
                     <CartCheckoutProduct key={i} product={product} i={i} />
                   );
@@ -164,14 +171,14 @@ function summary() {
               <div className="mb-3">
                 <div className="flex justify-between">
                   <div className="mb-3">Mezisoučet</div>
-                  <div>{order.order.total_price} Kč</div>
+                  <div>{totalPrice} Kč</div>
                 </div>
                 <hr className="my-2 text-gray-300" />
               </div>
               <div className="mb-3">
                 <div className="flex justify-between">
                   <div className="mb-3">Přepravní náklady</div>
-                  <div>{order.order.deliver_method.price} Kč</div>
+                  <div>{delivery.price} Kč</div>
                 </div>
                 <hr className="my-2 text-gray-300" />
               </div>
@@ -179,8 +186,7 @@ function summary() {
                 <div className="flex justify-between">
                   <div className="mb-3 font-bold">Celkem</div>
                   <div className="mt-2 text-3xl font-black">
-                    {order.order.total_price + order.order.deliver_method.price}{" "}
-                    Kč
+                    {totalPrice + delivery.price} Kč
                     <div className="text-right pt-2 text-sm font-normal">
                       včetně DPH
                     </div>

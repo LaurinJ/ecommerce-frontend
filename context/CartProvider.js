@@ -12,15 +12,15 @@ function CartProvider({ children }) {
     itemCount: state.itemCount,
     totalPrice: state.totalPrice,
     delivery: state.delivery,
-    paymentId: state.paymentId,
+    payment: state.payment,
     addItem: (product, count) => {
       dispatch({ type: actions.ADD_ITEM, ...product, count });
     },
-    updateItem: (id, count, i) => {
-      dispatch({ type: actions.UPDATE_ITEM, id, count, i });
+    updateItem: (_id, count, i) => {
+      dispatch({ type: actions.UPDATE_ITEM, _id, count, i });
     },
-    removeItem: (id, i) => {
-      dispatch({ type: actions.REMOVE_ITEM, id, i });
+    removeItem: (_id, i) => {
+      dispatch({ type: actions.REMOVE_ITEM, _id, i });
     },
     removeAll: () => {
       dispatch({ type: actions.REMOVE_ITEM });
@@ -28,11 +28,11 @@ function CartProvider({ children }) {
     getLocalCart: () => {
       dispatch({ type: actions.INITIAL_LOCAL_CART });
     },
-    addDelivery: (id, price) => {
-      dispatch({ type: actions.ADD_DELIVERY, id, price });
+    addDelivery: (id, name, price) => {
+      dispatch({ type: actions.ADD_DELIVERY, id, name, price });
     },
-    addPayment: (id) => {
-      dispatch({ type: actions.ADD_PAYMENT, id });
+    addPayment: (id, name) => {
+      dispatch({ type: actions.ADD_PAYMENT, id, name });
     },
   };
 

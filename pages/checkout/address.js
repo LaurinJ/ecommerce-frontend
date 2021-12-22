@@ -2,9 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import Link from "next/link";
 import Router from "next/router";
 import { useMutation } from "@apollo/client";
-import { CREATE_ORDER } from "../../queries/Mutation";
-import CartContext from "../../context/CartContext";
-import { getCookie } from "../../actions/auth";
+import { CREATE_ADDRESS_ORDER } from "../../queries/Mutation";
 import OrderProgressBar from "../../components/OrderProgressBar";
 import InputFieldBold from "../../components/form/InputFieldBold";
 import InputField33 from "../../components/form/InputField33";
@@ -15,18 +13,11 @@ import {
   setLocalStorage,
   getLocalStorage,
   setCookie,
+  getCookie,
 } from "../../actions/auth";
 
 function address() {
-  const {
-    cart,
-    totalPrice,
-    itemCount,
-    delivery,
-    addDelivery,
-    paymentId,
-    addPayment,
-  } = useContext(CartContext);
+  const [token, setToken] = useState("");
   const [formValues, setFormValues] = useState({
     deliver: "",
     email: "",
@@ -39,7 +30,7 @@ function address() {
     phone: 0,
   });
   const [err, setErr] = useState({});
-  const [order, { data, loading, error }] = useMutation(CREATE_ORDER, {
+  const [order, { data, loading, error }] = useMutation(CREATE_ADDRESS_ORDER, {
     onCompleted: (data) => {
       setCookie("order_token", data.createOrder.token);
       Router.push(`/checkout/payment`);
@@ -49,6 +40,8 @@ function address() {
   useEffect(() => {
     const address = getLocalStorage("address");
     address ? setFormValues(address) : null;
+    const token = getCookie("order_token");
+    token ? setToken(token) : null;
   }, []);
 
   const handleChange = (e) => {
@@ -78,11 +71,7 @@ function address() {
               postCode: Number(formValues.postCode),
               numberDescriptive: Number(formValues.numberDescriptive),
             },
-            order: {
-              items: cart,
-              total_price: Number(totalPrice),
-              total_qty: Number(itemCount),
-            },
+            token: { token: token },
           },
         });
       }

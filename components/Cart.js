@@ -28,7 +28,7 @@ function Cart() {
                       viewBox="0 0 20 20"
                       fill="currentColor"
                       onClick={() => {
-                        removeItem(product.id, i);
+                        removeItem(product._id, i);
                       }}
                     >
                       <path
