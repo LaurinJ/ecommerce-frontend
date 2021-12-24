@@ -5,7 +5,7 @@ import Counter from "./form/Counter";
 
 function CartCheckoutProduct({ product, i }) {
   const { removeItem, updateItem } = useContext(CartContext);
-
+  const [a, setA] = useState(false);
   const countHandle = (count) => {
     if (count < 1) {
       removeItem(product._id, i);
@@ -18,7 +18,7 @@ function CartCheckoutProduct({ product, i }) {
     <div>
       <div className="flex flex-wrap justify-between">
         {/* image section */}
-        <div className="w-20 sm:w-[7.5rem] sm:h-[5.6rem] mr-5 mb-5 h-auto">
+        <div className="w-20 relative sm:w-[7.5rem] sm:h-[5.6rem] mr-5 mb-5 h-auto">
           <Image
             src={`${process.env.IMG_LINK}${product.img}`}
             width={140}

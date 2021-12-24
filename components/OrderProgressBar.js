@@ -3,7 +3,7 @@ import React from "react";
 function OrderProgressBar({ state }) {
   return (
     <div className="progressbar mx-auto max-w-xs sm:max-w-xl py-16">
-      <div className="flex justify-between relative">
+      <div className="flex justify-between">
         <div className="flex flex-col items-center h-full">
           <div
             className={`flex justify-center items-center w-6 h-6 sm:w-11 sm:h-11 border-2 rounded-full font-bold ${

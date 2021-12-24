@@ -19,7 +19,6 @@ import {
 function address() {
   const [token, setToken] = useState("");
   const [formValues, setFormValues] = useState({
-    deliver: "",
     email: "",
     first_name: "",
     last_name: "",
@@ -285,7 +284,10 @@ function address() {
                 ZPĚT
               </a>
             </Link>
-            <button className="base_btn_form_primary justify-center">
+            <button
+              type="submit"
+              className="base_btn_form_primary justify-center"
+            >
               POKRAČOVAT K PLATBĚ
             </button>
           </div>

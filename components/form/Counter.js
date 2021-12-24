@@ -5,31 +5,26 @@ function Counter({ count, countHandle }) {
     let value = e.target.value;
     countHandle(value);
   };
-  console.log("render");
+
+  const decrement = (e) => {
+    countHandle(count - 1);
+  };
+  const increment = (e) => {
+    countHandle(count + 1);
+  };
+
   return (
     <div className="h-14 p-[10px] inline-block border border-gray-300 rounded-md text-2xl leading-6">
-      <button
-        className="w-6"
-        onClick={() => {
-          countHandle(count - 1);
-        }}
-      >
+      <button className="w-6" onClick={decrement}>
         -
       </button>
       <input
         className="w-12 text-center"
         type="number"
         value={count}
-        onChange={(e) => {
-          changeHandle(e);
-        }}
+        onChange={changeHandle}
       />
-      <button
-        className="w-6"
-        onClick={() => {
-          countHandle(count + 1);
-        }}
-      >
+      <button className="w-6" onClick={increment}>
         +
       </button>
     </div>
