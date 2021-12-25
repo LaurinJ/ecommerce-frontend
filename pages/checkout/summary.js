@@ -6,18 +6,17 @@ import CartContext from "../../context/CartContext";
 import OrderProgressBar from "../../components/OrderProgressBar";
 import CartCheckoutProduct from "../../components/CartCheckoutProduct";
 import Modal from "../../components/Modal";
-import { GET_ORDER } from "../../queries/Query";
+import { FINISH_ORDER } from "../../queries/Mutation";
 import { getCookie, getLocalStorage } from "../../actions/auth";
-import AddressForm from "../../components/AddressForm";
+import AddressFormModal from "../../components/form/AddressFormModal";
+import PaymentFormModal from "../../components/form/PaymentFormModal";
+import { useNotification } from "../../context/NotificationProvider";
 
 function summary() {
   const { cart, totalPrice, delivery, payment } = useContext(CartContext);
-  const orderToken = getCookie("order_token");
-  // const { data, loading } = useQuery(GET_ORDER, {
-  //   variables: { token: { token: orderToken } },
-  // });
-
-  const [open, setOpen] = useState(false);
+  const dispatch = useNotification();
+  const [addressModal, setAddressModal] = useState(false);
+  const [paymentModal, setPaymentModal] = useState(false);
   const [formValues, setFormValues] = useState({
     email: "",
     first_name: "",
@@ -29,42 +28,66 @@ function summary() {
     phone: 0,
   });
 
-  // if (data) {
-  //   const order = { ...data.getOrder };
-  //   console.log(order);
-  // }
+  const [finishOrder] = useMutation(FINISH_ORDER, {
+    onCompleted: (data) => {
+      // Router.push(`/checkout/summary`);
+      if (data.finishOrder.status === 201) {
+        console.log(data.finishOrder.message);
+      }
+      console.log("sent");
+    },
+  });
 
   useEffect(() => {
     const address = getLocalStorage("address");
     address ? setFormValues(address) : null;
-    let cart = getLocalStorage("cart");
-    console.log(cart);
-    // document.addEventListener("scroll", () => {
-    //   if (window.pageYOffset > 100) {
-    //     toTop.classList.add("active");
-    //   } else {
-    //     toTop.classList.remove("active");
-    //   }
-    // });
-  }, []);
+  }, [addressModal]);
+
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      const token = getCookie("order_token");
+      await finishOrder({
+        variables: {
+          order: {
+            items: cart,
+            total_price: totalPrice,
+          },
+          token: { token: token },
+        },
+      });
+    } catch (error) {
+      console.log(error);
+      // setErr(error.graphQLErrors[0].extensions.errors);
+    }
+  };
 
   return (
     <>
+      <div className="relative z-30 w-full flex justify-center items-center">
+        <span
+          className="fixed top-3 px-10  bg-green-500 border"
+          onClick={() => {
+            dispatch({
+              type: "ERROR",
+              message: "ja jsem test",
+              title: "Successful Request",
+            });
+          }}
+        >
+          afasfas
+        </span>
+      </div>
       <div className="relative z-30">
-        <Modal showModal={open} setShowModal={setOpen}>
-          <AddressForm />
+        <Modal showModal={addressModal} setShowModal={setAddressModal}>
+          <AddressFormModal setShowModal={setAddressModal} />
         </Modal>
       </div>
-      {/* <div className="relative z-30">
-        <Modal showModal={open} setShowModal={setOpen}>
-          <AddressForm />
+      <div className="relative z-30">
+        <Modal showModal={paymentModal} setShowModal={setPaymentModal}>
+          <PaymentFormModal setShowModal={setPaymentModal} />
         </Modal>
       </div>
-      <div className="relative z-30">
-        <Modal showModal={open} setShowModal={setOpen}>
-          <AddressForm />
-        </Modal>
-      </div> */}
       <div className="mx-auto max-w-[900px]">
         <OrderProgressBar state={3} />
 
@@ -84,7 +107,7 @@ function summary() {
                   href="#"
                   className="flex flex-col h-[9.5rem] w-full md:w-[32%] p-4 text-gray-600 border hover:border-primary hover:bg-lg_blue cursor-pointer"
                   onClick={() => {
-                    setOpen(!open);
+                    setAddressModal(!addressModal);
                   }}
                 >
                   <span className="flex justify-between xl:text-lg font-semibold">
@@ -104,7 +127,7 @@ function summary() {
                       />
                     </svg>
                   </span>
-                  <span className="">
+                  <span>
                     {formValues.first_name} {formValues.last_name}
                     <br />
                     {formValues.street} {formValues.numberDescriptive}
@@ -117,6 +140,9 @@ function summary() {
                 <a
                   href="#"
                   className=" flex flex-col h-[9.5rem] w-full md:w-[32%] p-4 text-gray-600 border hover:border-primary hover:bg-lg_blue"
+                  onClick={() => {
+                    setAddressModal(!addressModal);
+                  }}
                 >
                   <span className="flex justify-between xl:text-lg font-semibold">
                     DORUČOVACÍ ADRESA{" "}
@@ -135,7 +161,7 @@ function summary() {
                       />
                     </svg>
                   </span>
-                  <span className="">
+                  <span>
                     {formValues.first_name} {formValues.last_name}
                     <br />
                     {formValues.street} {formValues.numberDescriptive}
@@ -145,7 +171,13 @@ function summary() {
                     Česká republika
                   </span>
                 </a>
-                <div className="flex flex-col h-[9.5rem] w-full md:w-[32%] p-4 text-gray-600 border hover:border-primary hover:bg-lg_blue">
+                <a
+                  href="#"
+                  className="flex flex-col h-[9.5rem] w-full md:w-[32%] p-4 text-gray-600 border hover:border-primary hover:bg-lg_blue"
+                  onClick={() => {
+                    setPaymentModal(!paymentModal);
+                  }}
+                >
                   <span className="flex justify-between xl:text-lg font-semibold">
                     ZPŮSOB PLATBY{" "}
                     <svg
@@ -163,7 +195,7 @@ function summary() {
                       />
                     </svg>
                   </span>
-                  <span className="">{payment.name}</span>
+                  <span>{payment.name}</span>
                   <span className="flex justify-between xl:text-lg font-semibold mt-4">
                     ZPŮSOB DOPRAVY{" "}
                     <svg
@@ -181,8 +213,8 @@ function summary() {
                       />
                     </svg>
                   </span>
-                  <span className="">{delivery.name}</span>
-                </div>
+                  <span>{delivery.name}</span>
+                </a>
               </div>
             </div>
 
@@ -193,7 +225,7 @@ function summary() {
               </h3>
               <hr className="my-8 text-gray-300" />
               {/* container products */}
-              <div className="">
+              <div>
                 {/* single basket product */}
                 {cart.length ? (
                   cart.map((product, i) => {
@@ -237,16 +269,17 @@ function summary() {
 
             {/* button section */}
             <div className="flex flex-col md:flex-row md:justify-end w-full my-8">
-              <Link href="/checkout/address">
+              <Link href="/checkout/payment">
                 <a className="base_btn_form md:mr-4 mb-4 md:mb-0 justify-center">
                   ZPĚT K PLATBĚ
                 </a>
               </Link>
-              <Link href="/checkout/payment">
-                <a className="base_btn_form_primary justify-center">
-                  ODESLAT OBJEDNÁVKU
-                </a>
-              </Link>
+              <button
+                className="base_btn_form_primary justify-center"
+                onClick={handleSubmit}
+              >
+                ODESLAT OBJEDNÁVKU
+              </button>
             </div>
             {/* end form */}
           </div>

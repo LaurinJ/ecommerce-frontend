@@ -5,7 +5,10 @@ import { useMutation } from "@apollo/client";
 import InputField from "../../components/form/InputField";
 import { REGISTER_MUTATION } from "../../queries/Mutation";
 import { authenticate } from "../../actions/auth";
+import { useNotification } from "../../context/NotificationProvider";
+
 function register() {
+  const dispatch = useNotification();
   const [formValues, setFormValues] = useState({
     name: "",
     email: "",
@@ -18,6 +21,11 @@ function register() {
   useEffect(() => {
     if (data) {
       authenticate(data.createUser, () => {
+        dispatch({
+          type: "SUCCESS",
+          message: "Registrace byla úspěšná",
+          title: "Successful Request",
+        });
         Router.push(`/account`);
       });
     }

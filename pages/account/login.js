@@ -5,8 +5,10 @@ import { useMutation } from "@apollo/client";
 import InputField from "../../components/form/InputField";
 import { LOGIN_MUTATION } from "../../queries/Mutation";
 import { authenticate } from "../../actions/auth";
+import { useNotification } from "../../context/NotificationProvider";
 
 function login() {
+  const dispatch = useNotification();
   const [formValues, setFormValues] = useState({ email: "", password: "" });
   const [err, setErr] = useState({});
   const [login, { data, loading, error }] = useMutation(LOGIN_MUTATION);
@@ -16,6 +18,11 @@ function login() {
       console.log("log inn");
       console.log(data);
       authenticate(data.login, () => {
+        dispatch({
+          type: "SUCCESS",
+          message: "Přihlášení bylo úspěšné",
+          title: "Successful Request",
+        });
         Router.push(`/account`);
       });
     }

@@ -15,7 +15,7 @@ function CartCheckoutProduct({ product, i }) {
   };
 
   return (
-    <div>
+    <>
       <div className="flex flex-wrap justify-between">
         {/* image section */}
         <div className="w-20 relative sm:w-[7.5rem] sm:h-[5.6rem] mr-5 mb-5 h-auto">
@@ -111,7 +111,7 @@ function CartCheckoutProduct({ product, i }) {
         </button>
       </div>
       <hr className="mt-8 pb-8 text-gray-300" />
-    </div>
+    </>
   );
 }
 

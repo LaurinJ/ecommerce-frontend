@@ -1,10 +1,8 @@
 import React, { useReducer } from "react";
 import CartContext from "./CartContext";
 import reducer, { actions, initialState } from "../reducer/cartReducer";
-import { getLocalStorage } from "../actions/auth";
 
 function CartProvider({ children }) {
-  const cartState = getLocalStorage("cart");
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const value = {

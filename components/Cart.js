@@ -16,7 +16,7 @@ function Cart() {
       <div className="mb-3 border-b border-gray-300">
         <h4 className="text-md">Total {itemCount} Items</h4>
       </div>
-      <div className="">
+      <div className="max-h-[450px] overflow-y-auto">
         {cart.length != 0
           ? cart.map((product, i) => {
               return (

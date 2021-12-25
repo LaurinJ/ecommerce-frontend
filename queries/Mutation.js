@@ -57,3 +57,12 @@ export const CREATE_ADDRESS_ORDER = gql`
     }
   }
 `;
+
+export const FINISH_ORDER = gql`
+  mutation Mutation($order: OrderData, $token: OrderTokenData) {
+    finishOrder(order: $order, token: $token) {
+      status
+      message
+    }
+  }
+`;

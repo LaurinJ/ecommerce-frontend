@@ -5,6 +5,7 @@ import App from "next/app";
 import Head from "next/head";
 import Layout from "../components/Layout";
 import CartProvider from "../context/CartProvider";
+import NotificationProvider from "../context/NotificationProvider";
 import Link from "next/link";
 // import "../styles/global.css";
 import "../styles/style.css";
@@ -33,9 +34,11 @@ function MyApp({ Component, pageProps }) {
       </Head>
 
       <ApolloProvider client={client}>
-        <CartProvider>
-          <Layout>{getLayout(<Component {...pageProps} />)}</Layout>
-        </CartProvider>
+        <NotificationProvider>
+          <CartProvider>
+            <Layout>{getLayout(<Component {...pageProps} />)}</Layout>
+          </CartProvider>
+        </NotificationProvider>
       </ApolloProvider>
     </React.Fragment>
   );

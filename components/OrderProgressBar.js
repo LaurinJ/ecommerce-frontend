@@ -76,6 +76,7 @@ function OrderProgressBar({ state }) {
             }`}
           >
             PLATBA
+            <br /> A DOPRAVA
           </div>
         </div>
         <div className="flex flex-col  items-center h-full">

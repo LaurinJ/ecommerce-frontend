@@ -3,8 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import Rating from "./Rating";
 import CartContext from "../context/CartContext";
+import { useNotification } from "../context/NotificationProvider";
 
 function ProductCard({ product }) {
+  const dispatch = useNotification();
   console.log("render product");
   const { addItem } = useContext(CartContext);
   let discount = 0;
@@ -73,6 +75,11 @@ function ProductCard({ product }) {
                 className="block h-[45px] px-[10px] leading-[28px] text-sm font-bold text-white items-center justify-center cursor-pointer bg-red-700 border-2 border-transparent rounded-sm"
                 onClick={() => {
                   addItem(product, 1);
+                  dispatch({
+                    type: "SUCCESS",
+                    message: "Produkt byl úspěšně přidán",
+                    title: "Successful Request",
+                  });
                 }}
               >
                 <svg
