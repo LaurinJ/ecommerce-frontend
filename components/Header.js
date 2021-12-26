@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { categories } from "../data/categories";
 import CartHeader from "../components/CartHeader";
+import Search from "../components/Search";
 import Logout from "../components/account/Logout";
 import { isAuth } from "../actions/auth";
 
@@ -69,33 +70,8 @@ function Header() {
           height="70"
           src="https://www.apollos.cz/images/logo_apollos.png"
         ></Image>
+        <Search />
 
-        <div className="hidden lg:flex">
-          <input
-            type="search"
-            className="p-4 rounded-l-md bg-gray-100 w-72"
-            placeholder="Vyhledat..."
-          />
-          <button
-            type="button"
-            className="px-5 rounded-r-md bg-blue-400 focus:outline-none hover:bg-red-700"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-          </button>
-        </div>
         <CartHeader />
       </div>
 

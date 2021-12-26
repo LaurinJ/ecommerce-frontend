@@ -73,3 +73,12 @@ export const GET_ORDER = gql`
     }
   }
 `;
+
+export const SEARCH = gql`
+  query GetFilterProducts($params: FilterData) {
+    getFilterProducts(params: $params) {
+      title
+      slug
+    }
+  }
+`;

@@ -7,6 +7,7 @@ import Rating from "../../components/Rating";
 import ImagesView from "../../components/ImagesView";
 import Counter from "../../components/form/Counter";
 import CartContext from "../../context/CartContext";
+import { useNotification } from "../../context/NotificationProvider";
 
 const QUERY = gql`
   query GetProduct($slug: String!) {
@@ -27,6 +28,7 @@ const QUERY = gql`
 `;
 
 function singleProduct() {
+  const dispatch = useNotification();
   const [count, setCount] = useState(1);
   const router = useRouter();
   const { data, loading, error } = useQuery(QUERY, {
@@ -146,6 +148,11 @@ function singleProduct() {
                   className="max-w-[360px] sm:w-[350px] min-w-i h-auto py-[15px] px-5 text-2xl leading-[1.4rem] font-bold bg-blue-800 text-white"
                   onClick={() => {
                     addCart(count);
+                    dispatch({
+                      type: "SUCCESS",
+                      message: "Produkt byl úspěšně přidán",
+                      title: "Successful Request",
+                    });
                   }}
                 >
                   PŘIDAT DO KOŠÍKU
