@@ -1,7 +1,10 @@
 import React from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
-function Pagination({ page = 1, pages, refetch }) {
+function Pagination({ page = 1, pages }) {
+  const router = useRouter();
+  const query = router.query.q;
   const paginator = (p, ps) => {
     const pagesButton = [];
     for (let i = 1; i <= ps; i++) {
@@ -16,7 +19,10 @@ function Pagination({ page = 1, pages, refetch }) {
         );
       } else {
         pagesButton.push(
-          <Link href={`/products?page=${i}`} key={i}>
+          <Link
+            href={{ pathname: "/products", query: { page: i, q: query } }}
+            key={i}
+          >
             <a
               key={i}
               className="w-[35px] mr-2 leading-8 text-center border inline-block border-gray-300 hover:border-black duration-200 cursor-pointer"
@@ -33,7 +39,10 @@ function Pagination({ page = 1, pages, refetch }) {
   return (
     <div className="mb-7 mx-auto font-bold sm:font-normal">
       {page > 1 ? (
-        <Link href={`/products?page=${page - 1}`} key="40">
+        <Link
+          href={{ pathname: "/products", query: { page: page - 1, q: query } }}
+          key="40"
+        >
           <a
             key="40"
             className="w-[35px] mr-2 leading-8 text-center border inline-block border-gray-300 hover:border-black duration-200 bg-red-700 cursor-pointer"
@@ -46,7 +55,10 @@ function Pagination({ page = 1, pages, refetch }) {
       )}
       {paginator(page, pages)}
       {page < pages ? (
-        <Link href={`/products?page=${page + 1}`} key="41">
+        <Link
+          href={{ pathname: "/products", query: { page: page + 1, q: query } }}
+          key="41"
+        >
           <a
             key="41"
             className="w-[35px] mr-2 leading-8 text-center border inline-block border-gray-300 hover:border-black duration-200 bg-red-700 cursor-pointer"

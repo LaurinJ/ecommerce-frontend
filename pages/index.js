@@ -68,6 +68,7 @@ export async function getServerSideProps() {
   const apolloClient = initializeApollo();
   await apolloClient.query({
     query: QUERY,
+    variables: { limit: 5 },
   });
 
   return {

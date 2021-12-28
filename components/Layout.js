@@ -3,6 +3,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import LeftMenu from "./LeftMenu";
 import BottonMenu from "./BottonMenu";
+import Chat from "./Chat";
 import MenuProvider from "../context/MenuProvider";
 
 const Layout = ({ children }) => {
@@ -15,6 +16,7 @@ const Layout = ({ children }) => {
         <LeftMenu />
       </MenuProvider>
 
+      <Chat />
       {children}
       <Footer />
     </React.Fragment>

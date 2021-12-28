@@ -6,17 +6,17 @@ import ProductCard from "../../components/ProductCard";
 import FilterProducts from "../../components/FilterProducts";
 import MobileFilterProducts from "../../components/MobileFilterProducts";
 import Pagination from "../../components/Pagination";
-
-import { PRODUCTS_QUERY } from "../../queries/Query";
+import { GET_FILTER_PRODUCTS } from "../../queries/Query";
 
 function Products() {
-  console.log("render index");
+  console.log("render product");
   const router = useRouter();
+  const title = router.query.q;
   const page = router.query.page ? Number(router.query.page) : 1;
-  const { data, loading, error } = useQuery(PRODUCTS_QUERY, {
-    variables: { skip: page },
+  const { data, loading, error } = useQuery(GET_FILTER_PRODUCTS, {
+    variables: { skip: page, params: { title: title }, query: title },
   });
-
+  // console.log(data.getCountPages.pages);
   if (loading) {
     return (
       <h2>
@@ -56,6 +56,18 @@ function Products() {
         <FilterProducts />
       </div>
       <div className="flex flex-col lg:w-calc px-[30px] lg:px-0">
+        {!title ? (
+          ""
+        ) : data.getFilterProducts.length ? (
+          <h2 className="mt-2 text-xl font-bold">
+            Vaše hledání „{title}“ odhalilo následující:
+          </h2>
+        ) : (
+          <h2 className="mt-2 text-xl font-bold">
+            Vaše hledání „{title}“ nepřineslo žádné výsledky.
+          </h2>
+        )}
+
         <div className="flex my-3 justify-between sm:mx-5">
           <MobileFilterProducts />
           <div className="ml-auto">
@@ -67,12 +79,16 @@ function Products() {
           </div>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-4 mb-7">
-          {data.getProducts.map((product, i) => {
+          {data.getFilterProducts.map((product, i) => {
             return <ProductCard product={product} key={i} />;
           })}
         </div>
         {/* paginator */}
-        <Pagination page={page} pages={data.getCountPages.pages} />
+        {data.getCountPages.pages > 1 ? (
+          <Pagination page={page} pages={data.getCountPages.pages} />
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
@@ -82,9 +98,11 @@ export async function getServerSideProps({ query }) {
   const page = query.page ? Number(query.page) : 1;
   const apolloClient = initializeApollo();
   await apolloClient.query({
-    query: PRODUCTS_QUERY,
+    query: GET_FILTER_PRODUCTS,
     variables: {
-      skip: Number(page),
+      skip: page,
+      params: { title: query.q },
+      query: query.q,
     },
   });
 

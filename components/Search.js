@@ -26,7 +26,7 @@ function Search() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    Router.push("/products");
+    Router.push(`/products?q=${search}`);
   };
 
   const keyPress = useCallback(
