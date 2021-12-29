@@ -8,7 +8,7 @@ function Chat() {
   };
 
   return (
-    <div className={`fixed bottom-4 right-2 z-30`}>
+    <div className={`fixed bottom-24 lg:bottom-4 right-2 z-30`}>
       <div
         className={`${
           open ? "" : "hidden"

@@ -1,14 +1,14 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Router from "next/router";
-import { useQuery } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
 import { SEARCH } from "../queries/Query";
 
 function Search() {
   const ref = useRef();
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
-  const { data } = useQuery(SEARCH, {
+  const [searchFunc, { data }] = useLazyQuery(SEARCH, {
     fetchPolicy: "no-catch",
     variables: { params: { title: search.trim() } },
   });
@@ -18,6 +18,7 @@ function Search() {
     if (value.length > 2) {
       setOpen(true);
       setSearch(value);
+      searchFunc({ variables: { params: { title: value.trim() } } });
       console.log(value);
     } else {
       setOpen(false);

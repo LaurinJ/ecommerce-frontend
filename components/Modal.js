@@ -36,14 +36,14 @@ const Modal = ({ showModal, setShowModal, children }) => {
   return (
     <>
       {showModal ? (
-        <div className="w-full h-full absolute  z-30 flex justify-center items-center">
+        <div className="w-full h-full absolute z-30 flex justify-center items-center">
           <div
             onClick={closeModal}
             ref={modalRef}
             className="fixed w-full h-full top-0 bg-opacity-70 bg-gray-200 cursor-pointer"
           ></div>
           <animated.div style={animation}>
-            <div className="w-[800px] shadow-lg bg-white rounded-xl pb-1">
+            <div className="max-w-[800px] shadow-lg bg-white rounded-xl pb-1">
               {children}
             </div>
           </animated.div>
