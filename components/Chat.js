@@ -1,11 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLazyQuery } from "@apollo/client";
+import { GET_MESSAGES } from "../queries/Query";
+import { MESSAGES_SUBSCRIPTION } from "../queries/Subscription";
+import MessageForm from "./form/MessageForm";
+import { dateStringFormatter } from "../helpers/dateFormater";
 
 function Chat() {
   const [open, setOpen] = useState(false);
+  const [getMessages, { data: messages, subscribeToMore }] = useLazyQuery(
+    GET_MESSAGES,
+    {
+      variables: { getMessagesId: "user" },
+    }
+  );
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const updateScroll = () => {
+    var element = document.getElementById("chat");
+    element.scrollTop = element.scrollHeight;
   };
+
+  useEffect(() => {
+    getMessages();
+
+    if (messages) {
+      subscribeToMore({
+        document: MESSAGES_SUBSCRIPTION,
+        variables: { getMessagesId: "user" },
+        updateQuery: (prev, { subscriptionData }) => {
+          if (!subscriptionData.data) return prev;
+          const newMessage = subscriptionData.data.shareMessage;
+          console.log("more");
+          setTimeout(updateScroll, 100);
+          return Object.assign({}, prev, {
+            getMessages: {
+              getMessages: [prev.getMessages, newMessage],
+            },
+          });
+        },
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    updateScroll();
+  }, [open]);
 
   return (
     <div className={`fixed bottom-24 lg:bottom-4 right-2 z-30`}>
@@ -21,95 +59,36 @@ function Chat() {
         </div>
         <div className="flex flex-col h-full justify-between overflow-hidden mx-4 my-3">
           {/* chats */}
-          <div className="flex flex-col space-y-3 overflow-auto n_scroll">
-            {/* left comment */}
-            <div className="flex flex-col mr-auto max-w-[220px]">
-              <span className="py-3 px-3 bg-gray-200 rounded-xl">
-                Pokud máte otázky, pošlete nám prosím zprávu přímo. Rádi vám
-                pomůžeme.
-              </span>
-              <div className="mr-auto mb-3 mt-2 text-xs text-gray-400">
-                9:15
-              </div>
-            </div>
-            {/* right comment */}
-            <div className="flex flex-col ml-auto max-w-[220px]">
-              <span className="py-3 px-3 bg-blue-200 rounded-xl">
-                Rozmyslel(a) jsem si to
-              </span>
-              <div className="ml-auto mb-3 mt-2 text-xs text-gray-400">
-                9:15
-              </div>
-            </div>
-            <div className="flex flex-col mr-auto max-w-[220px] ">
-              <span className="py-3 px-3 bg-gray-200 rounded-xl">
-                Pokud máte otázky, pošlete nám prosím zprávu přímo. Rádi vám
-                pomůžeme.
-              </span>
-              <div className="mr-auto mb-3 mt-2 text-xs text-gray-400">
-                9:15
-              </div>
-            </div>
-            <div className="flex flex-col ml-auto max-w-[220px]">
-              <span className="py-3 px-3 bg-blue-200 rounded-xl">
-                Rozmyslel(a) jsem si to sdgsg sg sdg sdgs dgsdg sdgsdgsdg sg s
-              </span>
-              <div className="ml-auto mb-3 mt-2 text-xs text-gray-400">
-                9:15
-              </div>
-            </div>
-            <div className="flex flex-col mr-auto max-w-[220px] ">
-              <span className="py-3 px-3 bg-gray-200 rounded-xl">
-                Pokud máte otázky, pošlete nám prosím zprávu přímo. Rádi vám
-                pomůžeme.
-              </span>
-              <div className="mr-auto mb-3 mt-2 text-xs text-gray-400">
-                9:15
-              </div>
-            </div>
-            <div className="flex flex-col ml-auto max-w-[220px]">
-              <span className="py-3 px-3 bg-blue-200 rounded-xl">
-                Rozmyslel(a) jsem si to sdgsg sg sdg sdgs dgsdg sdgsdgsdg sg s
-              </span>
-              <div className="ml-auto mb-3 mt-2 text-xs text-gray-400">
-                9:15
-              </div>
-            </div>
+          <div
+            className="flex flex-col space-y-3 overflow-auto n_scroll"
+            id="chat"
+          >
+            {messages &&
+              messages.getMessages.map((message, i) => {
+                return message.to !== "admin" ? (
+                  <div key={i} className="flex flex-col mr-auto max-w-[220px]">
+                    <span className="py-3 px-3 max-w-max mr-auto bg-gray-200 rounded-xl">
+                      {message.content}
+                    </span>
+                    <div className="mr-auto mb-3 mt-2 text-xs text-gray-400">
+                      {dateStringFormatter(Number(message.createdAt))}
+                    </div>
+                  </div>
+                ) : (
+                  <div key={i} className="flex flex-col ml-auto max-w-[220px]">
+                    <span className="py-3 px-3 max-w-max ml-auto bg-blue-200 rounded-xl">
+                      {message.content}
+                    </span>
+                    <div className="ml-auto mb-3 mt-2 text-xs text-gray-400">
+                      {dateStringFormatter(Number(message.createdAt))}
+                    </div>
+                  </div>
+                );
+              })}
           </div>
           {/* form */}
           <div className="mt-3">
-            <form
-              className="flex border border-gray-300 rounded-3xl"
-              onSubmit={handleSubmit}
-            >
-              <textarea
-                className="py-3 px-4 flex-grow rounded-l-3xl overflow-hidden outline-none resize-none"
-                placeholder="Pošlete nám zprávu"
-                aria-autocomplete="off"
-                aria-required="true"
-                rows="1"
-                maxLength={10000}
-              ></textarea>
-              <button
-                className="px-4 flex justify-center items-center"
-                type="submit"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-gray-600"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 5l7 7-7 7M5 5l7 7-7 7"
-                  />
-                </svg>
-              </button>
-            </form>
+            <MessageForm />
           </div>
         </div>
       </div>

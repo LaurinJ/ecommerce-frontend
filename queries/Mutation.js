@@ -66,3 +66,11 @@ export const FINISH_ORDER = gql`
     }
   }
 `;
+
+export const SEND_MESSAGE = gql`
+  mutation Mutation($message: MessageData!) {
+    sendMessage(message: $message) {
+      to
+    }
+  }
+`;

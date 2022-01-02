@@ -106,3 +106,14 @@ export const GET_FILTER_PRODUCTS = gql`
     }
   }
 `;
+
+export const GET_MESSAGES = gql`
+  query GetMessages($getMessagesId: String) {
+    getMessages(id: $getMessagesId) {
+      from
+      to
+      content
+      createdAt
+    }
+  }
+`;
