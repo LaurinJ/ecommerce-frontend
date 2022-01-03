@@ -21,23 +21,20 @@ function Chat() {
 
   useEffect(() => {
     getMessages();
-
-    if (messages) {
-      subscribeToMore({
+    if (subscribeToMore) {
+      const updateMessage = subscribeToMore({
         document: MESSAGES_SUBSCRIPTION,
         variables: { getMessagesId: "user" },
         updateQuery: (prev, { subscriptionData }) => {
           if (!subscriptionData.data) return prev;
           const newMessage = subscriptionData.data.shareMessage;
-          console.log("more");
           setTimeout(updateScroll, 100);
           return Object.assign({}, prev, {
-            getMessages: {
-              getMessages: [prev.getMessages, newMessage],
-            },
+            getMessages: [...prev.getMessages, newMessage],
           });
         },
       });
+      return () => updateMessage;
     }
   }, []);
 
