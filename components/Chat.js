@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useLazyQuery } from "@apollo/client";
+import { v4 } from "uuid";
 import { GET_MESSAGES } from "../queries/Query";
 import { MESSAGES_SUBSCRIPTION } from "../queries/Subscription";
 import MessageForm from "./form/MessageForm";
 import { dateStringFormatter } from "../helpers/dateFormater";
+import { setLocalStorage, getLocalStorage } from "../actions/auth";
 
 function Chat() {
   const [open, setOpen] = useState(false);
+  const [chatId, setChatId] = useState("");
   const [getMessages, { data: messages, subscribeToMore }] = useLazyQuery(
     GET_MESSAGES,
     {
-      variables: { getMessagesId: "user" },
+      variables: { getMessagesId: chatId },
     }
   );
 
@@ -20,11 +23,19 @@ function Chat() {
   };
 
   useEffect(() => {
+    let id = getLocalStorage("chatId");
+    if (!id) {
+      let id = v4();
+      setLocalStorage("chatId", id);
+      setChatId(id);
+    } else {
+      setChatId(id);
+    }
     getMessages();
     if (subscribeToMore) {
       const updateMessage = subscribeToMore({
         document: MESSAGES_SUBSCRIPTION,
-        variables: { getMessagesId: "user" },
+        variables: { getMessagesId: id },
         updateQuery: (prev, { subscriptionData }) => {
           if (!subscriptionData.data) return prev;
           const newMessage = subscriptionData.data.shareMessage;
@@ -85,7 +96,7 @@ function Chat() {
           </div>
           {/* form */}
           <div className="mt-3">
-            <MessageForm />
+            <MessageForm user={chatId} />
           </div>
         </div>
       </div>
