@@ -10,3 +10,11 @@ export const MESSAGES_SUBSCRIPTION = gql`
     }
   }
 `;
+
+export const ADMIN_ONLINE_SUBSCRIPTION = gql`
+  subscription AdminOnline {
+    adminOnline {
+      token
+    }
+  }
+`;

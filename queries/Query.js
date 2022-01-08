@@ -117,3 +117,11 @@ export const GET_MESSAGES = gql`
     }
   }
 `;
+
+export const GET_ADMIN_TOKEN = gql`
+  query GetAdminToken {
+    getAdminToken {
+      token
+    }
+  }
+`;
