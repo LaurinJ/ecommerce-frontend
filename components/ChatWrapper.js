@@ -44,7 +44,11 @@ function ChatWrapper() {
           </h2>
         </div>
         {/* <Chat open={open} /> */}
-        {data && data.getAdminToken !== null ? <Chat /> : <ContactForm />}
+        {data && data.getAdminToken !== null ? (
+          <Chat open={open} adminToken={data.getAdminToken.token} />
+        ) : (
+          <ContactForm />
+        )}
       </div>
       <button className="w-16 h-16 ml-auto flex items-center justify-center bg-black rounded-full">
         {!open ? (

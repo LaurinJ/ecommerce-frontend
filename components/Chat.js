@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useLazyQuery } from "@apollo/client";
 import { v4 } from "uuid";
-import { GET_MESSAGES, GET_ADMIN_TOKEN } from "../queries/Query";
+import { GET_MESSAGES } from "../queries/Query";
 import { MESSAGES_SUBSCRIPTION } from "../queries/Subscription";
 import MessageForm from "./form/MessageForm";
 import { dateStringFormatter } from "../helpers/dateFormater";
 import { setLocalStorage, getLocalStorage } from "../actions/auth";
 
-function Chat({ open }) {
-  // const [open, setOpen] = useState(false);
+function Chat({ open, adminToken }) {
   const [chatId, setChatId] = useState("");
   const [getMessages, { data: messages, subscribeToMore }] = useLazyQuery(
     GET_MESSAGES,
@@ -16,8 +15,6 @@ function Chat({ open }) {
       variables: { getMessagesId: chatId },
     }
   );
-  // const [getAdmin, { data: adminToken, subscribeToMore: sub }] =
-  //   useLazyQuery(GET_ADMIN_TOKEN);
 
   const updateScroll = () => {
     var element = document.getElementById("chat");
@@ -33,8 +30,6 @@ function Chat({ open }) {
     } else {
       setChatId(id);
     }
-
-    // getAdmin()
 
     getMessages();
     if (subscribeToMore) {
@@ -64,7 +59,7 @@ function Chat({ open }) {
       <div className="flex flex-col space-y-3 overflow-auto n_scroll" id="chat">
         {messages &&
           messages.getMessages.map((message, i) => {
-            return message.to !== "admin" ? (
+            return message.to !== adminToken ? (
               <div key={i} className="flex flex-col mr-auto max-w-[220px]">
                 <span className="py-3 px-3 max-w-max mr-auto bg-gray-200 rounded-xl">
                   {message.content}
@@ -87,7 +82,7 @@ function Chat({ open }) {
       </div>
       {/* form */}
       <div className="mt-3">
-        <MessageForm user={chatId} />
+        <MessageForm user={chatId} adminToken={adminToken} />
       </div>
     </div>
   );

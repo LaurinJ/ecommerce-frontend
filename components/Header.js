@@ -34,6 +34,11 @@ function Header() {
           <ul className="flex ml-auto my-2 mr-20 ">
             {isAuth() ? (
               <React.Fragment>
+                {isAuth().role && (
+                  <li className="px-2 hover:text-blue-700">
+                    <a href="http://localhost:3001/">Dashboard</a>
+                  </li>
+                )}
                 <li className="px-2 hover:text-blue-700">
                   <Link href="/account/">
                     <a>{isAuth().name}</a>

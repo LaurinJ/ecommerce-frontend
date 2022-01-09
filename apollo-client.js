@@ -15,13 +15,11 @@ let httpLink = new HttpLink({
 const authLink = setContext((_, { headers }) => {
   // // get the authentication token from local storage if it exists
   const token = getCookie("accessToken");
-  const chatId = getLocalStorage("chatId");
   // return the headers to the context so httpLink can read them
   return {
     headers: {
       ...headers,
       authorization: token ? `Bearer ${token}` : "",
-      chatid: chatId ? chatId : "",
     },
   };
 });
