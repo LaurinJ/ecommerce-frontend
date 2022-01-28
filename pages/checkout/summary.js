@@ -7,13 +7,14 @@ import OrderProgressBar from "../../components/OrderProgressBar";
 import CartCheckoutProduct from "../../components/CartCheckoutProduct";
 import Modal from "../../components/Modal";
 import { FINISH_ORDER } from "../../queries/Mutation";
-import { getCookie, getLocalStorage } from "../../actions/auth";
+import { getLocalStorage, removeLocalStorage } from "../../actions/auth";
 import AddressFormModal from "../../components/form/AddressFormModal";
 import PaymentFormModal from "../../components/form/PaymentFormModal";
 import { useNotification } from "../../context/NotificationProvider";
 
 function summary() {
-  const { cart, totalPrice, delivery, payment } = useContext(CartContext);
+  const { cart, totalPrice, delivery, payment, removeAll } =
+    useContext(CartContext);
   const dispatch = useNotification();
   const [addressModal, setAddressModal] = useState(false);
   const [paymentModal, setPaymentModal] = useState(false);
@@ -31,7 +32,13 @@ function summary() {
   const [finishOrder] = useMutation(FINISH_ORDER, {
     onCompleted: (data) => {
       // Router.push(`/checkout/summary`);
+
+      // del all token and cart
+
       if (data.finishOrder.status === 201) {
+        removeAll();
+        removeLocalStorage("order_token");
+        removeLocalStorage("address");
         console.log(data.finishOrder.message);
       }
       console.log("sent");
@@ -46,7 +53,7 @@ function summary() {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      const token = getCookie("order_token");
+      const token = getLocalStorage("order_token");
       await finishOrder({
         variables: {
           order: {

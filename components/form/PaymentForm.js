@@ -6,7 +6,7 @@ import CartContext from "../../context/CartContext";
 import InputCheck from "../form/InputCheck";
 import { PAYMENT_DELIVERY_METHODS } from "../../queries/Query";
 import { PAYMENT_DELIVERY_MUTATION } from "../../queries/Mutation";
-import { getCookie } from "../../actions/auth";
+import { getLocalStorage } from "../../actions/auth";
 
 function PaymentForm() {
   const { delivery, addDelivery, payment, addPayment } =
@@ -32,7 +32,7 @@ function PaymentForm() {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      const token = getCookie("order_token");
+      const token = getLocalStorage("order_token");
       if (payment.id && delivery.id) {
         await payment_delivery({
           variables: {
@@ -66,7 +66,7 @@ function PaymentForm() {
             {/* payment method */}
             <div className="flex flex-col w-full space-y-6">
               {data
-                ? data.getPaymentMethod.map((paymentM) => {
+                ? data.getPaymentMethods.map((paymentM) => {
                     return (
                       <InputCheck
                         key={paymentM._id}
@@ -110,7 +110,7 @@ function PaymentForm() {
             {/* delivery method */}
             <div className="flex flex-col w-full space-y-6">
               {data
-                ? data.getDeliveryMethod.map((deliveryM) => {
+                ? data.getDeliveryMethods.map((deliveryM) => {
                     return (
                       <InputCheck
                         key={deliveryM._id}

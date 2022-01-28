@@ -14,7 +14,7 @@ function Products() {
   const title = router.query.q;
   const page = router.query.page ? Number(router.query.page) : 1;
   const { data, loading, error } = useQuery(GET_FILTER_PRODUCTS, {
-    variables: { skip: page, params: { title: title }, query: title },
+    variables: { skip: page, params: { title: title } },
   });
   // console.log(data.getCountPages.pages);
   if (loading) {
@@ -79,13 +79,13 @@ function Products() {
           </div>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-4 mb-7">
-          {data.getFilterProducts.map((product, i) => {
+          {data.getFilterProducts.products.map((product, i) => {
             return <ProductCard product={product} key={i} />;
           })}
         </div>
         {/* paginator */}
-        {data.getCountPages.pages > 1 ? (
-          <Pagination page={page} pages={data.getCountPages.pages} />
+        {data.getFilterProducts.pages > 1 ? (
+          <Pagination page={page} pages={data.getFilterProducts.pages} />
         ) : (
           ""
         )}
@@ -102,7 +102,6 @@ export async function getServerSideProps({ query }) {
     variables: {
       skip: page,
       params: { title: query.q },
-      query: query.q,
     },
   });
 

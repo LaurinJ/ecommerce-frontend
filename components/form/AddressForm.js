@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import Link from "next/link";
 import Router from "next/router";
 import { useMutation } from "@apollo/client";
-import { CREATE_ADDRESS_ORDER } from "../../queries/Mutation";
+import { CREATE_ORDER } from "../../queries/Mutation";
 import InputFieldBold from "../form/InputFieldBold";
 import InputField33 from "../form/InputField33";
 import InputField65 from "../form/InputField65";
@@ -29,9 +29,9 @@ function AddressForm() {
     phone: 0,
   });
   const [err, setErr] = useState({});
-  const [order, { data, loading, error }] = useMutation(CREATE_ADDRESS_ORDER, {
+  const [order, { data, loading, error }] = useMutation(CREATE_ORDER, {
     onCompleted: (data) => {
-      setCookie("order_token", data.createOrder.token);
+      setLocalStorage("order_token", data.createOrUpdateOrder.token);
       Router.push(`/checkout/payment`);
     },
   });
@@ -39,7 +39,7 @@ function AddressForm() {
   useEffect(() => {
     const address = getLocalStorage("address");
     address ? setFormValues(address) : null;
-    const token = getCookie("order_token");
+    const token = getLocalStorage("order_token");
     token ? setToken(token) : null;
   }, []);
 
@@ -55,7 +55,6 @@ function AddressForm() {
       setErr(errors);
       if (Object.keys(errors).length === 0) {
         setLocalStorage("address", formValues);
-
         await order({
           variables: {
             person: {

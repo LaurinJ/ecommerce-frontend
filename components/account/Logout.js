@@ -5,7 +5,7 @@ import { LOGOUT_MUTATION } from "../../queries/Mutation";
 import { getCookie, logout as logouData } from "../../actions/auth";
 import { useNotification } from "../../context/NotificationProvider";
 
-function logout() {
+function Logout() {
   const dispatch = useNotification();
   const [logout, { data, loading, error }] = useMutation(LOGOUT_MUTATION);
 
@@ -41,4 +41,4 @@ function logout() {
   );
 }
 
-export default logout;
+export default Logout;

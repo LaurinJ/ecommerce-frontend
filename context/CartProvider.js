@@ -21,7 +21,7 @@ function CartProvider({ children }) {
       dispatch({ type: actions.REMOVE_ITEM, _id, i });
     },
     removeAll: () => {
-      dispatch({ type: actions.REMOVE_ITEM });
+      dispatch({ type: actions.REMOVE_ALL });
     },
     getLocalCart: () => {
       dispatch({ type: actions.INITIAL_LOCAL_CART });

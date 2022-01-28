@@ -15,8 +15,6 @@ function login() {
 
   useEffect(() => {
     if (data) {
-      console.log("log inn");
-      console.log(data);
       authenticate(data.login, () => {
         dispatch({
           type: "SUCCESS",

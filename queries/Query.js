@@ -21,12 +21,12 @@ export const PRODUCTS_QUERY = gql`
 
 export const PAYMENT_DELIVERY_METHODS = gql`
   query GetPaymentDeliveryMethod {
-    getPaymentMethod {
+    getPaymentMethods {
       _id
       name
       image
     }
-    getDeliveryMethod {
+    getDeliveryMethods {
       _id
       name
       image
@@ -75,7 +75,7 @@ export const GET_ORDER = gql`
 `;
 
 export const SEARCH = gql`
-  query GetFilterProducts($params: FilterData) {
+  query getFilterProducts($params: FilterData) {
     getFilterProducts(params: $params) {
       title
       slug
@@ -84,12 +84,7 @@ export const SEARCH = gql`
 `;
 
 export const GET_FILTER_PRODUCTS = gql`
-  query GetFilterProducts(
-    $params: FilterData
-    $query: String
-    $skip: Int
-    $limit: Int
-  ) {
+  query getFilterProducts($params: FilterData, $skip: Int, $limit: Int) {
     getFilterProducts(params: $params, skip: $skip, limit: $limit) {
       _id
       title
@@ -100,9 +95,6 @@ export const GET_FILTER_PRODUCTS = gql`
       rating_sum
       rating
       imgurl
-    }
-    getCountPages(query: $query) {
-      pages
     }
   }
 `;

@@ -1,11 +1,5 @@
 import cookie from "js-cookie";
 
-export const logout = async () => {
-  removeCookie("accessToken");
-  removeCookie("refreshToken");
-  removeLocalStorage("user");
-};
-
 // set cookie
 export const setCookie = (key, value) => {
   if (process.browser) {
@@ -17,9 +11,7 @@ export const setCookie = (key, value) => {
 
 export const removeCookie = (key) => {
   if (process.browser) {
-    cookie.remove(key, {
-      expires: 1,
-    });
+    cookie.remove(key);
   }
 };
 // get cookie
@@ -52,6 +44,12 @@ export const authenticate = (data, next) => {
   setCookie("refreshToken", data.refreshToken);
   setLocalStorage("user", data.user);
   next();
+};
+
+export const logout = async () => {
+  removeCookie("accessToken");
+  removeCookie("refreshToken");
+  removeLocalStorage("user");
 };
 
 export const isAuth = () => {

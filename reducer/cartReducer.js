@@ -104,13 +104,15 @@ const reducer = (state, action) => {
       return cart;
     }
     case actions.REMOVE_ALL: {
-      return {
+      const cart = {
         cart: [],
         itemCount: 0,
         totalPrice: 0,
         delivery: { id: "", name: "", price: 0 },
         payment: { id: "", name: "" },
       };
+      setLocalStorage("cart", cart);
+      return cart;
     }
     case actions.INITIAL_LOCAL_CART: {
       const cart = getLocalStorage("cart");
