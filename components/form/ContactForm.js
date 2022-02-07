@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { SEND_MESSAGE } from "../../queries/Mutation";
+import { SEND_CONTACT_MESSAGE } from "../../queries/Mutation";
+import InputFieldBold from "./InputFieldBold";
 
 function ContactForm() {
   const [formValues, setFormValues] = useState({
     email: "",
-    message: "",
+    content: "",
   });
-  const [sendMessage] = useMutation(SEND_MESSAGE, {
+  const [err, setErr] = useState({});
+  const [sendMessage] = useMutation(SEND_CONTACT_MESSAGE, {
     onCompleted: () => {
-      setFormValues({ email: "", message: "" });
+      setFormValues({ email: "", content: "" });
     },
   });
 
@@ -17,17 +19,23 @@ function ContactForm() {
     const { name, value } = e.target;
     console.log(name);
     setFormValues({ ...formValues, [name]: value });
+    setErr({});
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (message.length !== 0) {
-    //   sendMessage({
-    //     variables: {
-    //       message: { content: message, to: "admin", from: user },
-    //     },
-    //   });
-    // }
+    try {
+      if (formValues.content.length !== 0) {
+        await sendMessage({
+          variables: {
+            message: formValues,
+          },
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      setErr(error.graphQLErrors[0].extensions.errors);
+    }
   };
 
   return (
@@ -37,6 +45,16 @@ function ContactForm() {
     >
       <div className="m-3 space-y-2">
         <span>Odpovíme co nejdříve to půjde.</span>
+        <InputFieldBold
+          // required={true}
+          type="email"
+          name="email"
+          label="Email"
+          prompt="Zadejte Email"
+          error={err.email}
+          value={formValues.email}
+          handleChange={handleChange}
+        />
         <input
           type="email"
           className="w-full py-3 px-4 border rounded-md outline-none"
@@ -51,8 +69,8 @@ function ContactForm() {
           aria-autocomplete="off"
           aria-required="true"
           rows="14"
-          name="message"
-          value={formValues?.message}
+          name="content"
+          value={formValues?.content}
           maxLength={10000}
           onChange={handleChange}
         ></textarea>

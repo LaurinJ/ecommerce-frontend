@@ -74,3 +74,15 @@ export const SEND_MESSAGE = gql`
     }
   }
 `;
+
+export const SEND_CONTACT_MESSAGE = gql`
+  mutation SendContactMessage($message: ContactData) {
+    sendContactMessage(message: $message) {
+      email
+      _id
+      content
+      read
+      createdAt
+    }
+  }
+`;

@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import AccountNavbar from "../../components/account/AccountNavbar";
 import { getLayout } from "../../components/account/AccountLayout";
 
 function userdata() {

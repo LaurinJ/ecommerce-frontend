@@ -80,7 +80,6 @@ const reducer = (state, action) => {
         delivery: state.delivery,
         payment: state.payment,
       };
-      // console.log(cart);
       setLocalStorage("cart", cart);
       return cart;
     }
