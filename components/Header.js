@@ -1,13 +1,17 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useQuery } from "@apollo/client";
 import { categories } from "../data/categories";
 import CartHeader from "../components/CartHeader";
 import Search from "../components/Search";
 import Logout from "../components/account/Logout";
 import { isAuth } from "../actions/auth";
+import { GET_CATEGORIES } from "../queries/Query";
 
 function Header() {
+  const { data } = useQuery(GET_CATEGORIES);
+
   return (
     <header className="mx-auto">
       <div className="bg-gray-100 hidden lg:block">
@@ -28,7 +32,9 @@ function Header() {
             </li>
             |
             <li className="px-2 hover:text-blue-700">
-              <a href="#">Kontaktujte nás</a>
+              <Link href="/contact">
+                <a>Kontaktujte nás</a>
+              </Link>
             </li>
           </ul>
           <ul className="flex ml-auto my-2 mr-20 ">
@@ -80,19 +86,25 @@ function Header() {
         <CartHeader />
       </div>
 
-      {/* categorie */}
+      {/* categories */}
       <div className="bg-gray-800 hidden lg:block">
         <nav className="max-w-[1600px] mx-auto text-white">
           <ul className="px-5 font-bold flex flex-wrap lg:px-16 ">
-            {categories.map((cat, i) => {
-              return (
-                <li key={i} className="p-5 hover:bg-blue-500">
-                  <Link href="/products">
-                    <a>{cat}</a>
-                  </Link>
-                </li>
-              );
-            })}
+            {data &&
+              data.getCategories.map((category, i) => {
+                return (
+                  <li key={i} className="p-5 hover:bg-blue-500">
+                    <Link
+                      href={{
+                        pathname: "/products",
+                        query: { category: category.slug },
+                      }}
+                    >
+                      <a>{category.name}</a>
+                    </Link>
+                  </li>
+                );
+              })}
           </ul>
         </nav>
       </div>

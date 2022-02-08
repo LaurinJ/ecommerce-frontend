@@ -11,7 +11,9 @@ import { GET_FILTER_PRODUCTS } from "../../queries/Query";
 function Products() {
   console.log("render product");
   const router = useRouter();
-  const title = router.query.q;
+  const title = router.query.q || "";
+  const category = router.query.category || "";
+  console.log("cat:", category);
   const page = router.query.page ? Number(router.query.page) : 1;
   const { data, loading, error } = useQuery(GET_FILTER_PRODUCTS, {
     variables: { skip: page, params: { title: title } },
@@ -58,7 +60,7 @@ function Products() {
       <div className="flex flex-col lg:w-calc px-[30px] lg:px-0">
         {!title ? (
           ""
-        ) : data.getFilterProducts.length ? (
+        ) : data.getFilterProducts.products.length ? (
           <h2 className="mt-2 text-xl font-bold">
             Vaše hledání „{title}“ odhalilo následující:
           </h2>

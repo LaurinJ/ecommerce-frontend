@@ -77,24 +77,38 @@ export const GET_ORDER = gql`
 export const SEARCH = gql`
   query getFilterProducts($params: FilterData) {
     getFilterProducts(params: $params) {
-      title
-      slug
+      products {
+        title
+        slug
+      }
     }
   }
 `;
 
 export const GET_FILTER_PRODUCTS = gql`
-  query getFilterProducts($params: FilterData, $skip: Int, $limit: Int) {
-    getFilterProducts(params: $params, skip: $skip, limit: $limit) {
-      _id
-      title
+  query GetFilterProducts($params: FilterData, $limit: Int, $skip: Int) {
+    getFilterProducts(params: $params, limit: $limit, skip: $skip) {
+      products {
+        _id
+        title
+        slug
+        short_description
+        price
+        old_price
+        rating
+        rating_sum
+        imgurl
+      }
+      pages
+    }
+  }
+`;
+
+export const GET_CATEGORIES = gql`
+  query GetCategories($limit: Int, $skip: Int) {
+    getCategories(limit: $limit, skip: $skip) {
+      name
       slug
-      short_description
-      price
-      old_price
-      rating_sum
-      rating
-      imgurl
     }
   }
 `;

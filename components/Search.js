@@ -86,8 +86,8 @@ function Search() {
         } absolute top-full w-full border border-t-0 border-gray-400 bg-white z-20`}
       >
         <ul className="pb-2 link h-60 overflow-hidden overflow-y-auto n_scroll">
-          {data && data.getFilterProducts.length ? (
-            data.getFilterProducts.map((product, i) => {
+          {data && data.getFilterProducts.products.length ? (
+            data.getFilterProducts.products.map((product, i) => {
               return (
                 <li key={i} className="link">
                   <Link href={`/products/${product.slug}`}>
