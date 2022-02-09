@@ -1,21 +1,22 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
-import { initializeApollo } from "../../apollo-client";
-import ProductCard from "../../components/ProductCard";
-import FilterProducts from "../../components/FilterProducts";
-import MobileFilterProducts from "../../components/MobileFilterProducts";
-import Pagination from "../../components/Pagination";
-import { GET_FILTER_PRODUCTS } from "../../queries/Query";
+import { initializeApollo } from "../apollo-client";
+import ProductCard from "../components/ProductCard";
+import FilterProducts from "../components/FilterProducts";
+import MobileFilterProducts from "../components/MobileFilterProducts";
+import Pagination from "../components/Pagination";
+import { GET_PRODUCTS_BY_CATEGORY } from "../queries/Query";
 
 function Products() {
   const router = useRouter();
   const title = router.query.q || "";
+  const category = router.query.slug || "";
+  console.log(category);
   const page = router.query.page ? Number(router.query.page) : 1;
-  const { data, loading, error } = useQuery(GET_FILTER_PRODUCTS, {
-    variables: { skip: page, params: { title: title } },
+  const { data, loading, error } = useQuery(GET_PRODUCTS_BY_CATEGORY, {
+    variables: { skip: page, slug: category },
   });
-  // console.log(data.getCountPages.pages);
   if (loading) {
     return (
       <h2>
@@ -57,7 +58,7 @@ function Products() {
       <div className="flex flex-col lg:w-calc px-[30px] lg:px-0">
         {!title ? (
           ""
-        ) : data.getFilterProducts.products.length ? (
+        ) : data.getProductsByCategory.products.length ? (
           <h2 className="mt-2 text-xl font-bold">
             Vaše hledání „{title}“ odhalilo následující:
           </h2>
@@ -78,13 +79,13 @@ function Products() {
           </div>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-4 mb-7">
-          {data.getFilterProducts.products.map((product, i) => {
+          {data.getProductsByCategory.products.map((product, i) => {
             return <ProductCard product={product} key={i} />;
           })}
         </div>
         {/* paginator */}
-        {data.getFilterProducts.pages > 1 ? (
-          <Pagination page={page} pages={data.getFilterProducts.pages} />
+        {data.getProductsByCategory.pages > 1 ? (
+          <Pagination page={page} pages={data.getProductsByCategory.pages} />
         ) : (
           ""
         )}
@@ -97,10 +98,10 @@ export async function getServerSideProps({ query }) {
   const page = query.page ? Number(query.page) : 1;
   const apolloClient = initializeApollo();
   await apolloClient.query({
-    query: GET_FILTER_PRODUCTS,
+    query: GET_PRODUCTS_BY_CATEGORY,
     variables: {
       skip: page,
-      params: { title: query.q },
+      slug: query.slug,
     },
   });
 

@@ -104,6 +104,25 @@ export const GET_FILTER_PRODUCTS = gql`
   }
 `;
 
+export const GET_PRODUCTS_BY_CATEGORY = gql`
+  query GetProductsByCategory($skip: Int, $limit: Int, $slug: String) {
+    getProductsByCategory(skip: $skip, limit: $limit, slug: $slug) {
+      products {
+        _id
+        title
+        slug
+        short_description
+        price
+        old_price
+        rating
+        rating_sum
+        imgurl
+      }
+      pages
+    }
+  }
+`;
+
 export const GET_CATEGORIES = gql`
   query GetCategories($limit: Int, $skip: Int) {
     getCategories(limit: $limit, skip: $skip) {

@@ -28,7 +28,7 @@ function CartHeader() {
           {itemCount} ks - {totalPrice} Kč
         </span>
       </button>
-      <div className="lg-cart w-64 hidden d-block absolute rounded-b-lg z-20 bg-white drop-shadow-2xl">
+      <div className="lg-cart w-72 hidden d-block absolute rounded-b-lg z-20 bg-white drop-shadow-2xl">
         <Cart />
       </div>
     </div>

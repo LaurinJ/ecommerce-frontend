@@ -94,12 +94,7 @@ function Header() {
               data.getCategories.map((category, i) => {
                 return (
                   <li key={i} className="p-5 hover:bg-blue-500">
-                    <Link
-                      href={{
-                        pathname: "/products",
-                        query: { category: category.slug },
-                      }}
-                    >
+                    <Link href={`/${category.slug}`}>
                       <a>{category.name}</a>
                     </Link>
                   </li>
