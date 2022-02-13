@@ -28,7 +28,7 @@ export function InputField(props) {
         {isTextarea ? (
           <textarea
             required={required}
-            className="base_input_form"
+            className={`base_input_form ${props.class ? props.class : ""}`}
             placeholder={props.prompt}
             rows={props.rows}
             minLength={minlength}

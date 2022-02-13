@@ -13,7 +13,7 @@ function Header() {
   const { data } = useQuery(GET_CATEGORIES);
 
   return (
-    <header className="mx-auto">
+    <header className="mx-auto relative">
       <div className="bg-gray-100 hidden lg:block">
         <nav className="flex max-w-[1600px] mx-auto text-xs overflow-hidden">
           <ul className="flex  flex-none ml-20 my-2">
@@ -93,7 +93,7 @@ function Header() {
             {data &&
               data.getCategories.map((category, i) => {
                 return (
-                  <li key={i} className="p-5 hover:bg-blue-500">
+                  <li key={i} className="p-5 hover:bg-gray-500">
                     <Link href={`/${category.slug}`}>
                       <a>{category.name}</a>
                     </Link>
@@ -105,7 +105,7 @@ function Header() {
       </div>
 
       {/* aktualni pozice */}
-      <div className="bg-gray-100 text-gray-500 text-sm shadow-lg">
+      <div className="bg-gray-100 text-gray-500 text-sm shadow-lg z-10">
         <ul className="max-w-[1600px] mx-auto flex py-3 px-[40px] lg:px-[70px]">
           <li className="px-3">
             <svg

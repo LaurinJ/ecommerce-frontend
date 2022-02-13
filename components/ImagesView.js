@@ -16,7 +16,7 @@ function ImagesView({ imgurl, images }) {
       <div className="w-full">
         {/* <ul className="flex space-x-2 h-24 overflow-hidden"> */}
         <ul className="flex gap-3 overflow-x-auto snap-x snap-madatory h-28 ">
-          <li key="50" className="cursor-pointer snap-center">
+          <li key="50" className="cursor-pointer border snap-center">
             <Image
               layout="fixed"
               width="150"
@@ -29,7 +29,7 @@ function ImagesView({ imgurl, images }) {
           </li>
           {images.map((img, i) => {
             return (
-              <li key={i} className="cursor-pointer  snap-center">
+              <li key={i} className="cursor-pointer border snap-center">
                 <Image
                   layout="fixed"
                   width="150"

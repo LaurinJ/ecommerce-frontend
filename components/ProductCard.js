@@ -18,7 +18,7 @@ function ProductCard({ product }) {
   }
 
   return (
-    <div className="-mt-px -mr-px  border border-gray-300 ">
+    <div className="-mt-px -mr-px  border border-gray-300 bg-white">
       <article className="p-[10px]">
         <Link href={`/products/${product.slug}`}>
           <a className="block relative mx-2.5">
@@ -72,7 +72,7 @@ function ProductCard({ product }) {
           <div className="flex mb-1">
             <div className="">
               <button
-                className="block h-[35px] xl px-[10px] leading-[28px] text-sm font-bold text-white items-center justify-center cursor-pointer bg-red-700 border-2 border-transparent rounded-sm hover:bg-red-500"
+                className="block h-[35px] xl px-[10px] leading-[28px] text-sm font-bold text-white items-center justify-center cursor-pointer bg-red-700 border-2 border-transparent rounded-sm hover:bg-red-600"
                 onClick={() => {
                   addItem(product, 1);
                   dispatch({
@@ -93,12 +93,12 @@ function ProductCard({ product }) {
                 Přidat do košíku
               </button>
             </div>
-            <div className="hidden 2xl:block ml-[10px] leading-[28px]">
+            {/* <div className="hidden 2xl:block ml-[10px] leading-[28px]">
               <label className="">
                 <input type="checkbox" className="h-5 w-5 align-middle mr-1" />
                 <span className="text-sm ">Porovnat</span>
               </label>
-            </div>
+            </div> */}
           </div>
         </div>
       </article>

@@ -3,6 +3,7 @@ import Link from "next/link";
 import Router from "next/router";
 import { useLazyQuery } from "@apollo/client";
 import { SEARCH } from "../queries/Query";
+import SearchInputField from "./form/SearchInputField";
 
 function Search() {
   const ref = useRef();
@@ -19,8 +20,8 @@ function Search() {
       setOpen(true);
       setSearch(value);
       searchFunc({ variables: { params: { title: value.trim() } } });
-      console.log(value);
     } else {
+      setSearch(value);
       setOpen(false);
     }
   };
@@ -33,7 +34,9 @@ function Search() {
   const keyPress = useCallback(
     (e) => {
       console.log(e);
-      if (e.target.classList[0] === "search" && open) {
+      console.log(e.target.classList);
+      const listOfClass = [...e.target.classList];
+      if (listOfClass.includes("search") && open) {
         setTimeout(() => {
           setOpen(false);
         }, 200);
@@ -50,11 +53,13 @@ function Search() {
 
   return (
     <form className="hidden relative lg:flex" onSubmit={handleSubmit}>
-      <input
-        type="search"
-        className="search p-4 rounded-l-sm lg:text-lg max-h-14 bg-gray-100 w-96 outline-none border border-gray-400"
-        placeholder="Vyhledat..."
-        onChange={handleChange}
+      <SearchInputField
+        type="text"
+        name="search"
+        prompt="Vyhledat..."
+        class="search p-4 h-full max-h-14 w-96 rounded-r-none text-lg"
+        value={search}
+        handleChange={handleChange}
         onClick={(e) => {
           if (e.target.value.length > 2) {
             setOpen(true);
@@ -63,11 +68,11 @@ function Search() {
       />
       <button
         type="submit"
-        className="px-5 search rounded-r-sm bg-red-700 focus:outline-none hover:bg-red-500"
+        className="base_btn_form_primary px-5 rounded-l-none"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6"
+          className="h-6 w-6 text-white"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -85,7 +90,7 @@ function Search() {
           open ? "block" : "hidden"
         } absolute top-full w-full border border-t-0 border-gray-400 bg-white z-20`}
       >
-        <ul className="pb-2 link h-60 overflow-hidden overflow-y-auto n_scroll">
+        <ul className="pb-2 link max-h-60 overflow-hidden overflow-y-auto n_scroll">
           {data && data.getFilterProducts.products.length ? (
             data.getFilterProducts.products.map((product, i) => {
               return (
@@ -94,12 +99,8 @@ function Search() {
                     <a
                       onClick={() => {
                         setOpen(false);
-                        // setTimeout(() => {
-                        //   setOpen(true);
-                        //   console.log("time");
-                        // }, 10000);
                       }}
-                      className="link block mx-2 lg:py-2 lg:px-4 lg:text-lg hover:text-white hover:bg-primary cursor-pointer"
+                      className="link block mx-2 lg:py-2 lg:px-4 hover:text-white hover:bg-primary cursor-pointer"
                     >
                       {product.title}
                     </a>

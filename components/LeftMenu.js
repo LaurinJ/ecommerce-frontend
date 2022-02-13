@@ -40,7 +40,7 @@ function LeftMenu() {
           context.leftMenu.state ? "left-0" : "-left-80"
         }`}
       >
-        <h5 className="py-3.5 text-white bg-red-600 text-xl text-center font-bold">
+        <h5 className="py-3.5 text-white bg-gray-800 text-xl text-center font-bold">
           {context.leftMenu.type}
           <svg
             onClick={(e) => handleClick(e)}

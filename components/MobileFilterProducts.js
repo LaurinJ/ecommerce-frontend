@@ -6,7 +6,7 @@ function FilterProducts() {
     <div className="lg:hidden">
       <button
         onClick={() => setOpen(!open)}
-        className="w-28 sm:w-36 min-w-full bg-red-600 py-2.5 px-2.5 text-white rounded focus:outline-none"
+        className="w-28 sm:w-36 min-w-full bg-primary py-2.5 px-2.5 text-white rounded focus:outline-none"
       >
         Filter
       </button>

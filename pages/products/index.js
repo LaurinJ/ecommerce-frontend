@@ -50,44 +50,46 @@ function Products() {
   }
 
   return (
-    <div className="flex mx-auto max-w-[1430px] lg:px-[30px]">
-      <div className="pr-[30px] w-[300px] hidden lg:block">
-        <FilterProducts />
-      </div>
-      <div className="flex flex-col lg:w-calc px-[30px] lg:px-0">
-        {!title ? (
-          ""
-        ) : data.getFilterProducts.products.length ? (
-          <h2 className="mt-2 text-xl font-bold">
-            Vaše hledání „{title}“ odhalilo následující:
-          </h2>
-        ) : (
-          <h2 className="mt-2 text-xl font-bold">
-            Vaše hledání „{title}“ nepřineslo žádné výsledky.
-          </h2>
-        )}
+    <div className="bg-blue-50">
+      <div className="flex mx-auto max-w-[1430px] lg:px-[30px]">
+        <div className="pr-[30px] w-[300px] hidden lg:block">
+          <FilterProducts />
+        </div>
+        <div className="flex flex-col lg:w-calc px-[30px] lg:px-0">
+          {!title ? (
+            ""
+          ) : data.getFilterProducts.products.length ? (
+            <h2 className="mt-2 text-xl font-bold">
+              Vaše hledání „{title}“ odhalilo následující:
+            </h2>
+          ) : (
+            <h2 className="mt-2 text-xl font-bold">
+              Vaše hledání „{title}“ nepřineslo žádné výsledky.
+            </h2>
+          )}
 
-        <div className="flex my-3 justify-between sm:mx-5">
-          <MobileFilterProducts />
-          <div className="ml-auto">
-            <select className="pl-5 pr-5 md:pr-10 h-full lg:h-10 leading-10 bg-white border-2">
-              <option value="">Default sorting</option>
-              <option value="">Price low-high</option>
-              <option value="">Price high-low</option>
-            </select>
+          <div className="flex my-3 justify-between sm:mx-5">
+            <MobileFilterProducts />
+            <div className="ml-auto">
+              <select className="pl-5 pr-5 md:pr-10 h-full lg:h-10 leading-10 bg-white border-2">
+                <option value="">Default sorting</option>
+                <option value="">Price low-high</option>
+                <option value="">Price high-low</option>
+              </select>
+            </div>
           </div>
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-4 mb-7">
+            {data.getFilterProducts.products.map((product, i) => {
+              return <ProductCard product={product} key={i} />;
+            })}
+          </div>
+          {/* paginator */}
+          {data.getFilterProducts.pages > 1 ? (
+            <Pagination page={page} pages={data.getFilterProducts.pages} />
+          ) : (
+            ""
+          )}
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-4 mb-7">
-          {data.getFilterProducts.products.map((product, i) => {
-            return <ProductCard product={product} key={i} />;
-          })}
-        </div>
-        {/* paginator */}
-        {data.getFilterProducts.pages > 1 ? (
-          <Pagination page={page} pages={data.getFilterProducts.pages} />
-        ) : (
-          ""
-        )}
       </div>
     </div>
   );

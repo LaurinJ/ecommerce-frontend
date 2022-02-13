@@ -40,13 +40,13 @@ function ContactForm() {
 
   return (
     <form
-      className="flex flex-col m-3 rounded-md shadow-md bg-white justify-center items-center"
+      className="flex flex-col m-3 bg-white justify-center items-center"
       onSubmit={handleSubmit}
     >
-      <div className="m-3 space-y-2">
+      <div className="m-3 w-full md:max-w-[500px] space-y-2">
         <span>Odpovíme co nejdříve to půjde.</span>
         <InputFieldBold
-          // required={true}
+          required={true}
           type="email"
           name="email"
           label="Email"
@@ -55,33 +55,26 @@ function ContactForm() {
           value={formValues.email}
           handleChange={handleChange}
         />
-        <input
-          type="email"
-          className="w-full py-3 px-4 border rounded-md outline-none"
-          placeholder="Email"
-          name="email"
-          value={formValues?.email}
-          onChange={handleChange}
-        />
-        <textarea
-          className="w-full py-3 px-4 border rounded-md overflow-y-auto outline-none resize-none"
-          placeholder="Pošlete nám zprávu"
-          aria-autocomplete="off"
-          aria-required="true"
-          rows="14"
+        <InputFieldBold
+          required={true}
+          type="textarea"
           name="content"
-          value={formValues?.content}
-          maxLength={10000}
-          onChange={handleChange}
-        ></textarea>
+          label="Zpráva"
+          prompt="Pošlete nám zprávu"
+          rows="11"
+          class="w-full h-full py-3 px-4 overflow-y-auto  resize-none"
+          error={err.content}
+          value={formValues.content}
+          handleChange={handleChange}
+        />
         <button
-          className="px-4 py-1 mx-auto space-x-1 flex justify-center items-center bg-red-400 hover:bg-red-300 rounded-sm"
+          className="base_btn_form_primary flex mx-auto items-center"
           type="submit"
         >
-          <span>Odeslat</span>
+          ODESLAT
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-4 w-4 text-black"
+            className="h-4 w-4 text-white ml-2"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"

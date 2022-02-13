@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 function FilterProducts() {
   return (
-    <div className="relative">
+    <div className=" bg-gray-100">
       <div className="shadow-2xl">
         <aside className="w-full lg:pt-1 -mt-9 lg:mt-0">
           {/* <h3 className="py-3 px-5 bg-blue-500 text-white font-bold">Filtr</h3> */}
