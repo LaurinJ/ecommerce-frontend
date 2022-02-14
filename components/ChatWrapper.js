@@ -43,7 +43,6 @@ function ChatWrapper() {
             BigBuy.cz
           </h2>
         </div>
-        {/* <Chat open={open} /> */}
         {data && data.getAdminToken !== null ? (
           <Chat open={open} adminToken={data.getAdminToken.token} />
         ) : (
@@ -54,7 +53,7 @@ function ChatWrapper() {
         {!open ? (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-12 w-12 text-white hover:h-14 hover:w-14 cursor-pointer"
+            className="h-12 w-12 text-white cursor-pointer"
             viewBox="0 0 20 20"
             fill="currentColor"
             onClick={() => {
@@ -70,7 +69,7 @@ function ChatWrapper() {
         ) : (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-10 w-10 text-white hover:h-12 hover:w-12 cursor-pointer"
+            className="h-10 w-10 text-white cursor-pointer"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"

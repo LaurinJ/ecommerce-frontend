@@ -1,13 +1,15 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
+import { useQuery } from "@apollo/client";
 import MenuContext from "../context/MenuContext";
 import LinksLeftMenu from "./LinksLeftMenu";
 import Cart from "./Cart";
 import { links } from "../data/links";
-import { categories } from "../data/categories";
-import { cart } from "../data/cart";
+import { GET_CATEGORIES } from "../queries/Query";
 
 function LeftMenu() {
   const context = useContext(MenuContext);
+
+  const { data } = useQuery(GET_CATEGORIES);
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -56,14 +58,18 @@ function LeftMenu() {
             />
           </svg>
         </h5>
-
-        {context.leftMenu.type === "Menu" ? (
-          <LinksLeftMenu links={links} />
-        ) : context.leftMenu.type === "Kategorie" ? (
-          <LinksLeftMenu links={categories} />
-        ) : (
-          <Cart cart={cart} />
-        )}
+        {(() => {
+          switch (context.leftMenu.type) {
+            case "Menu":
+              return <LinksLeftMenu links={links} />;
+            case "Kategorie":
+              return <LinksLeftMenu links={data && data.getCategories} />;
+            case "Košík":
+              return <Cart />;
+            default:
+              return null;
+          }
+        })()}
       </div>
     </div>
   );

@@ -24,6 +24,9 @@ module.exports = {
     //   },
     // },
     extend: {
+      height: {
+        calc: "calc(100% - 129px)",
+      },
       backgroundColor: {
         primary: "#0050aa",
         lg_blue: "#f5f8fc",

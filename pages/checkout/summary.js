@@ -85,12 +85,12 @@ function summary() {
           afasfas
         </span>
       </div>
-      <div className="relative z-30">
+      <div className="absolute top-3/4 w-full z-30">
         <Modal showModal={addressModal} setShowModal={setAddressModal}>
           <AddressFormModal setShowModal={setAddressModal} />
         </Modal>
       </div>
-      <div className="relative z-30">
+      <div className="absolute top-2/4 w-full z-30">
         <Modal showModal={paymentModal} setShowModal={setPaymentModal}>
           <PaymentFormModal setShowModal={setPaymentModal} />
         </Modal>

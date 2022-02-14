@@ -109,7 +109,7 @@ function PaymentForm({ setShowModal }) {
           </div>
         </div>
         {/* button section */}
-        <div className="flex flex-col md:flex-row md:justify-end w-full my-8 pr-3">
+        <div className="flex flex-col md:flex-row md:justify-between w-full px-3 py-5">
           <button
             className="base_btn_form md:mr-4 mb-4 md:mb-0 justify-center"
             onClick={(e) => {

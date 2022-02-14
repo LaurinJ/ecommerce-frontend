@@ -12,11 +12,11 @@ function Cart() {
   }, []);
 
   return (
-    <div className="flex flex-col p-4">
+    <div className="flex flex-col p-4 h-calc">
       <div className="mb-3 border-b border-gray-300">
-        <h4 className="text-md">Total {itemCount} Items</h4>
+        <h4 className="text-md">Počet produktů: {itemCount}</h4>
       </div>
-      <div className="max-h-[450px] n_scroll overflow-y-auto">
+      <div className="max-h-[550px] n_scroll overflow-y-auto">
         {cart.length != 0
           ? cart.map((product, i) => {
               return (
@@ -54,24 +54,21 @@ function Cart() {
             })
           : "Tvůj košík je prázdný"}
       </div>
-      <div className="mt-auto">
-        <div className="flex justify-between border-t mt-4 pt-4">
-          <h4>Součet:</h4>
-          <h4>{totalPrice} Kč</h4>
-        </div>
-        <div className="flex justify-around mt-4">
-          <a
-            href="#"
-            className="w-1/2 py-1.5 px-2 duration-300 text-center bg-red-600 border border-red-600 rounded-sm text-white font-bold hover:bg-white hover:text-red-600"
-          >
+      <div className="mt-auto flex justify-between border-t pt-4">
+        <h4>Součet:</h4>
+        <h4>{totalPrice} Kč</h4>
+      </div>
+      <div className="flex justify-around mt-4">
+        <Link href="/checkout/cart">
+          <a className="w-1/2 py-1.5 px-2 duration-300 text-center bg-red-600 border border-red-600 rounded-sm text-white font-bold hover:bg-white hover:text-red-600">
             Zobrazit košík
           </a>
-          <Link href="/checkout/cart">
-            <a className="w-1/2 ml-4 py-1.5 px-2 lg:py-4 duration-300 text-center bg-white border border-red-600 rounded-sm text-red-600 font-bold hover:bg-red-600 hover:text-white">
-              Dokončit
-            </a>
-          </Link>
-        </div>
+        </Link>
+        <Link href="/checkout/address">
+          <a className="w-1/2 ml-4 py-1.5 px-2 lg:py-4 duration-300 text-center bg-white border border-red-600 rounded-sm text-red-600 font-bold hover:bg-red-600 hover:text-white">
+            Dokončit
+          </a>
+        </Link>
       </div>
     </div>
   );

@@ -43,7 +43,7 @@ const Modal = ({ showModal, setShowModal, children }) => {
             className="fixed w-full h-full top-0 bg-opacity-70 bg-gray-200 cursor-pointer"
           ></div>
           <animated.div style={animation}>
-            <div className="max-w-[800px] shadow-lg bg-white rounded-xl pb-1">
+            <div className="max-w-[800px] shadow-lg bg-white rounded-xl">
               {children}
             </div>
           </animated.div>

@@ -79,7 +79,7 @@ function AddressFormModal({ setShowModal }) {
   };
 
   return (
-    <div className="w-full mt-[800px] lg:mt-96">
+    <div className=" max-w-[500px]">
       <form onSubmit={handleSubmit}>
         <div className="p-4 shadow-md">
           <h3 className="my-7 leading-5 font-bold lg:text-2xl">
@@ -214,7 +214,7 @@ function AddressFormModal({ setShowModal }) {
           />
         </div>
         {/* button section */}
-        <div className="flex flex-col md:flex-row md:justify-end w-full my-8 md:pr-3">
+        <div className="flex flex-col md:flex-row md:justify-between w-full py-3 md:pr-3">
           <button
             className="base_btn_form mx-4 mb-4 md:mb-0 justify-center"
             onClick={(e) => {
