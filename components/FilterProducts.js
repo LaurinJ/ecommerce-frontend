@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PriceRangeInput from "./form/PriceRangeInput";
 
 function FilterProducts() {
   return (
@@ -6,122 +7,9 @@ function FilterProducts() {
       <div className="shadow-2xl">
         <aside className="w-full lg:pt-1 -mt-9 lg:mt-0">
           {/* <h3 className="py-3 px-5 bg-blue-500 text-white font-bold">Filtr</h3> */}
-          <div className="mx-4 my-4">
-            <h5 className="ml-1 font-bold text-xl">Typ</h5>
-            <ul className="py-2">
-              <li className="flex py-1 px-1 hover:bg-red-600">
-                <label className="flex-grow cursor-pointer">
-                  <input type="checkbox" />
-                  <span className="pl-1">Akce</span>
-                </label>
-                <span className="text-gray-500">23</span>
-              </li>
-              <li className="flex py-1 px-1 hover:bg-green-600">
-                <label className="flex-grow cursor-pointer">
-                  <input type="checkbox" />
-                  <span className="pl-1">Herní novinky</span>
-                </label>
-                <span>64</span>
-              </li>
-              <li className="flex py-1 px-1 hover:bg-green-600">
-                <label className="flex-grow cursor-pointer">
-                  <input type="checkbox" />
-                  <span className="pl-1">Předběžný přístup</span>
-                </label>
-                <span>13</span>
-              </li>
-              <li className="flex py-1 px-1 hover:bg-green-600">
-                <label className="flex-grow cursor-pointer">
-                  <input type="checkbox" />
-                  <span className="pl-1">Předpacená karta</span>
-                </label>
-                <span>235</span>
-              </li>
-              <li className="flex py-1 px-1 hover:bg-green-600">
-                <label className="flex-grow cursor-pointer">
-                  <input type="checkbox" />
-                  <span className="pl-1">Předobjednávky</span>
-                </label>
-                <span>24</span>
-              </li>
-              <li className="flex py-1 px-1 hover:bg-green-600">
-                <label className="flex-grow cursor-pointer">
-                  <input type="checkbox" />
-                  <span className="pl-1">Herní balíčky</span>
-                </label>
-                <span>134</span>
-              </li>
-              <li className="flex py-1 px-1 hover:bg-green-600">
-                <label className="flex-grow cursor-pointer">
-                  <input type="checkbox" />
-                  <span className="pl-1">Skladem</span>
-                </label>
-                <span>5183</span>
-              </li>
-            </ul>
-          </div>
-          <hr />
-          <div className="mx-4 my-4">
-            <h5 className="ml-1 text-xl font-bold">Žánr</h5>
-            <ul className="py-2">
-              <li className="flex py-1 px-1 hover:bg-green-600">
-                <label className="flex-grow cursor-pointer">
-                  <input type="checkbox" />
-                  <span className="pl-1">Adventury</span>
-                </label>
-                <span>231</span>
-              </li>
-              <li className="flex py-1 px-1 hover:bg-green-600">
-                <label className="flex-grow cursor-pointer">
-                  <input type="checkbox" />
-                  <span className="pl-1">Akční</span>
-                </label>
-                <span>64</span>
-              </li>
-              <li className="flex py-1 px-1 hover:bg-green-600">
-                <label className="flex-grow cursor-pointer">
-                  <input type="checkbox" />
-                  <span className="pl-1">Arkádové</span>
-                </label>
-                <span>85</span>
-              </li>
-              <li className="flex py-1 px-1 hover:bg-green-600">
-                <label className="flex-grow cursor-pointer">
-                  <input type="checkbox" />
-                  <span className="pl-1">Bojové</span>
-                </label>
-                <span>654</span>
-              </li>
-              <li className="flex py-1 px-1 hover:bg-green-600">
-                <label className="flex-grow cursor-pointer">
-                  <input type="checkbox" />
-                  <span className="pl-1">Dobrodružné</span>
-                </label>
-                <span>75</span>
-              </li>
-              <li className="flex py-1 px-1 hover:bg-green-600">
-                <label className="flex-grow cursor-pointer">
-                  <input type="checkbox" />
-                  <span className="pl-1">FPS</span>
-                </label>
-                <span>11</span>
-              </li>
-              <li className="flex py-1 px-1 hover:bg-green-600">
-                <label className="flex-grow cursor-pointer">
-                  <input type="checkbox" />
-                  <span className="pl-1">Karetní</span>
-                </label>
-                <span>354</span>
-              </li>
-              <li className="flex py-1 px-1 hover:bg-green-600">
-                <label className="flex-grow cursor-pointer">
-                  <input type="checkbox" />
-                  <span className="pl-1">Logické</span>
-                </label>
-                <span className="">21</span>
-              </li>
-            </ul>
-          </div>
+          {/* <div className="mx-4 my-4"> */}
+          <PriceRangeInput />
+          {/* </div> */}
           <hr />
           <div className="mx-4 my-4">
             <h5 className="ml-1 text-xl font-bold">Cena</h5>

@@ -40,7 +40,7 @@ const Modal = ({ showModal, setShowModal, children }) => {
           <div
             onClick={closeModal}
             ref={modalRef}
-            className="fixed w-full h-full top-0 bg-opacity-70 bg-gray-200 cursor-pointer"
+            className="fixed w-full h-full top-0 bg-opacity-70 bg-gray-100 cursor-pointer"
           ></div>
           <animated.div style={animation}>
             <div className="max-w-[800px] shadow-lg bg-white rounded-xl">

@@ -6,7 +6,7 @@ import SearchModal from "./SearchModal";
 
 function BottonMenu() {
   const context = useContext(MenuContext);
-  const [searchModal, setSearchModal] = useState(true);
+  const [searchModal, setSearchModal] = useState(false);
   const { itemCount } = useContext(CartContext);
 
   const handleClick = (name) => {

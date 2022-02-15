@@ -8,21 +8,39 @@
   @apply font-body12;
 } */
 
-input[type="range"]::-webkit-slider-thumb {
-  pointer-events: all;
-  width: 24px;
-  height: 24px;
-  -webkit-appearance: none;
-  /* @apply w-6 h-6 appearance-none pointer-events-auto; */
+/* price range input */
+.range-input {
+  position: relative;
 }
 
+.range-input input {
+  background: none;
+  -webkit-appearance: none;
+  pointer-events: none;
+  @apply absolute -top-2 h-2 w-full;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  width: 17px;
+  height: 17px;
+  pointer-events: auto;
+  -webkit-appearance: none;
+  @apply rounded-full bg-primary;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 17px;
+  height: 17px;
+  border: none;
+  pointer-events: auto;
+  -moz-appearance: none;
+  @apply rounded-full bg-primary;
+}
+
+/* search */
 .search:focus ~ .search_result {
   display: block;
 }
-
-/* .search_result {
-  display: none;
-} */
 
 .n_scroll::-webkit-scrollbar {
   display: none;

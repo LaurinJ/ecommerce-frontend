@@ -105,7 +105,7 @@ function Header() {
       </div>
 
       {/* aktualni pozice */}
-      <div className="bg-gray-100 text-gray-500 text-sm shadow-lg z-10">
+      <div className="relative bg-gray-100 text-gray-500 text-sm shadow-lg z-10">
         <ul className="max-w-[1600px] mx-auto flex py-3 px-[40px] lg:px-[70px]">
           <li className="px-3">
             <svg

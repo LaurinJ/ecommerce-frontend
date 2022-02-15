@@ -11,8 +11,7 @@ function LeftMenu() {
 
   const { data } = useQuery(GET_CATEGORIES);
 
-  const handleClick = (e) => {
-    e.preventDefault();
+  const handleClick = () => {
     context.setMenu((prevState) => ({
       ...prevState,
       state: !context.leftMenu.state,
@@ -45,7 +44,7 @@ function LeftMenu() {
         <h5 className="py-3.5 text-white bg-gray-800 text-xl text-center font-bold">
           {context.leftMenu.type}
           <svg
-            onClick={(e) => handleClick(e)}
+            onClick={handleClick}
             xmlns="http://www.w3.org/2000/svg"
             className="absolute top-4 right-3.5 h-6 w-6 text-white cursor-pointer"
             viewBox="0 0 20 20"

@@ -11,7 +11,8 @@ function ImagesView({ imgurl, images }) {
   return (
     <div className="flex flex-col w-full">
       <div className="w-full block">
-        <Image width="6600" height="5000" src={img} />
+        <Image width="663" height="583" src={img} />
+        {/* <Image width="6600" height="5800" src={img} /> */}
       </div>
       <div className="w-full">
         {/* <ul className="flex space-x-2 h-24 overflow-hidden"> */}
@@ -20,7 +21,7 @@ function ImagesView({ imgurl, images }) {
             <Image
               layout="fixed"
               width="150"
-              height="90"
+              height="110"
               src={`${process.env.IMG_LINK}${imgurl}`}
               onClick={() => {
                 changeImg(`${process.env.IMG_LINK}${imgurl}`);
@@ -33,7 +34,7 @@ function ImagesView({ imgurl, images }) {
                 <Image
                   layout="fixed"
                   width="150"
-                  height="90"
+                  height="110"
                   src={`${process.env.IMG_LINK}${img}`}
                   onClick={() => {
                     changeImg(`${process.env.IMG_LINK}${img}`);
