@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import { useQuery } from "@apollo/client";
+import { useQuery, useLazyQuery } from "@apollo/client";
 import { initializeApollo } from "../apollo-client";
 import ProductCard from "../components/ProductCard";
 import FilterProducts from "../components/FilterProducts";
@@ -14,9 +14,17 @@ function Products() {
   const category = router.query.slug || "";
   console.log(category);
   const page = router.query.page ? Number(router.query.page) : 1;
-  const { data, loading, error } = useQuery(GET_PRODUCTS_BY_CATEGORY, {
-    variables: { skip: page, slug: category },
-  });
+  const [search, { data, loading, error }] = useLazyQuery(
+    GET_PRODUCTS_BY_CATEGORY,
+    {
+      variables: { skip: page, slug: category },
+    }
+  );
+
+  useEffect(() => {
+    search();
+  }, []);
+
   if (loading) {
     return (
       <h2>
@@ -79,12 +87,13 @@ function Products() {
           </div>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-4 mb-7">
-          {data.getProductsByCategory.products.map((product, i) => {
-            return <ProductCard product={product} key={i} />;
-          })}
+          {data &&
+            data.getProductsByCategory.products.map((product, i) => {
+              return <ProductCard product={product} key={i} />;
+            })}
         </div>
         {/* paginator */}
-        {data.getProductsByCategory.pages > 1 ? (
+        {data && data.getProductsByCategory.pages > 1 ? (
           <Pagination page={page} pages={data.getProductsByCategory.pages} />
         ) : (
           ""

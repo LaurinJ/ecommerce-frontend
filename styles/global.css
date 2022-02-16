@@ -17,7 +17,7 @@
   background: none;
   -webkit-appearance: none;
   pointer-events: none;
-  @apply absolute -top-2 h-2 w-full;
+  @apply absolute -top-2 h-2 w-full cursor-pointer;
 }
 
 input[type="range"]::-webkit-slider-thumb {

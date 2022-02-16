@@ -4,6 +4,44 @@ function PriceRangeInput() {
   const [min, setMin] = useState(1000);
   const [max, setMax] = useState(7000);
 
+  const priceGap = 1000;
+
+  const handlePriceMin = (e) => {
+    const { value } = e.target;
+    if (!(max - value < priceGap)) {
+      setMin(value);
+    }
+  };
+
+  const handlePriceMax = (e) => {
+    const { value } = e.target;
+    if (!(value - min < priceGap)) {
+      setMax(value);
+    }
+  };
+
+  const handlePriceMinField = (e) => {
+    const { value } = e.target;
+    if (max - value < priceGap) {
+      setMin(max - priceGap);
+    } else if (value < 0) {
+      setMin(0);
+    } else {
+      setMin(value);
+    }
+  };
+
+  const handlePriceMaxField = (e) => {
+    const { value } = e.target;
+    if (value - min < priceGap) {
+      setMax(Number(min) + priceGap);
+    } else if (value > 10000) {
+      setMax(10000);
+    } else {
+      setMax(value);
+    }
+  };
+
   return (
     <div className="mx-4 my-4">
       <h5 className="ml-1 text-xl font-bold">Cena</h5>
@@ -13,9 +51,7 @@ function PriceRangeInput() {
             type="number"
             className="px-3 py-2 mr-1 border border-gray-200 h-full rounded w-20 text-center outline-none"
             value={min}
-            onChange={(e) => {
-              setMin(e.target.value);
-            }}
+            onChange={handlePriceMinField}
           />
           <span>Kč -</span>
         </div>
@@ -24,9 +60,7 @@ function PriceRangeInput() {
             type="number"
             className="px-3 py-2 mr-1 border border-gray-200 h-full rounded w-20 text-center outline-none"
             value={max}
-            onChange={(e) => {
-              setMax(e.target.value);
-            }}
+            onChange={handlePriceMaxField}
           />
           <span>Kč</span>
         </div>
@@ -49,9 +83,7 @@ function PriceRangeInput() {
           max="10000"
           step="100"
           value={min}
-          onChange={(e) => {
-            setMin(e.target.value);
-          }}
+          onChange={handlePriceMin}
         />
         <input
           type="range"
@@ -59,10 +91,7 @@ function PriceRangeInput() {
           max="10000"
           step="100"
           value={max}
-          onChange={(e) => {
-            console.log(e.target.value);
-            setMax(e.target.value);
-          }}
+          onChange={handlePriceMax}
         />
       </div>
     </div>
