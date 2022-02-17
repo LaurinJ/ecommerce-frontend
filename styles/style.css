@@ -936,6 +936,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 7rem;
 }
 
+.h-20 {
+  height: 5rem;
+}
+
 .h-9 {
   height: 2.25rem;
 }
@@ -1136,6 +1140,23 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .transform {
   transform: var(--tw-transform);
+}
+
+@-webkit-keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  -webkit-animation: spin 1s linear infinite;
+          animation: spin 1s linear infinite;
 }
 
 .cursor-pointer {
@@ -1348,6 +1369,18 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-top-width: 1px;
 }
 
+.border-t-2 {
+  border-top-width: 2px;
+}
+
+.border-l-2 {
+  border-left-width: 2px;
+}
+
+.border-b-2 {
+  border-bottom-width: 2px;
+}
+
 .border-t-0 {
   border-top-width: 0px;
 }
@@ -1375,6 +1408,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .border-gray-200 {
   --tw-border-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
+}
+
+.border-green-900 {
+  --tw-border-opacity: 1;
+  border-color: rgb(20 83 45 / var(--tw-border-opacity));
 }
 
 .border-transparent {
@@ -1463,6 +1501,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .bg-transparent {
   background-color: transparent;
+}
+
+.bg-gray-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity));
 }
 
 .bg-green-600 {
@@ -1916,6 +1959,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .opacity-100 {
   opacity: 1;
+}
+
+.opacity-50 {
+  opacity: 0.5;
 }
 
 .shadow-xl {

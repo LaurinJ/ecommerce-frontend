@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function PriceRangeInput() {
+function PriceRangeInput({ setFilterParams }) {
   const [min, setMin] = useState(1000);
   const [max, setMax] = useState(7000);
 
@@ -83,6 +83,12 @@ function PriceRangeInput() {
           max="10000"
           step="100"
           value={min}
+          onMouseLeave={() => {
+            setFilterParams((prevState) => ({
+              ...prevState,
+              min_price: Number(min),
+            }));
+          }}
           onChange={handlePriceMin}
         />
         <input
@@ -91,6 +97,12 @@ function PriceRangeInput() {
           max="10000"
           step="100"
           value={max}
+          onMouseLeave={() => {
+            setFilterParams((prevState) => ({
+              ...prevState,
+              max_price: Number(max),
+            }));
+          }}
           onChange={handlePriceMax}
         />
       </div>

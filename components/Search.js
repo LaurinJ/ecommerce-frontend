@@ -33,8 +33,6 @@ function Search() {
 
   const keyPress = useCallback(
     (e) => {
-      console.log(e);
-      console.log(e.target.classList);
       const listOfClass = [...e.target.classList];
       if (listOfClass.includes("search") && open) {
         setTimeout(() => {

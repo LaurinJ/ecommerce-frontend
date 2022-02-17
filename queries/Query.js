@@ -105,8 +105,18 @@ export const GET_FILTER_PRODUCTS = gql`
 `;
 
 export const GET_PRODUCTS_BY_CATEGORY = gql`
-  query GetProductsByCategory($skip: Int, $limit: Int, $slug: String) {
-    getProductsByCategory(skip: $skip, limit: $limit, slug: $slug) {
+  query GetProductsByCategory(
+    $skip: Int
+    $limit: Int
+    $slug: String
+    $params: FilterData
+  ) {
+    getProductsByCategory(
+      skip: $skip
+      limit: $limit
+      slug: $slug
+      params: $params
+    ) {
       products {
         _id
         title
