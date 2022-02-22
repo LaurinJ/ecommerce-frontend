@@ -23,23 +23,38 @@ function PriceRangeInput({ setFilterParams }) {
   const handlePriceMinField = (e) => {
     const { value } = e.target;
     if (max - value < priceGap) {
-      setMin(max - priceGap);
+      const _min = max - priceGap;
+      setMin(_min);
+      changeFilter("min_price", _min);
     } else if (value < 0) {
       setMin(0);
+      changeFilter("min_price", 0);
     } else {
       setMin(value);
+      changeFilter("min_price", value);
     }
   };
 
   const handlePriceMaxField = (e) => {
     const { value } = e.target;
     if (value - min < priceGap) {
-      setMax(Number(min) + priceGap);
+      const _max = min + priceGap;
+      setMax(_max);
+      changeFilter("max_price", _max);
     } else if (value > 10000) {
       setMax(10000);
+      changeFilter("max_price", 10000);
     } else {
       setMax(value);
+      changeFilter("max_price", value);
     }
+  };
+
+  const changeFilter = (name, number) => {
+    setFilterParams((prevState) => ({
+      ...prevState,
+      [name]: Number(number),
+    }));
   };
 
   return (
@@ -84,10 +99,7 @@ function PriceRangeInput({ setFilterParams }) {
           step="100"
           value={min}
           onMouseLeave={() => {
-            setFilterParams((prevState) => ({
-              ...prevState,
-              min_price: Number(min),
-            }));
+            changeFilter("min_price", min);
           }}
           onChange={handlePriceMin}
         />
@@ -98,10 +110,7 @@ function PriceRangeInput({ setFilterParams }) {
           step="100"
           value={max}
           onMouseLeave={() => {
-            setFilterParams((prevState) => ({
-              ...prevState,
-              max_price: Number(max),
-            }));
+            changeFilter("max_price", max);
           }}
           onChange={handlePriceMax}
         />

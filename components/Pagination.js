@@ -4,8 +4,11 @@ import { useRouter } from "next/router";
 
 function Pagination({ page = 1, pages }) {
   const router = useRouter();
-  const query = router.query.q;
-  const q = query ? { q: query } : {};
+  const query = router.query;
+  const q = {
+    ...query,
+  };
+  delete q.slug;
   const pathname = router.asPath.split("?")[0];
   const paginator = (p, ps) => {
     const pagesButton = [];
@@ -24,7 +27,7 @@ function Pagination({ page = 1, pages }) {
           <Link
             href={{
               pathname: pathname,
-              query: { page: i, ...q },
+              query: { ...q, page: i },
             }}
             key={i}
           >
@@ -45,7 +48,7 @@ function Pagination({ page = 1, pages }) {
     <div className="mb-7 mx-auto font-bold sm:font-normal">
       {page > 1 ? (
         <Link
-          href={{ pathname: pathname, query: { page: page - 1, ...q } }}
+          href={{ pathname: pathname, query: { ...q, page: page - 1 } }}
           key="40"
         >
           <a
@@ -61,7 +64,7 @@ function Pagination({ page = 1, pages }) {
       {paginator(page, pages)}
       {page < pages ? (
         <Link
-          href={{ pathname: pathname, query: { page: page + 1, ...q } }}
+          href={{ pathname: pathname, query: { ...q, page: page + 1 } }}
           key="41"
         >
           <a

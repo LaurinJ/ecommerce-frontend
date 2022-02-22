@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import { useQuery, useLazyQuery } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
 import { initializeApollo } from "../apollo-client";
 import ProductCard from "../components/ProductCard";
 import FilterProducts from "../components/FilterProducts";
@@ -12,19 +12,30 @@ import { GET_PRODUCTS_BY_CATEGORY } from "../queries/Query";
 function Products() {
   const router = useRouter();
   const title = router.query.q || "";
-  const category = router.query.slug || "";
+  const price = router.query
+    ? {
+        min_price: Number(router.query.min_price),
+        max_price: Number(router.query.max_price),
+      }
+    : {};
   const page = router.query.page ? Number(router.query.page) : 1;
   const [getProductsFunc, { data, loading, error }] = useLazyQuery(
     GET_PRODUCTS_BY_CATEGORY,
     {
       notifyOnNetworkStatusChange: true,
-      variables: { skip: page, params: { category: category } },
+      variables: {
+        skip: page,
+        params: {
+          category: router.query.slug || "",
+          ...price,
+        },
+      },
     }
   );
 
   useEffect(() => {
     getProductsFunc();
-  }, [category]);
+  }, [router]);
 
   if (error) {
     console.error(error);
@@ -35,7 +46,7 @@ function Products() {
     <div className="flex mx-auto max-w-[1430px] lg:px-[30px] relative">
       {loading && <Loader />}
       <div className="pr-[30px] w-[300px] hidden lg:block">
-        <FilterProducts getProductsFunc={getProductsFunc} category={category} />
+        <FilterProducts />
       </div>
       <div className="flex flex-col lg:w-calc px-[30px] lg:px-0">
         {!title ? (
@@ -60,6 +71,7 @@ function Products() {
             </select>
           </div>
         </div>
+        {/* products list */}
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-4 mb-7">
           {data &&
             data.getProductsByCategory.products.map((product, i) => {
