@@ -1,37 +1,22 @@
 import React, { useState, useContext } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { initializeApollo } from "../../apollo-client";
 import Rating from "../../components/Rating";
 import ImagesView from "../../components/ImagesView";
 import Counter from "../../components/form/Counter";
 import CartContext from "../../context/CartContext";
 import { useNotification } from "../../context/NotificationProvider";
-
-const QUERY = gql`
-  query GetProduct($slug: String!) {
-    getProduct(slug: $slug) {
-      _id
-      title
-      description
-      short_description
-      code
-      price
-      old_price
-      images
-      imgurl
-      rating
-      rating_sum
-    }
-  }
-`;
+import { GET_PRODUCT } from "../../queries/Query";
+import ReviewView from "../../components/ReviewView";
 
 function singleProduct() {
   const dispatch = useNotification();
   const [count, setCount] = useState(1);
+  const [view, setView] = useState("detail");
   const router = useRouter();
-  const { data, loading, error } = useQuery(QUERY, {
+  const { data, loading, error } = useQuery(GET_PRODUCT, {
     variables: { slug: router.query.slug },
   });
 
@@ -167,18 +152,39 @@ function singleProduct() {
       <div className="mx-auto max-w-[1430px] px-5 mb-10">
         <ul className="flex">
           <li className="pr-[30px] pb-[30px]">
-            <a className="relative -bottom-px pb-[30px] text-gray-600 font-medium hover:text-black cursor-pointer border-b">
+            <span
+              onClick={() => {
+                setView("detail");
+              }}
+              className={`relative -bottom-px pb-[30px] text-gray-600 font-medium hover:text-black cursor-pointer ${
+                view === "detail" ? "border-b border-black text-black" : ""
+              }`}
+            >
               DETAILY O PRODUKTU
-            </a>
+            </span>
           </li>
           <li className="px-[30px] pb-[30px]">
-            <a className="relative -bottom-px pb-[30px] text-gray-600 font-medium hover:text-black cursor-pointer">
+            <span
+              onClick={() => {
+                setView("comment");
+              }}
+              className={`relative -bottom-px pb-[30px] text-gray-600 font-medium hover:text-black cursor-pointer ${
+                view === "comment" ? "border-b border-black text-black" : ""
+              }`}
+            >
               RECENZE
-            </a>
+            </span>
           </li>
         </ul>
         <hr className="text-gray-300" />
-        <div className="pt-5">{product.description}</div>
+        {view === "detail" ? (
+          <div
+            className="pt-5"
+            dangerouslySetInnerHTML={{ __html: product.description }}
+          ></div>
+        ) : (
+          <ReviewView id={product._id} />
+        )}
       </div>
     </>
   );
@@ -189,7 +195,7 @@ export default singleProduct;
 export async function getServerSideProps({ query }) {
   const apolloClient = initializeApollo();
   await apolloClient.query({
-    query: QUERY,
+    query: GET_PRODUCT,
     variables: { slug: query.slug },
   });
 

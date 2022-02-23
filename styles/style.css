@@ -1040,6 +1040,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 2.5rem;
 }
 
+.w-2\/4 {
+  width: 50%;
+}
+
 .w-3\/6 {
   width: 50%;
 }
@@ -1192,6 +1196,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .flex-wrap {
   flex-wrap: wrap;
+}
+
+.items-end {
+  align-items: flex-end;
 }
 
 .items-center {
@@ -1544,6 +1552,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding: 2rem;
 }
 
+.p-2 {
+  padding: 0.5rem;
+}
+
 .p-5 {
   padding: 1.25rem;
 }
@@ -1730,6 +1742,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .pl-7 {
   padding-left: 1.75rem;
+}
+
+.pr-1 {
+  padding-right: 0.25rem;
 }
 
 .pl-1 {
@@ -2459,6 +2475,10 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .hover\:h-14:hover {
   height: 3.5rem;
+}
+
+.hover\:h-6:hover {
+  height: 1.5rem;
 }
 
 .hover\:w-14:hover {
