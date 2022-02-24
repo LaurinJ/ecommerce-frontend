@@ -183,7 +183,7 @@ function singleProduct() {
             dangerouslySetInnerHTML={{ __html: product.description }}
           ></div>
         ) : (
-          <ReviewView id={product._id} />
+          <ReviewView product_id={product._id} />
         )}
       </div>
     </>

@@ -1,15 +1,19 @@
 import React, { useState } from "react";
+import { useMutation } from "@apollo/client";
 import InputFieldBold from "./InputFieldBold";
+import { CREATE_REVIEW } from "../../queries/Mutation";
 
-function ReviewForm() {
+function ReviewForm({ product_id }) {
   const [review, setReview] = useState("");
   const [err, setErr] = useState("");
   const [stars, setStars] = useState(0);
-  //   const [sendMessage] = useMutation(SEND_CONTACT_MESSAGE, {
-  //     onCompleted: () => {
-  //       setFormValues({ email: "", content: "" });
-  //     },
-  //   });
+  const [sendReview] = useMutation(CREATE_REVIEW, {
+    onCompleted: () => {
+      // setReview("");
+      setStars(0);
+      setErr("");
+    },
+  });
 
   const handleChange = (e) => {
     const { value } = e.target;
@@ -21,11 +25,11 @@ function ReviewForm() {
     try {
       if (review.length !== 0) {
         console.log("sent");
-        //   await sendMessage({
-        //     variables: {
-        //       message: formValues,
-        //     },
-        //   });
+        await sendReview({
+          variables: {
+            review: { product: product_id, content: review, rating: stars },
+          },
+        });
       } else {
         setErr("Toto pole je povinné");
       }

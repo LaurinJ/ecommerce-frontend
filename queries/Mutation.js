@@ -86,3 +86,16 @@ export const SEND_CONTACT_MESSAGE = gql`
     }
   }
 `;
+
+export const CREATE_REVIEW = gql`
+  mutation CreateReview($review: ReviewData) {
+    createReview(review: $review) {
+      user {
+        name
+      }
+      content
+      rating
+      createdAt
+    }
+  }
+`;

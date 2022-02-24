@@ -3,7 +3,7 @@ import Rating from "./Rating";
 import ReviewForm from "./form/ReviewForm";
 import { dateStringFormatter } from "../helpers/dateFormater";
 
-function ReviewView({ id }) {
+function ReviewView({ product_id }) {
   return (
     <div className="flex flex-wrap py-2">
       {/* comments list */}
@@ -26,7 +26,7 @@ function ReviewView({ id }) {
       </div>
       {/* form */}
       <div className="w-full sm:w-2/4 p-2">
-        <ReviewForm />
+        <ReviewForm product_id={product_id} />
       </div>
     </div>
   );
