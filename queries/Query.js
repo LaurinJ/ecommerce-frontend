@@ -159,6 +159,21 @@ export const GET_CATEGORIES = gql`
     }
   }
 `;
+export const GET_REVIEWS = gql`
+  query GetReviews($productId: ID!, $skip: Int, $limit: Int) {
+    getReviews(product_id: $productId, skip: $skip, limit: $limit) {
+      reviews {
+        createdAt
+        rating
+        content
+        user {
+          name
+        }
+      }
+      pages
+    }
+  }
+`;
 
 export const GET_MESSAGES = gql`
   query GetMessages($getMessagesId: String) {

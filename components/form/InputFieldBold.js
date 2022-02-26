@@ -55,7 +55,7 @@ export function InputField(props) {
         )}
       </div>
       {props.error && (
-        <div className=" flex items-center mt-1 lg:text-base xl:text-lg text-red-600">
+        <div className="flex items-center mt-1 lg:text-base xl:text-lg text-red-600">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 mr-2 mt-1"

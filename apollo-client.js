@@ -57,7 +57,26 @@ function createApolloClient() {
   return new ApolloClient({
     ssrMode: typeof window === "undefined",
     link: splitLink,
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache({
+      typePolicies: {
+        Query: {
+          fields: {
+            getReviews: {
+              // Don't cache separate results based on
+              // any of this field's arguments.
+              keyArgs: ["product_id"],
+              // Concatenate the incoming list items with
+              // the existing list items.
+              merge(existing = { reviews: [], pages: 1 }, incoming) {
+                const reviews = [...existing.reviews, ...incoming.reviews];
+
+                return { ...existing, pages: incoming.pages, reviews: reviews };
+              },
+            },
+          },
+        },
+      },
+    }),
   });
 }
 

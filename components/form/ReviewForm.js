@@ -1,13 +1,28 @@
 import React, { useState } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation, gql } from "@apollo/client";
 import InputFieldBold from "./InputFieldBold";
 import { CREATE_REVIEW } from "../../queries/Mutation";
+import { isAuth } from "../../actions/auth";
 
 function ReviewForm({ product_id }) {
   const [review, setReview] = useState("");
   const [err, setErr] = useState("");
   const [stars, setStars] = useState(0);
   const [sendReview] = useMutation(CREATE_REVIEW, {
+    update(cache, { data }) {
+      cache.modify({
+        fields: {
+          getReviews(existingReviews) {
+            const newReviews = Object.assign({}, existingReviews);
+            newReviews.reviews = [
+              data.createReview,
+              ...existingReviews.reviews,
+            ];
+            return newReviews;
+          },
+        },
+      });
+    },
     onCompleted: () => {
       // setReview("");
       setStars(0);
@@ -35,7 +50,7 @@ function ReviewForm({ product_id }) {
       }
     } catch (error) {
       console.log(error);
-      //   setErr(error.graphQLErrors[0].extensions.errors);
+      setErr(error.message);
     }
   };
 
@@ -45,6 +60,17 @@ function ReviewForm({ product_id }) {
       onSubmit={handleSubmit}
     >
       <div className="m-3 w-full md:max-w-[500px] space-y-2">
+        {!isAuth() && (
+          <span className="block">
+            Pro napsání recenze je nutno se přihlásit
+          </span>
+        )}
+        {err && (
+          <span className="block lg:text-base xl:text-lg text-red-600">
+            {err}
+          </span>
+        )}
+
         <InputFieldBold
           //   required={true}
           type="textarea"
@@ -105,26 +131,28 @@ function ReviewForm({ product_id }) {
           </ul>
         </div>
 
-        <button
-          className="base_btn_form_primary flex mx-auto items-center"
-          type="submit"
-        >
-          ODESLAT
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-4 w-4 text-white ml-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+        {isAuth() && (
+          <button
+            className="base_btn_form_primary flex mx-auto items-center"
+            type="submit"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M13 5l7 7-7 7M5 5l7 7-7 7"
-            />
-          </svg>
-        </button>
+            ODESLAT
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4 text-white ml-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M13 5l7 7-7 7M5 5l7 7-7 7"
+              />
+            </svg>
+          </button>
+        )}
       </div>
     </form>
   );
