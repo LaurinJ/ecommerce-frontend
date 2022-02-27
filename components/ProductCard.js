@@ -7,7 +7,7 @@ import { useNotification } from "../context/NotificationProvider";
 
 function ProductCard({ product }) {
   const dispatch = useNotification();
-  console.log("render product");
+
   const { addItem } = useContext(CartContext);
   let discount = 0;
   if (product.price < product.old_price) {
@@ -72,7 +72,7 @@ function ProductCard({ product }) {
           <div className="flex mb-1">
             <div className="">
               <button
-                className="block h-[35px] xl px-[10px] leading-[28px] text-sm font-bold text-white items-center justify-center cursor-pointer bg-red-700 border-2 border-transparent rounded-sm hover:bg-red-600"
+                className="block h-[35px]  px-[10px] leading-[28px] text-sm font-bold text-white items-center justify-center cursor-pointer bg-red-700 border-2 border-transparent rounded-sm hover:bg-red-600"
                 onClick={() => {
                   addItem(product, 1);
                   dispatch({

@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useLazyQuery } from "@apollo/client";
 import { initializeApollo } from "../apollo-client";
 import ProductCard from "../components/ProductCard";
+import SortProducts from "../components/SortProducts";
 import FilterProducts from "../components/FilterProducts";
 import MobileFilterProducts from "../components/MobileFilterProducts";
 import Pagination from "../components/Pagination";
@@ -19,7 +20,7 @@ function Products() {
       }
     : {};
   const page = router.query.page ? Number(router.query.page) : 1;
-  const [getProductsFunc, { data, loading, error }] = useLazyQuery(
+  const [getProductsFunc, { data, loading }] = useLazyQuery(
     GET_PRODUCTS_BY_CATEGORY,
     {
       notifyOnNetworkStatusChange: true,
@@ -27,6 +28,7 @@ function Products() {
         skip: page,
         params: {
           category: router.query.slug || "",
+          sort: router.query.sort || "",
           ...price,
         },
       },
@@ -37,18 +39,13 @@ function Products() {
     getProductsFunc();
   }, [router]);
 
-  if (error) {
-    console.error(error);
-    return null;
-  }
-
   return (
     <div className="flex mx-auto max-w-[1430px] lg:px-[30px] relative">
       {loading && <Loader />}
       <div className="pr-[30px] w-[300px] hidden lg:block">
         <FilterProducts />
       </div>
-      <div className="flex flex-col lg:w-calc px-[30px] lg:px-0">
+      <div className="flex flex-col w-full lg:w-calc px-[30px] lg:px-0">
         {!title ? (
           ""
         ) : data.getProductsByCategory.products.length ? (
@@ -64,11 +61,7 @@ function Products() {
         <div className="flex my-3 justify-between sm:mx-5">
           <MobileFilterProducts />
           <div className="ml-auto">
-            <select className="pl-5 pr-5 md:pr-10 h-full lg:h-10 leading-10 bg-white border-2">
-              <option value="">Default sorting</option>
-              <option value="">Price low-high</option>
-              <option value="">Price high-low</option>
-            </select>
+            <SortProducts />
           </div>
         </div>
         {/* products list */}
@@ -91,12 +84,18 @@ function Products() {
 
 export async function getServerSideProps({ query }) {
   const page = query.page ? Number(query.page) : 1;
+  const price = query
+    ? {
+        min_price: Number(query.min_price),
+        max_price: Number(query.max_price),
+      }
+    : {};
   const apolloClient = initializeApollo();
   await apolloClient.query({
     query: GET_PRODUCTS_BY_CATEGORY,
     variables: {
       skip: page,
-      params: { category: query.slug },
+      params: { category: query.slug, ...price, sort: query.sort },
     },
   });
 

@@ -24,11 +24,15 @@ function Header() {
             </li>
             |
             <li className="px-2 hover:text-blue-700">
-              <a href="#">Jak nakupovat</a>
+              <Link href="/info">
+                <a>Jak nakupovat</a>
+              </Link>
             </li>
             |
             <li className="px-2 hover:text-blue-700">
-              <a href="#">Obchodní podmínky</a>
+              <Link href="/info">
+                <a>Obchodní podmínky</a>
+              </Link>
             </li>
             |
             <li className="px-2 hover:text-blue-700">

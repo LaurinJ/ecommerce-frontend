@@ -2,21 +2,19 @@ import React from "react";
 
 function NewsLetterInput(props) {
   // supported types for the input element
-  const INPUTS = ["text", "email", "password", "number", "date"];
+  const INPUTS = ["text", "email"];
 
   // element and type validation
   const type = props.type.toLowerCase();
-  const isTextarea = type === "textarea";
   const required = props.required || false;
 
-  if (!isTextarea && !INPUTS.includes(type)) {
+  if (!INPUTS.includes(type)) {
     return null;
   }
 
   // přiřazení hodnoty minima do atributu příslušného typu
   const minProp = props.min || null;
-  const min = ["number", "date"].includes(type) ? minProp : null;
-  const minlength = ["text", "textarea"].includes(type) ? minProp : null;
+  const minlength = ["text"].includes(type) ? minProp : null;
 
   return (
     <>
@@ -25,10 +23,11 @@ function NewsLetterInput(props) {
         <input
           required={required}
           type={type}
-          className={`base_input_form ${props.error ? "border-red-600 " : ""}`}
+          className={`base_input_form sm:min-w-[255px] ${
+            props.error ? "border-red-600 " : ""
+          }`}
           placeholder={props.prompt}
           minLength={minlength}
-          min={min}
           name={props.name}
           value={props.value}
           onChange={props.handleChange}

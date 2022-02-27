@@ -3,17 +3,25 @@ import { useRouter } from "next/router";
 import PriceRangeInput from "./form/PriceRangeInput";
 
 function FilterProducts() {
-  const [filterParams, setFilterParams] = useState({});
+  const [filterParams, setFilterParams] = useState({
+    min_price: 1000,
+    max_price: 7000,
+  });
   const router = useRouter();
 
   const filter = () => {
     const pathname = router.asPath.split("?")
       ? router.asPath.split("?")[0]
       : router.asPath;
+    const q = {
+      ...router.query,
+    };
+    delete q.slug;
+
     router.push(
       {
         pathname: pathname,
-        query: { ...router.query, ...filterParams },
+        query: { ...q, ...filterParams },
       },
       undefined,
       { shallow: true }

@@ -33,6 +33,7 @@ function PaymentForm() {
     try {
       e.preventDefault();
       const token = getLocalStorage("order_token");
+      !token ? Router.push("/checkout/address") : null;
       if (payment.id && delivery.id) {
         await payment_delivery({
           variables: {

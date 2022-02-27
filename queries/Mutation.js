@@ -41,7 +41,7 @@ export const PAYMENT_DELIVERY_MUTATION = gql`
     $payment: PaymentData
   ) {
     paymentDelivery(token: $token, delivery: $delivery, payment: $payment) {
-      status
+      message
     }
   }
 `;
@@ -61,7 +61,6 @@ export const CREATE_ORDER = gql`
 export const FINISH_ORDER = gql`
   mutation Mutation($order: OrderData, $token: OrderTokenData) {
     finishOrder(order: $order, token: $token) {
-      status
       message
     }
   }
@@ -96,6 +95,14 @@ export const CREATE_REVIEW = gql`
       content
       rating
       createdAt
+    }
+  }
+`;
+
+export const SUBSCRIBE_TO_NEWS = gql`
+  mutation Mutation($email: String!) {
+    subscribeToNews(email: $email) {
+      message
     }
   }
 `;

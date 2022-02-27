@@ -101,6 +101,9 @@ function PriceRangeInput({ setFilterParams }) {
           onMouseLeave={() => {
             changeFilter("min_price", min);
           }}
+          onTouchEnd={() => {
+            changeFilter("min_price", min);
+          }}
           onChange={handlePriceMin}
         />
         <input
@@ -110,6 +113,9 @@ function PriceRangeInput({ setFilterParams }) {
           step="100"
           value={max}
           onMouseLeave={() => {
+            changeFilter("max_price", max);
+          }}
+          onTouchEnd={() => {
             changeFilter("max_price", max);
           }}
           onChange={handlePriceMax}

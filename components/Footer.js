@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import NewsLetterForm from "./form/NewsLetterForm";
 
 function Footer() {
@@ -50,16 +51,24 @@ function Footer() {
           {/* <div className="w-full flex space-x-2 justify-center mt-3 mb-6"> */}
           <ul className="w-full flex flex-wrap justify-center my-3 text-lg text-gray-700">
             <li className="px-2 mr-2 hover:text-blue-700 cursor-pointer">
-              <a className="">Home</a>
+              <Link href="/">
+                <a>Home</a>
+              </Link>
             </li>
             <li className="px-2 mr-2 hover:text-blue-700 cursor-pointer">
-              <a className="">Jak nakupovat</a>
+              <Link href="/info">
+                <a>Jak nakupovat</a>
+              </Link>
             </li>
             <li className="px-2 mr-2 hover:text-blue-700 cursor-pointer">
-              <a className="">Obchodní podmínky</a>
+              <Link href="/info">
+                <a>Obchodní podmínky</a>
+              </Link>
             </li>
             <li className="px-2 mr-2 hover:text-blue-700 cursor-pointer">
-              <a className="">Kontaktujte nás</a>
+              <Link href="/contact">
+                <a>Kontaktujte nás</a>
+              </Link>
             </li>
           </ul>
           {/* </div> */}

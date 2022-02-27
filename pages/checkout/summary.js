@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { useQuery, useMutation } from "@apollo/client";
+import Router from "next/router";
+import { useMutation } from "@apollo/client";
 import CartContext from "../../context/CartContext";
 import OrderProgressBar from "../../components/OrderProgressBar";
 import CartCheckoutProduct from "../../components/CartCheckoutProduct";
@@ -34,26 +34,24 @@ function summary() {
       // Router.push(`/checkout/summary`);
 
       // del all token and cart
+      removeAll();
+      removeLocalStorage("order_token");
+      removeLocalStorage("address");
 
-      if (data.finishOrder.status === 201) {
-        removeAll();
-        removeLocalStorage("order_token");
-        removeLocalStorage("address");
-        console.log(data.finishOrder.message);
-      }
       console.log("sent");
     },
   });
 
   useEffect(() => {
     const address = getLocalStorage("address");
-    address ? setFormValues(address) : null;
+    address ? setFormValues(address) : Router.push("/checkout/address");
   }, [addressModal]);
 
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
       const token = getLocalStorage("order_token");
+      !token ? Router.push("/checkout/address") : null;
       await finishOrder({
         variables: {
           order: {
@@ -71,20 +69,6 @@ function summary() {
 
   return (
     <>
-      <div className="relative z-30 w-full flex justify-center items-center">
-        <span
-          className="fixed top-3 px-10  bg-green-500 border"
-          onClick={() => {
-            dispatch({
-              type: "ERROR",
-              message: "ja jsem test",
-              title: "Successful Request",
-            });
-          }}
-        >
-          afasfas
-        </span>
-      </div>
       <div className="absolute top-3/4 w-full z-30">
         <Modal showModal={addressModal} setShowModal={setAddressModal}>
           <AddressFormModal setShowModal={setAddressModal} />
@@ -233,7 +217,7 @@ function summary() {
               <hr className="my-8 text-gray-300" />
               {/* container products */}
               <div>
-                {/* single basket product */}
+                {/* single product */}
                 {cart.length ? (
                   cart.map((product, i) => {
                     return (

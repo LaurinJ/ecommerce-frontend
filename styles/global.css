@@ -79,12 +79,9 @@ input[type="range"]::-moz-range-thumb {
   .filter_box {
     position: absolute;
     top: 5px;
-    background: #fff;
     width: 270px;
     z-index: 9;
-    padding: 20px 20px;
-    -webkit-box-shadow: 0 0 10px #00000017;
-    box-shadow: 0 0 10px #00000017;
+    @apply shadow-2xl bg-gray-100;
   }
 }
 
