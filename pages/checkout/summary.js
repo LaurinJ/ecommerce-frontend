@@ -34,12 +34,15 @@ function summary() {
       // del all token and cart
       removeAll();
       removeLocalStorage("order_token");
-      removeLocalStorage("address");
+      // removeLocalStorage("address");
 
-      console.log("sent");
+      console.log(data);
       // Router.push(`/checkout/summary`);
 
-      Router.push("/checkout/pay-for-it");
+      Router.push({
+        pathname: "/checkout/pay-for-it",
+        query: { order: data.finishOrder.orderNumber },
+      });
     },
   });
 

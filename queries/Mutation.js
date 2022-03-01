@@ -59,9 +59,14 @@ export const CREATE_ORDER = gql`
 `;
 
 export const FINISH_ORDER = gql`
-  mutation Mutation($order: OrderData, $token: OrderTokenData) {
-    finishOrder(order: $order, token: $token) {
-      message
+  # mutation Mutation($order: OrderData, $token: OrderTokenData) {
+  #   finishOrder(order: $order, token: $token) {
+  #     message
+  #   }
+  # }
+  mutation Mutation($token: OrderTokenData, $order: OrderData) {
+    finishOrder(token: $token, order: $order) {
+      orderNumber
     }
   }
 `;
