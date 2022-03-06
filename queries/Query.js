@@ -18,9 +18,9 @@ export const GET_PRODUCT = gql`
   }
 `;
 
-export const PRODUCTS_QUERY = gql`
-  query GetProducts($query: String, $skip: Int, $limit: Int) {
-    getProducts(query: $query, skip: $skip, limit: $limit) {
+export const GET_PRODUCTS = gql`
+  query Query($limit: Int) {
+    getProducts(limit: $limit) {
       _id
       title
       price
@@ -30,9 +30,6 @@ export const PRODUCTS_QUERY = gql`
       imgurl
       rating
       rating_sum
-    }
-    getCountPages(query: $query) {
-      pages
     }
   }
 `;

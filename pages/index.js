@@ -2,33 +2,21 @@
 import { useQuery, gql } from "@apollo/client";
 import { initializeApollo } from "../apollo-client";
 import Slider from "../components/Slider";
+import Loader from "../components/Loader";
 import ProductCard from "../components/ProductCard";
+import { GET_PRODUCTS } from "../queries/Query";
 
-const QUERY = gql`
-  query Query($limit: Int) {
-    getProducts(limit: $limit) {
-      _id
-      title
-      price
-      old_price
-      slug
-      short_description
-      imgurl
-      rating
-      rating_sum
-    }
-  }
-`;
 export default function index() {
-  const { data, loading, error } = useQuery(QUERY, { variables: { limit: 5 } });
-  if (loading) {
-    return <h1>loading...</h1>;
-  }
+  const { data, loading } = useQuery(GET_PRODUCTS, {
+    notifyOnNetworkStatusChange: true,
+    variables: { limit: 5 },
+  });
 
   const products = data.getProducts;
 
   return (
     <>
+      {loading && <Loader />}
       <Slider />
       <div className="flex flex-col mx-auto max-w-[1430px] px-[30px] mt-5">
         <h3 className=" font-bold text-xl mb-5">NEJPRODÁVANĚJŠÍ</h3>
@@ -57,7 +45,7 @@ export default function index() {
 export async function getServerSideProps() {
   const apolloClient = initializeApollo();
   await apolloClient.query({
-    query: QUERY,
+    query: GET_PRODUCTS,
     variables: { limit: 5 },
   });
 

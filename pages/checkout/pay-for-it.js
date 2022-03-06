@@ -33,9 +33,9 @@ function PayForIt() {
       {loading && <Loader />}
       <div className="w-full h-screen mx-auto max-w-[1430px] lg:px-[30px] relative">
         <div className="flex flex-col py-4 items-center space-y-3">
-          <span className="text-center text-2xl font-medium">
+          <h2 className="text-center text-2xl font-medium">
             Objednávka č. {order} byla přijata.
-          </span>
+          </h2>
           <button
             className="base_btn_form_primary max-w-[200px]"
             onClick={handleClick}
