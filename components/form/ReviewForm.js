@@ -39,7 +39,6 @@ function ReviewForm({ product_id }) {
     e.preventDefault();
     try {
       if (review.length !== 0) {
-        console.log("sent");
         await sendReview({
           variables: {
             review: { product: product_id, content: review, rating: stars },

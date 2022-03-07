@@ -16,7 +16,7 @@ export const LOGIN_MUTATION = gql`
 export const LOGOUT_MUTATION = gql`
   mutation logout($token: RefreshToken!) {
     logout(token: $token) {
-      status
+      message
     }
   }
 `;
@@ -24,6 +24,19 @@ export const LOGOUT_MUTATION = gql`
 export const REGISTER_MUTATION = gql`
   mutation Mutation($user: userRegisterData!) {
     createUser(user: $user) {
+      accessToken
+      refreshToken
+      user {
+        name
+        email
+      }
+    }
+  }
+`;
+
+export const GOOGLE_LOGIN = gql`
+  mutation Mutation($token: String) {
+    googleLogin(token: $token) {
       accessToken
       refreshToken
       user {

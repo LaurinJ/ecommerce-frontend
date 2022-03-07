@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Router from "next/router";
 import { useMutation } from "@apollo/client";
@@ -6,15 +6,16 @@ import InputField from "../../components/form/InputField";
 import { LOGIN_MUTATION } from "../../queries/Mutation";
 import { authenticate } from "../../actions/auth";
 import { useNotification } from "../../context/NotificationProvider";
+import Loader from "../../components/Loader";
+import LoginGoogle from "../../components/account/LoginGoogle";
 
 function login() {
   const dispatch = useNotification();
   const [formValues, setFormValues] = useState({ email: "", password: "" });
   const [err, setErr] = useState({});
-  const [login, { data, loading, error }] = useMutation(LOGIN_MUTATION);
-
-  useEffect(() => {
-    if (data) {
+  const [login, { data, loading, error }] = useMutation(LOGIN_MUTATION, {
+    notifyOnNetworkStatusChange: true,
+    onCompleted: (data) => {
       authenticate(data.login, () => {
         dispatch({
           type: "SUCCESS",
@@ -23,8 +24,9 @@ function login() {
         });
         Router.push(`/account`);
       });
-    }
-  }, [data]);
+    },
+  });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
@@ -60,7 +62,8 @@ function login() {
   };
 
   return (
-    <div className="mx-auto max-w-[450px] p-4">
+    <div className="mx-auto max-w-[410px] m-4 relative">
+      {loading && <Loader />}
       <form className="p-8 shadow-xl lg:text-lg" onSubmit={handleSubmit}>
         <h2 className="mb-4 lg:text-3xl font-semibold text-gray-600">
           Přihlášení do účtu
@@ -103,12 +106,7 @@ function login() {
         </div>
         {/* google and facebook */}
         <div className="flex justify-center space-x-3">
-          <div className="w-14 h-14 flex items-center justify-center">
-            <img
-              className="hover:w-14 hover:h-14 cursor-pointer"
-              src="https://img.icons8.com/color-glass/48/000000/google-logo.png"
-            />
-          </div>
+          <LoginGoogle />
           <div className="w-14 h-14 flex items-center justify-center">
             <img
               className="hover:w-14 hover:h-14 cursor-pointer"
