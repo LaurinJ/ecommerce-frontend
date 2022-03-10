@@ -121,6 +121,11 @@ function login() {
             <a className="text-primary">Registrovat se</a>
           </Link>
         </span>
+        <span className="w-full block text-base text-center">
+          <Link href="/account/forgotpassword">
+            <a className="text-primary">Zapomenuté heslo</a>
+          </Link>
+        </span>
       </form>
     </div>
   );

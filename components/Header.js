@@ -81,9 +81,9 @@ function Header() {
       <div className="flex flex-col max-w-[1600px] mx-auto space-y-5 md:flex-row my-5 items-center md:justify-around">
         <Image
           className="-ml-10 border-8"
-          width="200"
-          height="70"
-          src="https://www.apollos.cz/images/logo_apollos.png"
+          width="280"
+          height="100"
+          src="/bigbuy.jpg"
         ></Image>
         <Search />
 
