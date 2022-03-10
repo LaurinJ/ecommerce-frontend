@@ -47,6 +47,14 @@ export const GOOGLE_LOGIN = gql`
   }
 `;
 
+export const CHANGE_PASSWORD = gql`
+  mutation Mutation($passwords: ChangePasswordData) {
+    changePassword(passwords: $passwords) {
+      message
+    }
+  }
+`;
+
 export const PAYMENT_DELIVERY_MUTATION = gql`
   mutation PaymentDelivery(
     $token: OrderTokenData!

@@ -3,7 +3,7 @@ import Link from "next/link";
 import Router from "next/router";
 import { useMutation } from "@apollo/client";
 import InputField from "../../components/form/InputField";
-import { REGISTER_MUTATION } from "../../queries/Mutation";
+import { CHANGE_PASSWORD } from "../../queries/Mutation";
 import { authenticate } from "../../actions/auth";
 import { useNotification } from "../../context/NotificationProvider";
 import Loader from "../Loader";
@@ -17,18 +17,16 @@ function ChangePasswordForm() {
   });
   const [err, setErr] = useState({});
   const [changePassword, { data, loading, error }] = useMutation(
-    REGISTER_MUTATION,
+    CHANGE_PASSWORD,
     {
       notifyOnNetworkStatusChange: true,
       onCompleted: (data) => {
-        authenticate(data.login, () => {
-          dispatch({
-            type: "SUCCESS",
-            message: "Heslo bylo úspěšně změněno",
-            title: "Successful Request",
-          });
-          Router.push(`/account`);
+        dispatch({
+          type: "SUCCESS",
+          message: data.changePassword.message,
+          title: "Successful Request",
         });
+        // Router.push(`/account`);
       },
     }
   );
@@ -43,9 +41,16 @@ function ChangePasswordForm() {
       e.preventDefault();
       const errors = validate(formValues);
       setErr(errors);
+      console.log(formValues);
       if (Object.keys(errors).length === 0) {
         await changePassword({
-          variables: { user: { ...formValues } },
+          variables: {
+            passwords: {
+              old_password: formValues.old_password,
+              password: formValues.password,
+              confirm_password: formValues.confirm_password,
+            },
+          },
         });
       }
     } catch (error) {

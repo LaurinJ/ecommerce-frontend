@@ -58,6 +58,7 @@ function ForgotPasswordForm() {
     }
     return errors;
   };
+
   return (
     <>
       {loading && <Loader />}
