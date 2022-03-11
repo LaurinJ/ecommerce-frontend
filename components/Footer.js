@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import NewsLetterForm from "./form/NewsLetterForm";
 
 function Footer() {
@@ -12,10 +13,11 @@ function Footer() {
             <div className="flex flex-wrap justify-between">
               <div className="w-full lg:w-4/6 px-2">
                 <div>
-                  <img
-                    loading="lazy"
-                    src="https://i.cdn.nrholding.net/document/44720530"
-                    alt="easy shop"
+                  <Image
+                    src="/bigbuy.jpg"
+                    width={150}
+                    height={50}
+                    alt="BigBuy.cz"
                   />
                 </div>
                 <div className="mt-5 leading-6">

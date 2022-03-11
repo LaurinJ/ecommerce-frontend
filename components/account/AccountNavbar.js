@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import Logout from "./Logout";
 
 function AccountNavbar() {
   const [myShop, setMyShop] = useState(false);
@@ -140,11 +141,7 @@ function AccountNavbar() {
           </Link>
         </li>
         <li>
-          <Link href="">
-            <a className="py-[10px] pl-5 pr-10 border-b border-gray-300 block">
-              Odhlasit
-            </a>
-          </Link>
+          <Logout class="py-[10px] pl-5 pr-10 border-b border-gray-300 block" />
         </li>
       </ul>
     </div>

@@ -7,6 +7,7 @@ import { CHANGE_PASSWORD } from "../../queries/Mutation";
 import { authenticate } from "../../actions/auth";
 import { useNotification } from "../../context/NotificationProvider";
 import Loader from "../Loader";
+import { passwordValidator } from "../../validators/passwordValidator";
 
 function ChangePasswordForm() {
   const dispatch = useNotification();
@@ -21,6 +22,7 @@ function ChangePasswordForm() {
     {
       notifyOnNetworkStatusChange: true,
       onCompleted: (data) => {
+        formValues({});
         dispatch({
           type: "SUCCESS",
           message: data.changePassword.message,
@@ -39,9 +41,8 @@ function ChangePasswordForm() {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      const errors = validate(formValues);
+      const errors = passwordValidator(formValues);
       setErr(errors);
-      console.log(formValues);
       if (Object.keys(errors).length === 0) {
         await changePassword({
           variables: {
@@ -56,23 +57,6 @@ function ChangePasswordForm() {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const validate = (values) => {
-    const errors = {};
-    if (!values.old_password) {
-      errors.old_password = "Toto pole je povinné";
-    }
-    if (!values.password) {
-      errors.password = "Toto pole je povinné";
-    }
-    if (!values.confirm_password) {
-      errors.confirm_password = "Toto pole je povinné";
-    } else if (values.confirm_password !== values.password) {
-      errors.password = "Hesla se neshodují";
-      errors.confirm_password = "Hesla se neshodují";
-    }
-    return errors;
   };
 
   return (
