@@ -55,6 +55,14 @@ export const CHANGE_PASSWORD = gql`
   }
 `;
 
+export const RESET_PASSWORD = gql`
+  mutation Mutation($passwords: ResetPasswordData, $email: String) {
+    resetPassword(passwords: $passwords, email: $email) {
+      message
+    }
+  }
+`;
+
 export const PAYMENT_DELIVERY_MUTATION = gql`
   mutation PaymentDelivery(
     $token: OrderTokenData!

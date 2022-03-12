@@ -1,34 +1,31 @@
 import React, { useState } from "react";
+import Router from "next/router";
 import { useMutation } from "@apollo/client";
 import InputField from "../../components/form/InputField";
-import { CHANGE_PASSWORD } from "../../queries/Mutation";
+import { RESET_PASSWORD } from "../../queries/Mutation";
 import { useNotification } from "../../context/NotificationProvider";
 import Loader from "../Loader";
-import { changePasswordValidator } from "../../validators/passwordValidator";
+import { passwordValidator } from "../../validators/passwordValidator";
 
-function ChangePasswordForm() {
+function ResetPasswordForm({ email }) {
   const dispatch = useNotification();
   const [formValues, setFormValues] = useState({
-    old_password: "",
     password: "",
     confirm_password: "",
   });
   const [err, setErr] = useState({});
-  const [changePassword, { data, loading, error }] = useMutation(
-    CHANGE_PASSWORD,
-    {
-      notifyOnNetworkStatusChange: true,
-      onCompleted: (data) => {
-        formValues({});
-        dispatch({
-          type: "SUCCESS",
-          message: data.changePassword.message,
-          title: "Successful Request",
-        });
-        // Router.push(`/account`);
-      },
-    }
-  );
+  const [resetPassword, { loading, error }] = useMutation(RESET_PASSWORD, {
+    notifyOnNetworkStatusChange: true,
+    onCompleted: (data) => {
+      setFormValues({});
+      dispatch({
+        type: "SUCCESS",
+        message: data.resetPassword.message,
+        title: "Successful Request",
+      });
+      Router.push(`/account/login`);
+    },
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,16 +35,16 @@ function ChangePasswordForm() {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      const errors = changePasswordValidator(formValues);
+      const errors = passwordValidator(formValues);
       setErr(errors);
       if (Object.keys(errors).length === 0) {
-        await changePassword({
+        await resetPassword({
           variables: {
             passwords: {
-              old_password: formValues.old_password,
               password: formValues.password,
               confirm_password: formValues.confirm_password,
             },
+            email: email,
           },
         });
       }
@@ -65,17 +62,6 @@ function ChangePasswordForm() {
         </h2>
         {/* error response */}
         <span className="text-red-600">{error && error.message}</span>
-        {/* old password input */}
-        <InputField
-          required={true}
-          type="password"
-          name="old_password"
-          label="Staré heslo"
-          prompt="Zadejte staré heslo"
-          error={err.old_password}
-          value={formValues.old_password}
-          handleChange={handleChange}
-        />
         {/*new password input */}
         <InputField
           required={true}
@@ -109,4 +95,4 @@ function ChangePasswordForm() {
   );
 }
 
-export default ChangePasswordForm;
+export default ResetPasswordForm;

@@ -180,3 +180,12 @@ export const GET_ADMIN_TOKEN = gql`
     }
   }
 `;
+
+export const CHECK_RESET_TOKEN = gql`
+  query CheckResetPasswordToken($token: String!) {
+    checkResetPasswordToken(token: $token) {
+      status
+      email
+    }
+  }
+`;
