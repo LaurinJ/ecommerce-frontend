@@ -89,6 +89,20 @@ export const GET_ORDER = gql`
   }
 `;
 
+export const GET_USER_ORDERS = gql`
+  query GetUserOrders($skip: Int, $limit: Int) {
+    getUserOrders(skip: $skip, limit: $limit) {
+      pages
+      orders {
+        total_price
+        state
+        orderNumber
+        createdAt
+      }
+    }
+  }
+`;
+
 export const SEARCH = gql`
   query getFilterProducts($params: FilterData) {
     getFilterProducts(params: $params) {

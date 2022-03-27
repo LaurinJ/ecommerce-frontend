@@ -9,7 +9,6 @@ function AccountNavbar() {
   return (
     <div className="bg-lg_blue w-full lg:w-1/5">
       {/* navbar */}
-      {/* order */}
       <h3
         className="flex justify-between items-center bg-blue-200 text-lg p-[10px] cursor-pointer"
         onClick={() => setMyShop(!myShop)}
