@@ -9,7 +9,12 @@ import { GET_USER_ORDERS } from "../../queries/Query";
 function index() {
   const { data, loading } = useQuery(GET_USER_ORDERS);
 
-  return <OrdersTable orders={data?.getUserOrders.orders} />;
+  return (
+    <div className="">
+      <h3 className="mb-2 font-medium text-xl">Vaše objednávky</h3>
+      <OrdersTable orders={data?.getUserOrders.orders || []} />
+    </div>
+  );
 }
 
 index.getLayout = getLayout;

@@ -140,7 +140,7 @@ function AccountNavbar() {
           </Link>
         </li>
         <li>
-          <Logout class="py-[10px] pl-5 pr-10 border-b border-gray-300 block" />
+          <Logout class="w-full py-[10px] pl-5 pr-10 border-b border-gray-300 block" />
         </li>
       </ul>
     </div>

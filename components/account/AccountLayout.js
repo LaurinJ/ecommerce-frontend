@@ -8,7 +8,7 @@ function AccountLayout({ children }) {
         <h2 className="mb-2 text-2xl font-bold">Můj účet</h2>
         <div className="flex flex-wrap justify-between space-y-4">
           <AccountNavbar />
-          <div className="bg-gray-100 w-full lg:w-3/4">{children}</div>
+          <div className=" w-full lg:w-3/4">{children}</div>
         </div>
       </div>
     </div>

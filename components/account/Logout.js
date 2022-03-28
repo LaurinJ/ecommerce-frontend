@@ -31,13 +31,14 @@ function Logout(props) {
   };
 
   return (
-    <button
+    <span
+      className={`${props.class ? props.class : ""} cursor-pointer`}
       onClick={() => {
         logouthandler();
       }}
     >
-      <a className={`${props.class ? props.class : ""}`}>Odhlasit</a>
-    </button>
+      Odhlasit
+    </span>
   );
 }
 

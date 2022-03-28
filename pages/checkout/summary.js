@@ -60,7 +60,7 @@ function summary() {
         variables: {
           order: {
             items: cart,
-            total_price: totalPrice,
+            total_price: totalPrice + delivery.price,
           },
           token: { token: token },
         },
