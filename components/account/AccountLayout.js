@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
+import Router from "next/router";
 import AccountNavbar from "../../components/account/AccountNavbar";
 
+import { isAuth } from "../../actions/auth";
+
 function AccountLayout({ children }) {
+  useEffect(() => {
+    if (!isAuth()) {
+      Router.push("/account/login");
+    }
+  }, []);
+
   return (
     <div className="mx-auto max-w-[1430px] sm:px-5">
       <div className="p-8">

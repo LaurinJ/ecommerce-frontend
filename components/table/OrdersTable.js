@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { dateStringFormatter } from "../../helpers/dateFormater";
+import { downloadInvoice } from "../../helpers/invoice";
 
 function OrdersTable({ orders }) {
   return (
@@ -30,26 +31,14 @@ function OrdersTable({ orders }) {
                   <td className="text-center px-2 py-3">
                     {dateStringFormatter(order.createdAt)}
                   </td>
-                  <td className="pl-2 py-3">
+                  <td title="Stáhnout fakturu" className="pl-2 py-3">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-6 w-6 cursor-pointer"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                       onClick={() => {
-                        fetch(process.env.BACKEND_LINK + "downloadPDF")
-                          .then((res) => {
-                            return res.blob();
-                          })
-                          .then((blob) => {
-                            var url = window.URL.createObjectURL(blob);
-                            var a = document.createElement("a");
-                            a.href = url;
-                            a.download = "filename.pdf";
-                            document.body.appendChild(a); // we need to append the element to the dom -> otherwise it will not work in firefox
-                            a.click();
-                            a.remove(); //afterwards we remove the element again
-                          });
+                        downloadInvoice(order.orderNumber);
                       }}
                     >
                       <path

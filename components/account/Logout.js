@@ -7,18 +7,16 @@ import { useNotification } from "../../context/NotificationProvider";
 
 function Logout(props) {
   const dispatch = useNotification();
-  const [logout, { data, loading, error }] = useMutation(LOGOUT_MUTATION);
-
-  useEffect(() => {
-    if (data) {
+  const [logout, { data, loading, error }] = useMutation(LOGOUT_MUTATION, {
+    onCompleted: () => {
       dispatch({
         type: "SUCCESS",
         message: "Byl jsi úspěšně odhlášen",
         title: "Successful Request",
       });
       Router.push(`/`);
-    }
-  }, [data]);
+    },
+  });
 
   const logouthandler = () => {
     const token = getCookie("refreshToken");
