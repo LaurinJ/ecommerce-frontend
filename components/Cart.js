@@ -14,7 +14,9 @@ function Cart() {
   return (
     <div className="flex flex-col p-4 h-calc">
       <div className="mb-3 border-b border-gray-300">
-        <h4 className="text-md">Počet produktů: {itemCount}</h4>
+        <h4 data-testid="cart" className="text-md">
+          Počet produktů: {itemCount}
+        </h4>
       </div>
       <div className="max-h-[550px] n_scroll overflow-y-auto">
         {cart.length != 0
