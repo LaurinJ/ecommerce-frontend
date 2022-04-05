@@ -7,13 +7,7 @@ import InputFieldBold from "../form/InputFieldBold";
 import InputField33 from "../form/InputField33";
 import InputField65 from "../form/InputField65";
 import InputFieldPhone from "../form/InputFieldPhone";
-import InputCheck from "../form/InputCheck";
-import {
-  setLocalStorage,
-  getLocalStorage,
-  setCookie,
-  getCookie,
-} from "../../actions/auth";
+import { setLocalStorage, getLocalStorage } from "../../actions/auth";
 import { addressValid } from "../../validators/addressValidator";
 
 function AddressForm() {
@@ -29,7 +23,7 @@ function AddressForm() {
     phone: 0,
   });
   const [err, setErr] = useState({});
-  const [order, { data, loading, error }] = useMutation(CREATE_ORDER, {
+  const [order] = useMutation(CREATE_ORDER, {
     onCompleted: (data) => {
       setLocalStorage("order_token", data.createOrUpdateOrder.token);
       Router.push(`/checkout/payment`);

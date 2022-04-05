@@ -8,6 +8,7 @@ import { authenticate } from "../../actions/auth";
 import { useNotification } from "../../context/NotificationProvider";
 import Loader from "../../components/Loader";
 import LoginGoogle from "../../components/account/LoginGoogle";
+import { loginValidator } from "../../validators/loginValidator";
 
 function login() {
   const dispatch = useNotification();
@@ -35,7 +36,7 @@ function login() {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      const errors = validate(formValues);
+      const errors = loginValidator(formValues);
       setErr(errors);
       if (Object.keys(errors).length === 0) {
         await login({
@@ -45,20 +46,6 @@ function login() {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const validate = (values) => {
-    const errors = {};
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    if (!values.email) {
-      errors.email = "Toto pole je povinné";
-    } else if (!regex.test(values.email)) {
-      errors.email = "Email je ve špatném formátu";
-    }
-    if (!values.password) {
-      errors.password = "Toto pole je povinné";
-    }
-    return errors;
   };
 
   return (

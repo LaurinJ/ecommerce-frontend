@@ -8,6 +8,7 @@ import { authenticate } from "../../actions/auth";
 import { useNotification } from "../../context/NotificationProvider";
 import Loader from "../../components/Loader";
 import LoginGoogle from "../../components/account/LoginGoogle";
+import { registerValidator } from "../../validators/registerValidator";
 
 function register() {
   const dispatch = useNotification();
@@ -40,7 +41,7 @@ function register() {
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      const errors = validate(formValues);
+      const errors = registerValidator(formValues);
       setErr(errors);
       if (Object.keys(errors).length === 0) {
         await register({
@@ -50,31 +51,6 @@ function register() {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const validate = (values) => {
-    const errors = {};
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    if (!values.name) {
-      errors.name = "Toto pole je povinné";
-    } else if (values.name.length < 4) {
-      errors.name = "Jméno musí mít alespoň 4 znaky";
-    }
-    if (!values.email) {
-      errors.email = "Toto pole je povinné";
-    } else if (!regex.test(values.email)) {
-      errors.email = "Email je ve špatném formátu";
-    }
-    if (!values.password) {
-      errors.password = "Toto pole je povinné";
-    }
-    if (!values.confirm_password) {
-      errors.confirm_password = "Toto pole je povinné";
-    } else if (values.confirm_password !== values.password) {
-      errors.password = "Hesla se neshodují";
-      errors.confirm_password = "Hesla se neshodují";
-    }
-    return errors;
   };
 
   const printErr = (error) => {
