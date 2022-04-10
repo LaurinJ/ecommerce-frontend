@@ -1,11 +1,23 @@
 import React, { useContext, useState } from "react";
 import Image from "next/image";
+import { useMutation } from "@apollo/client";
 import CartContext from "../context/CartContext";
 import { useNotification } from "../context/NotificationProvider";
+import { DELETE_FAVORITE } from "../queries/Mutation";
 
-function FavoriteProductCard({ product, i }) {
+function FavoriteProductCard({ product }) {
   const dispatch = useNotification();
   const { addItem } = useContext(CartContext);
+
+  const [deleteFavorite] = useMutation(DELETE_FAVORITE, {
+    onCompleted: (data) => {
+      dispatch({
+        type: "SUCCESS",
+        message: data.deleteFavorite.message,
+        title: "Successful Request",
+      });
+    },
+  });
 
   return (
     <>
@@ -49,7 +61,18 @@ function FavoriteProductCard({ product, i }) {
         <div className="mr-4 sm:mr-0 space-y-2">
           <button
             onClick={() => {
-              removeItem(product._id, i);
+              const id = product._id;
+              deleteFavorite({
+                variables: { deleteFavoriteId: id },
+                update(cache) {
+                  const normalizedId = cache.identify({
+                    id,
+                    __typename: "Product",
+                  });
+                  cache.evict({ id: normalizedId });
+                  cache.gc();
+                },
+              });
             }}
             className="flex font-normal lg:text-lg text-blue-600 items-center"
           >

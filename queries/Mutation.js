@@ -150,3 +150,11 @@ export const ADD_TO_FAVORITES = gql`
     }
   }
 `;
+
+export const DELETE_FAVORITE = gql`
+  mutation Mutation($deleteFavoriteId: String) {
+    deleteFavorite(id: $deleteFavoriteId) {
+      message
+    }
+  }
+`;

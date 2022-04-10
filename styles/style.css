@@ -1017,6 +1017,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   min-height: 21px;
 }
 
+.min-h-\[150px\] {
+  min-height: 150px;
+}
+
 .w-full {
   width: 100%;
 }
@@ -1119,10 +1123,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .max-w-\[1430px\] {
   max-width: 1430px;
-}
-
-.max-w-\[450px\] {
-  max-width: 450px;
 }
 
 .max-w-\[410px\] {
@@ -1861,6 +1861,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   line-height: 1.5rem;
 }
 
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
 .text-3xl {
   font-size: 1.875rem;
   line-height: 2.25rem;
@@ -1882,11 +1887,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
-}
-
-.text-lg {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
 }
 
 .font-bold {
@@ -2879,6 +2879,10 @@ input[type="number"]::-webkit-outer-spin-button {
 
   .lg\:h-\[72px\] {
     height: 72px;
+  }
+
+  .lg\:min-h-\[130px\] {
+    min-height: 130px;
   }
 
   .lg\:w-calc {
