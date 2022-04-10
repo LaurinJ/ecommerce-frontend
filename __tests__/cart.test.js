@@ -1,39 +1,53 @@
-// import index from "../pages/index";
-import Cart from "../components/Cart";
-import Layout from "../components/Layout";
+import React, { useContext } from "react";
+import CartHeader from "../components/CartHeader";
+import Button from "../components/Button";
 import CartProvider from "../context/CartProvider";
-import React from "react";
-import { HttpLink } from "@apollo/client/link/http";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import "@testing-library/jest-dom";
 import { fireEvent, render, screen } from "@testing-library/react";
-import fetch from "cross-fetch";
 
-// let httpLink = new HttpLink({
-//   uri: "http://localhost:4000/graphql",
-// });
+const addItem = () => {
+  expect(screen.getByTestId("add-button")).toBeInTheDocument();
+  const button = screen.getByTestId("add-button");
+  // add item
+  button.click();
+};
+const removeItem = () => {
+  expect(screen.getByTestId("remove-product")).toBeInTheDocument();
+  const remove = screen.getByTestId("remove-product");
+  // delete item
+  remove.click();
+};
 
-export const client = new ApolloClient({
-  link: new HttpLink({
-    uri: "http://localhost:4000/graphql",
-    fetch,
-  }),
-  cache: new InMemoryCache(),
+beforeEach(() => {
+  render(
+    <CartProvider>
+      <CartHeader />
+      <Button />
+    </CartProvider>
+  );
 });
 
 describe("Cart", () => {
-  it("renders a cart", () => {
-    render(
-      // <ApolloProvider client={client}>
-      <CartProvider>
-        {/* <Layout> */}
-        <Cart />
-        {/* </Layout> */}
-      </CartProvider>
-      /* </ApolloProvider> */
-    );
+  it("renders a cart", async () => {
     // check if all components are rendered
     expect(screen.getByTestId("cart")).toBeInTheDocument();
-    // console.log(screen.getByText("Tvůj košík je prázdný"));
+    expect(screen.getByText("0 ks - 0 Kč")).toBeInTheDocument();
+  });
+
+  it("add cart item", async () => {
+    addItem();
+    // check if an item is added
+    expect(screen.getByText("Počet produktů: 1")).toBeInTheDocument();
+    expect(screen.getByText("item")).toBeInTheDocument();
+    expect(screen.getAllByText("100 Kč")[0]).toBeInTheDocument();
+  });
+
+  it("remove cart item", async () => {
+    addItem();
+    expect(screen.getByText("Počet produktů: 1")).toBeInTheDocument();
+    removeItem();
+    // check if an item is deleted
+    expect(screen.getByText("0 ks - 0 Kč")).toBeInTheDocument();
+    expect(screen.getByText("Počet produktů: 0")).toBeInTheDocument();
   });
 });

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
+// import Image from "next/image";
 import CartContext from "../context/CartContext";
 
 function Cart() {
@@ -23,15 +23,18 @@ function Cart() {
           ? cart.map((product, i) => {
               return (
                 <a key={i} className="flex mb-4 pr-5 relative">
-                  <span className="absolute right-0">
+                  <span
+                    data-testid="remove-product"
+                    className="absolute right-0"
+                    onClick={() => {
+                      removeItem(product._id, i);
+                    }}
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-6 w-6 text-black cursor-pointer"
                       viewBox="0 0 20 20"
                       fill="currentColor"
-                      onClick={() => {
-                        removeItem(product._id, i);
-                      }}
                     >
                       <path
                         fillRule="evenodd"
@@ -41,15 +44,15 @@ function Cart() {
                     </svg>
                   </span>
                   <div className="flex-shrink-0">
-                    <Image
+                    {/* <Image
                       width="60"
                       height="75"
                       src={`${process.env.IMG_LINK}${product.img}`}
-                    />
+                    /> */}
                   </div>
                   <div className="pl-4">
                     <h5 className="font-bold mr-2">{product.title}</h5>
-                    <p className="text-sm">{product.price} Kč</p>
+                    <span className="text-sm">{product.price} Kč</span>
                   </div>
                 </a>
               );

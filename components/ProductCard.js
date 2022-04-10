@@ -19,7 +19,7 @@ function ProductCard({ product }) {
 
   return (
     <div className="-mt-px -mr-px  border border-gray-300 bg-white">
-      <article className="p-[10px]">
+      <article data-testid="product" className="p-[10px]">
         <Link href={`/products/${product.slug}`}>
           <a className="block relative mx-2.5">
             <Image

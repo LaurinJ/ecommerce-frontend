@@ -11,14 +11,14 @@ import { GET_FILTER_PRODUCTS } from "../../queries/Query";
 
 function Products() {
   const router = useRouter();
-  const title = router.query.q || "";
-  const price = router.query
+  const title = router?.query.q || "";
+  const price = router?.query
     ? {
         min_price: Number(router.query.min_price),
         max_price: Number(router.query.max_price),
       }
     : {};
-  const page = router.query.page ? Number(router.query.page) : 1;
+  const page = router?.query.page ? Number(router.query.page) : 1;
   const [getProductsFunc, { data, loading, error }] = useLazyQuery(
     GET_FILTER_PRODUCTS,
     {
