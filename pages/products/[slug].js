@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { initializeApollo } from "../../apollo-client";
 import Rating from "../../components/Rating";
 import ImagesView from "../../components/ImagesView";
@@ -9,7 +9,9 @@ import Counter from "../../components/form/Counter";
 import CartContext from "../../context/CartContext";
 import { useNotification } from "../../context/NotificationProvider";
 import { GET_PRODUCT } from "../../queries/Query";
+import { ADD_TO_FAVORITES } from "../../queries/Mutation";
 import ReviewView from "../../components/ReviewView";
+import { isAuth } from "../../actions/auth";
 
 function singleProduct() {
   const dispatch = useNotification();
@@ -18,6 +20,16 @@ function singleProduct() {
   const router = useRouter();
   const { data, loading, error } = useQuery(GET_PRODUCT, {
     variables: { slug: router.query.slug },
+  });
+
+  const [addToFavorite] = useMutation(ADD_TO_FAVORITES, {
+    onCompleted: (data) => {
+      dispatch({
+        type: "SUCCESS",
+        message: data.addToFavorites.message,
+        title: "Successful Request",
+      });
+    },
   });
 
   const { addItem } = useContext(CartContext);
@@ -77,21 +89,30 @@ function singleProduct() {
     <>
       <div className="md:bg-gray-100 pb-10 mb-28">
         <div className="mx-auto max-w-[1430px] sm:px-5">
-          <div className="px-5 sm:px-[15px] w-full md:w-2/4  float-right">
+          <div className="px-5 sm:px-[15px] w-full md:w-2/4 float-right">
             <div className="p-4 pb-0 sm:pl-10 sm:pt-10 sm:pr-10 space-y-2 bg-white">
               <h1 className="text-3xl">{product.title}</h1>
-              <div className="flex pb-7 text-gray-500 lg:border-b border-gray-300 text-sm">
+              <div className="flex pb-7 h-12 text-gray-500 lg:border-b border-gray-300 text-sm">
                 <div className="flex items-center space-x-2">
                   <Rating count={product.rating} />
                   <span>{product.rating_sum}x</span>
                 </div>
-                <span className="ml-8 pl-8 hidden lg:block border-l border-black">
+                <span className="ml-8 pl-8 md:ml-4 md:pl-4 lg:ml-8 lg:pl-8 hidden sm:block border-l border-black">
                   SKU: {product.code}
                 </span>
-                <div title="Přidat do oblíbených" className="mx-auto">
+                <div
+                  title="Přidat do oblíbených"
+                  className="mx-auto"
+                  onClick={() => {
+                    if (!isAuth()) router.push("/account/login");
+                    addToFavorite({
+                      variables: { addToFavoritesId: product._id },
+                    });
+                  }}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 hover:text-red-600 cursor-pointer"
+                    className="h-full w-full hover:text-red-600 cursor-pointer"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >

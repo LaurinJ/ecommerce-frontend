@@ -75,7 +75,7 @@ function AccountNavbar() {
       </h3>
       <ul className={myContent ? "" : "hidden"}>
         <li>
-          <Link href="">
+          <Link href="/account/favorite-products">
             <a className="py-[10px] pl-5 pr-10 border-b border-gray-300 block">
               Oblíbené produkty
             </a>

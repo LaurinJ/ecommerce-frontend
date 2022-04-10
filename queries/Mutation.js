@@ -142,3 +142,11 @@ export const SUBSCRIBE_TO_NEWS = gql`
     }
   }
 `;
+
+export const ADD_TO_FAVORITES = gql`
+  mutation Mutation($addToFavoritesId: String) {
+    addToFavorites(id: $addToFavoritesId) {
+      message
+    }
+  }
+`;

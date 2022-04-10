@@ -98,6 +98,7 @@ export const GET_USER_ORDERS = gql`
         state
         orderNumber
         createdAt
+        is_paid
       }
     }
   }
@@ -145,6 +146,23 @@ export const GET_PRODUCTS_BY_CATEGORY = gql`
         old_price
         rating
         rating_sum
+        imgurl
+      }
+      pages
+    }
+  }
+`;
+
+export const GET_FAVORITE_PRODUCTS = gql`
+  query Query($skip: Int, $limit: Int) {
+    getFavoriteProducts(skip: $skip, limit: $limit) {
+      products {
+        _id
+        title
+        slug
+        short_description
+        price
+        old_price
         imgurl
       }
       pages
