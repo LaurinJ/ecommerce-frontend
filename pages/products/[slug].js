@@ -77,10 +77,9 @@ function singleProduct() {
     <>
       <div className="md:bg-gray-100 pb-10 mb-28">
         <div className="mx-auto max-w-[1430px] sm:px-5">
-          <div className="sm:px-[15px] w-full md:w-2/4  float-right">
+          <div className="px-5 sm:px-[15px] w-full md:w-2/4  float-right">
             <div className="p-4 pb-0 sm:pl-10 sm:pt-10 sm:pr-10 space-y-2 bg-white">
               <h1 className="text-3xl">{product.title}</h1>
-
               <div className="flex pb-7 text-gray-500 lg:border-b border-gray-300 text-sm">
                 <div className="flex items-center space-x-2">
                   <Rating count={product.rating} />
@@ -89,10 +88,24 @@ function singleProduct() {
                 <span className="ml-8 pl-8 hidden lg:block border-l border-black">
                   SKU: {product.code}
                 </span>
+                <div title="Přidat do oblíbených" className="mx-auto">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5 hover:text-red-600 cursor-pointer"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </div>
               </div>
             </div>
           </div>
-          <div className="sm:px-[15px] w-full md:w-2/4 float-left relative">
+          <div className="px-5 sm:px-[15px] w-full md:w-2/4 float-left relative">
             <ImagesView imgurl={product.imgurl} images={product.images} />
             {product.price < product.old_price ? (
               <div className=" w-12 h-12 flex items-center justify-center absolute top-3 right-7 bg-yellow-400 text-base font-bold rounded-full">

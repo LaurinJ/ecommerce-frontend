@@ -16,7 +16,7 @@ function ImagesView({ imgurl, images }) {
       </div>
       <div className="w-full">
         {/* <ul className="flex space-x-2 h-24 overflow-hidden"> */}
-        <ul className="flex gap-3 overflow-x-auto snap-x snap-madatory h-28 ">
+        <ul className="flex gap-3 overflow-x-auto snap-x snap-madatory h-28 overflow-y-hidden">
           <li key="50" className="cursor-pointer border snap-center">
             <Image
               layout="fixed"
