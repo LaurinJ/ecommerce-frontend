@@ -26,7 +26,7 @@ function FavoriteProduct() {
   }, [router]);
 
   return (
-    <div className="">
+    <div className="flex flex-col w-full">
       <h3 className="mb-4 font-medium text-xl">Vaše oblíbené produkty</h3>
       {/* container products */}
       <div className="relative min-h-[200px]">

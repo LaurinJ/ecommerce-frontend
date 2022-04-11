@@ -178,6 +178,7 @@ export const GET_CATEGORIES = gql`
     }
   }
 `;
+
 export const GET_REVIEWS = gql`
   query GetReviews($productId: ID!, $skip: Int, $limit: Int) {
     getReviews(product_id: $productId, skip: $skip, limit: $limit) {
@@ -187,6 +188,23 @@ export const GET_REVIEWS = gql`
         content
         user {
           name
+        }
+      }
+      pages
+    }
+  }
+`;
+
+export const GET_USER_REVIEWS = gql`
+  query GetUserReviews($skip: Int, $limit: Int) {
+    getUserReviews(skip: $skip, limit: $limit) {
+      reviews {
+        content
+        rating
+        createdAt
+        product {
+          title
+          slug
         }
       }
       pages

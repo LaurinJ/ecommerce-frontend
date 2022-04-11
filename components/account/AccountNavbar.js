@@ -89,7 +89,7 @@ function AccountNavbar() {
           </Link>
         </li>
         <li>
-          <Link href="">
+          <Link href="/account/reviews">
             <a className="py-[10px] pl-5 pr-10 border-b border-gray-300 block">
               Recenze
             </a>
