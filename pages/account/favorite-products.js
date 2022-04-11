@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import { useQuery } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
 import { getLayout } from "../../components/account/AccountLayout";
 import FavoriteProductCard from "../../components/FavoriteProductCard";
 import Loader from "../../components/Loader";
@@ -11,7 +11,19 @@ function FavoriteProduct() {
   const router = useRouter();
   const page = router?.query.page ? Number(router.query.page) : 1;
 
-  const { data, loading } = useQuery(GET_FAVORITE_PRODUCTS);
+  const [getFavoriteProduct, { data, loading }] = useLazyQuery(
+    GET_FAVORITE_PRODUCTS,
+    {
+      notifyOnNetworkStatusChange: true,
+      variables: {
+        skip: page,
+      },
+    }
+  );
+
+  useEffect(() => {
+    getFavoriteProduct();
+  }, [router]);
 
   return (
     <div className="">
