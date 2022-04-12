@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Router from "next/router";
 import { useMutation } from "@apollo/client";
 import InputField from "../../components/form/InputField";
 import { LOGIN_MUTATION } from "../../queries/Mutation";
-import { authenticate } from "../../actions/auth";
+import { authenticate, isAuth } from "../../actions/auth";
 import { useNotification } from "../../context/NotificationProvider";
 import Loader from "../../components/Loader";
 import LoginGoogle from "../../components/account/LoginGoogle";
 import { loginValidator } from "../../validators/loginValidator";
+import second from "../../actions/auth";
 
 function login() {
   const dispatch = useNotification();
@@ -47,6 +48,11 @@ function login() {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    // redirect if it is already logged in
+    if (isAuth()) Router.push("/account");
+  });
 
   return (
     <div className="mx-auto max-w-[410px] m-4 relative">
