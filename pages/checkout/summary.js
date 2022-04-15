@@ -37,11 +37,13 @@ function summary() {
       // removeLocalStorage("address");
 
       console.log(data);
-      // Router.push(`/checkout/summary`);
 
       Router.push({
         pathname: "/checkout/pay-for-it",
-        query: { order: data.finishOrder.orderNumber },
+        query: {
+          order: data.finishOrder.orderNumber,
+          payment: data.finishOrder.payment_method.name,
+        },
       });
     },
   });

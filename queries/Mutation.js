@@ -91,12 +91,23 @@ export const FINISH_ORDER = gql`
   mutation Mutation($token: OrderTokenData, $order: OrderData) {
     finishOrder(token: $token, order: $order) {
       orderNumber
+      payment_method {
+        name
+      }
     }
   }
 `;
-export const CREATE_PAYMENT = gql`
+export const CREATE_STRIPE_PAYMENT = gql`
   mutation CreateStripePayment($orderNumber: String) {
     createStripePayment(orderNumber: $orderNumber) {
+      url
+    }
+  }
+`;
+
+export const CREATE_PAYPAL_PAYMENT = gql`
+  mutation CreatePayPalPayment($orderNumber: String) {
+    createPayPalPayment(orderNumber: $orderNumber) {
       url
     }
   }
