@@ -37,20 +37,13 @@ function AccountNavbar() {
             </a>
           </Link>
         </li>
-        <li>
-          <Link href="">
-            <a className="py-[10px] pl-5 pr-10 border-b border-gray-300 block">
-              Faktury
-            </a>
-          </Link>
-        </li>
-        <li>
+        {/* <li>
           <Link href="">
             <a className="py-[10px] pl-5 pr-10 border-b border-gray-300 block">
               Kupóny
             </a>
           </Link>
-        </li>
+        </li> */}
       </ul>
       {/* my */}
       <h3
@@ -82,23 +75,9 @@ function AccountNavbar() {
           </Link>
         </li>
         <li>
-          <Link href="">
-            <a className="py-[10px] pl-5 pr-10 border-b border-gray-300 block">
-              Seznamy
-            </a>
-          </Link>
-        </li>
-        <li>
           <Link href="/account/reviews">
             <a className="py-[10px] pl-5 pr-10 border-b border-gray-300 block">
               Recenze
-            </a>
-          </Link>
-        </li>
-        <li>
-          <Link href="">
-            <a className="py-[10px] pl-5 pr-10 border-b border-gray-300 block">
-              Hlídání cen a novinek
             </a>
           </Link>
         </li>

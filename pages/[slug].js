@@ -20,7 +20,7 @@ function Products() {
       }
     : {};
   const page = router.query.page ? Number(router.query.page) : 1;
-  const [getProductsFunc, { data, loading }] = useLazyQuery(
+  const [getProductsFunc, { data, loading, error }] = useLazyQuery(
     GET_PRODUCTS_BY_CATEGORY,
     {
       notifyOnNetworkStatusChange: true,
@@ -34,6 +34,8 @@ function Products() {
       },
     }
   );
+
+  console.log(error);
 
   useEffect(() => {
     getProductsFunc();
