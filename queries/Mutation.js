@@ -34,6 +34,14 @@ export const REGISTER_MUTATION = gql`
   }
 `;
 
+export const FORGOT_PASSWORD_EMAIL = gql`
+  mutation Mutation($email: String!) {
+    sendChangeEmail(email: $email) {
+      message
+    }
+  }
+`;
+
 export const GOOGLE_LOGIN = gql`
   mutation Mutation($token: String) {
     googleLogin(token: $token) {

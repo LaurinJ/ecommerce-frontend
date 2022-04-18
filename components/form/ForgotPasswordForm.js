@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import Link from "next/link";
 import Router from "next/router";
 import { useMutation } from "@apollo/client";
 import InputField from "../../components/form/InputField";
-import { LOGIN_MUTATION } from "../../queries/Mutation";
+import { FORGOT_PASSWORD_EMAIL } from "../../queries/Mutation";
 import { authenticate } from "../../actions/auth";
 import { useNotification } from "../../context/NotificationProvider";
 import Loader from "../Loader";
@@ -13,17 +12,16 @@ function ForgotPasswordForm() {
   const [email, setEmail] = useState("");
   const [err, setErr] = useState({});
   const [forgotPassword, { data, loading, error }] = useMutation(
-    LOGIN_MUTATION,
+    FORGOT_PASSWORD_EMAIL,
     {
       notifyOnNetworkStatusChange: true,
       onCompleted: (data) => {
-        authenticate(data.login, () => {
-          dispatch({
-            type: "SUCCESS",
-            message: "Email byl odeslán",
-            title: "Successful Request",
-          });
-          Router.push(`/account/login`);
+        setEmail("");
+        setErr({});
+        dispatch({
+          type: "SUCCESS",
+          message: "Email na změnu hesla byl odeslán",
+          title: "Successful Request",
         });
       },
     }
@@ -40,7 +38,7 @@ function ForgotPasswordForm() {
       setErr(errors);
       if (Object.keys(errors).length === 0) {
         await forgotPassword({
-          variables: { user: { ...formValues } },
+          variables: { email: email },
         });
       }
     } catch (error) {

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import Link from "next/link";
-// import Image from "next/image";
+import Image from "next/image";
 import CartContext from "../context/CartContext";
 
 function Cart() {
@@ -44,11 +44,11 @@ function Cart() {
                     </svg>
                   </span>
                   <div className="flex-shrink-0">
-                    {/* <Image
+                    <Image
                       width="60"
                       height="75"
                       src={`${process.env.IMG_LINK}${product.img}`}
-                    /> */}
+                    />
                   </div>
                   <div className="pl-4">
                     <h5 className="font-bold mr-2">{product.title}</h5>
