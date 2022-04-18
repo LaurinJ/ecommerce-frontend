@@ -20,7 +20,7 @@ function ForgotPasswordForm() {
         setErr({});
         dispatch({
           type: "SUCCESS",
-          message: "Email na změnu hesla byl odeslán",
+          message: data.sendChangeEmail.message,
           title: "Successful Request",
         });
       },
