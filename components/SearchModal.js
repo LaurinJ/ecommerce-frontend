@@ -57,7 +57,7 @@ function SearchModal() {
         type="text"
         name="search"
         prompt="Vyhledat..."
-        class="search p-4 h-full max-h-14 w-96 rounded-r-none text-lg"
+        class="search p-4 h-full max-h-14 w-72 sm:w-96 rounded-r-none text-lg"
         value={search}
         handleChange={handleChange}
         onClick={(e) => {

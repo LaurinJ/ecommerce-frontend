@@ -36,8 +36,6 @@ function summary() {
       removeLocalStorage("order_token");
       // removeLocalStorage("address");
 
-      console.log(data);
-
       Router.push({
         pathname: "/checkout/pay-for-it",
         query: {

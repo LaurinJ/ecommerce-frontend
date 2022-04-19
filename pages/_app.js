@@ -6,7 +6,6 @@ import Head from "next/head";
 import Layout from "../components/Layout";
 import CartProvider from "../context/CartProvider";
 import NotificationProvider from "../context/NotificationProvider";
-import Link from "next/link";
 // import "../styles/global.css";
 import "../styles/style.css";
 import "tailwindcss/tailwind.css";

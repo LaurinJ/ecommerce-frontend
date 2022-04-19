@@ -171,8 +171,8 @@ export const GET_FAVORITE_PRODUCTS = gql`
 `;
 
 export const GET_CATEGORIES = gql`
-  query GetCategories($limit: Int, $skip: Int) {
-    getCategories(limit: $limit, skip: $skip) {
+  query GetCategories {
+    getCategories {
       name
       slug
     }
