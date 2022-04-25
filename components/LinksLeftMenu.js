@@ -1,21 +1,23 @@
 import React from "react";
 import Link from "next/link";
+import { isAuth } from "../actions/auth";
+import Logout from "./account/Logout";
+import LinksLeftMenuAuth from "./LinksLeftMenuAuth";
 
-function LinksLeftMenu({ links }) {
+function LinksLeftMenu({ links, auth }) {
   return (
-    <nav className="flex flex-col text-md overflow-hidden">
-      <ul className="flex flex-col my-2">
+    <nav className="mobile-links">
+      <ul>
         {links.map((item, i) => {
           return (
-            <li className="text-gray-700 hover:text-blue-700" key={i}>
+            <li key={i}>
               <Link href={`/${item.slug}`}>
-                <a className="block py-2.5 pl-6 pr-4 border-b border-gray-200">
-                  {item.name}
-                </a>
+                <a>{item.name}</a>
               </Link>
             </li>
           );
         })}
+        {auth && <LinksLeftMenuAuth />}
       </ul>
     </nav>
   );

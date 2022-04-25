@@ -7,7 +7,7 @@ import { useNotification } from "../../context/NotificationProvider";
 
 function Logout(props) {
   const dispatch = useNotification();
-  const [logout, { data, loading, error }] = useMutation(LOGOUT_MUTATION, {
+  const [logout] = useMutation(LOGOUT_MUTATION, {
     onCompleted: () => {
       dispatch({
         type: "SUCCESS",

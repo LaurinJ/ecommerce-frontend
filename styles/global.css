@@ -391,3 +391,61 @@ input[type="number"]::-webkit-outer-spin-button {
 .dot.active {
   background: rgb(32, 32, 32);
 }
+
+/* header */
+.header_link {
+  @apply flex max-w-[1600px] mx-auto text-xs overflow-hidden 
+}
+
+.header_link ul:first-child {
+  @apply flex flex-none ml-20 my-2
+}
+
+.header_link ul:last-child {
+  @apply flex ml-auto my-2 mr-20
+}
+
+.header_link ul li {
+  @apply px-2 hover:text-blue-700
+}
+
+.header-wrapper {
+  @apply flex flex-col max-w-[1600px] mx-auto space-y-5 md:flex-row my-5 items-center md:justify-around
+}
+
+.nav-bar {
+  @apply bg-gray-800 hidden lg:block
+}
+
+.nav-bar nav {
+  @apply max-w-[1600px] mx-auto text-white
+}
+
+.nav-bar nav ul {
+  @apply px-5 font-bold flex flex-wrap lg:px-16
+}
+
+.nav-bar nav ul li {
+  @apply p-5 hover:bg-gray-500
+}
+
+/* mobile menu */
+.mobile-menu-title {
+  @apply py-3.5 text-white bg-gray-800 text-xl text-center font-bold
+}
+
+.mobile-links {
+  @apply flex flex-col overflow-hidden
+}
+
+.mobile-links ul {
+  @apply flex flex-col my-2
+}
+
+.mobile-links ul li {
+  @apply text-gray-700 hover:text-blue-700
+}
+
+.mobile-links ul li a {
+  @apply block py-2.5 pl-6 pr-4 border-b border-gray-200
+}

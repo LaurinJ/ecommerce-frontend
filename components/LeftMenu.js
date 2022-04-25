@@ -41,7 +41,7 @@ function LeftMenu() {
           context.leftMenu.state ? "left-0" : "-left-80"
         }`}
       >
-        <h5 className="py-3.5 text-white bg-gray-800 text-xl text-center font-bold">
+        <h5 className="mobile-menu-title">
           {context.leftMenu.type}
           <svg
             onClick={handleClick}
@@ -60,7 +60,7 @@ function LeftMenu() {
         {(() => {
           switch (context.leftMenu.type) {
             case "Menu":
-              return <LinksLeftMenu links={links} />;
+              return <LinksLeftMenu links={links} auth={true} />;
             case "Kategorie":
               return <LinksLeftMenu links={data && data.getCategories} />;
             case "Košík":

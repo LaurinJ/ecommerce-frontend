@@ -3,11 +3,14 @@ import { useMutation, gql } from "@apollo/client";
 import InputFieldBold from "./InputFieldBold";
 import { CREATE_REVIEW } from "../../queries/Mutation";
 import { isAuth } from "../../actions/auth";
+import { useNotification } from "../../context/NotificationProvider";
 
 function ReviewForm({ product_id }) {
+  const dispatch = useNotification();
   const [review, setReview] = useState("");
   const [err, setErr] = useState("");
   const [stars, setStars] = useState(0);
+
   const [sendReview] = useMutation(CREATE_REVIEW, {
     update(cache, { data }) {
       cache.modify({
@@ -24,15 +27,21 @@ function ReviewForm({ product_id }) {
       });
     },
     onCompleted: () => {
-      // setReview("");
+      setReview("");
       setStars(0);
       setErr("");
+      dispatch({
+        type: "SUCCESS",
+        message: "Vaše recenze byla odeslaná!",
+        title: "Successful Request",
+      });
     },
   });
 
   const handleChange = (e) => {
     const { value } = e.target;
     setReview(value);
+    setErr("");
   };
 
   const handleSubmit = async (e) => {
@@ -64,11 +73,11 @@ function ReviewForm({ product_id }) {
             Pro napsání recenze je nutno se přihlásit
           </span>
         )}
-        {err && (
+        {/* {err && (
           <span className="block lg:text-base xl:text-lg text-red-600">
             {err}
           </span>
-        )}
+        )} */}
 
         <InputFieldBold
           //   required={true}

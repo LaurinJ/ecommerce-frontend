@@ -48,7 +48,7 @@ function ProductCard({ product }) {
           {/* title */}
           <Link href={`/products/${product.slug}`}>
             <a className="mt-2">
-              <h3 className="h-[72px] md:h-[130px] lg:h-[72px] text-lg leading-6 font-light">
+              <h3 className="h-[72px] md:h-[130px] lg:h-[72px] text-base md:text-lg leading-6 font-light">
                 {product.title}
               </h3>
             </a>

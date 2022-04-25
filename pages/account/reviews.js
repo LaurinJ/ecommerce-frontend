@@ -31,7 +31,7 @@ function Reviews() {
         {loading && <Loader />}
         {/* single review */}
         {data?.getUserReviews.reviews.length ? (
-          data.getUserReviews.reviews.map((review, i) => {
+          data.getUserReviews.reviews.map((review) => {
             return (
               <div>
                 <span className="pr-1 font-medium">{review.product.title}</span>

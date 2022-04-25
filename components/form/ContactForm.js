@@ -2,16 +2,24 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { SEND_CONTACT_MESSAGE } from "../../queries/Mutation";
 import InputFieldBold from "./InputFieldBold";
+import { useNotification } from "../../context/NotificationProvider";
 
 function ContactForm() {
+  const dispatch = useNotification();
   const [formValues, setFormValues] = useState({
     email: "",
     content: "",
   });
   const [err, setErr] = useState({});
+
   const [sendMessage] = useMutation(SEND_CONTACT_MESSAGE, {
     onCompleted: () => {
       setFormValues({ email: "", content: "" });
+      dispatch({
+        type: "SUCCESS",
+        message: "Vaše zpráva byla odeslaná!",
+        title: "Successful Request",
+      });
     },
   });
 
