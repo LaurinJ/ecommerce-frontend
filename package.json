@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "build-css": "tailwindcss build ./styles/global.css -o ./styles/style.css",
+    "build-css": "tailwindcss build ./styles/global.css -o ./styles/style.css --minify",
     "test": "jest --watch"
   },
   "author": "Josef Laurin",

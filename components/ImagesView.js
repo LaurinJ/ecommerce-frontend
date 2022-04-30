@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 
 function ImagesView({ imgurl, images }) {
-  const [img, setImg] = useState(`${process.env.IMG_LINK}${imgurl}`);
+  const [img, setImg] = useState(`${process.env.BACKEND_SERVER_LINK}${imgurl}`);
 
   const changeImg = (img) => {
     setImg(img);

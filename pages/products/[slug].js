@@ -227,12 +227,16 @@ function singleProduct() {
 export default singleProduct;
 
 export async function getServerSideProps({ query }) {
+  console.log("server");
   const apolloClient = initializeApollo();
+  console.log("initial");
+  console.log(apolloClient);
   await apolloClient.query({
     query: GET_PRODUCT,
     variables: { slug: query.slug },
   });
-
+  console.log("after quer");
+  console.log(apolloClient.cache.extract());
   return {
     props: {
       initialApolloState: apolloClient.cache.extract(),

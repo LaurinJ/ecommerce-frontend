@@ -22,8 +22,13 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
   if (networkError) console.log(`[Network error]: ${networkError}`);
 });
 
+const serverLink =
+  typeof window === "undefined"
+    ? `${process.env.BACKEND_SERVER_LINK}graphql`
+    : `${process.env.BACKEND_LINK}graphql`;
+
 let httpLink = new HttpLink({
-  uri: "http://localhost:4000/graphql",
+  uri: serverLink,
 });
 
 const authLink = setContext((_, { headers }) => {
