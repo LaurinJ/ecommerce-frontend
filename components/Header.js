@@ -97,11 +97,11 @@ function Header() {
             {data &&
               data.getCategories.map((category, i) => {
                 return (
-                  <li key={i}>
-                    <Link href={`/${category.slug}`}>
+                  <Link href={`/${category.slug}`}>
+                    <li key={i}>
                       <a>{category.name}</a>
-                    </Link>
-                  </li>
+                    </li>
+                  </Link>
                 );
               })}
           </ul>
