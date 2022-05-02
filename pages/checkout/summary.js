@@ -31,10 +31,10 @@ function summary() {
 
   const [finishOrder] = useMutation(FINISH_ORDER, {
     onCompleted: (data) => {
-      // del all token and cart
+      // del all token, address and cart
       removeAll();
       removeLocalStorage("order_token");
-      // removeLocalStorage("address");
+      removeLocalStorage("address");
 
       Router.push({
         pathname: "/checkout/pay-for-it",
