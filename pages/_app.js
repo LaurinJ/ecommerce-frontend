@@ -7,6 +7,7 @@ import Layout from "../components/Layout";
 import CartProvider from "../context/CartProvider";
 import NotificationProvider from "../context/NotificationProvider";
 import "../styles/style.css";
+import "tailwindcss/tailwind.css";
 
 function MyApp({ Component, pageProps }) {
   const client = useApollo(pageProps.initialApolloState);
