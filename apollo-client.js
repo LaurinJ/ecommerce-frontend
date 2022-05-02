@@ -47,7 +47,7 @@ httpLink = errorLink.concat(authLink.concat(httpLink));
 
 const wsLink = process.browser
   ? new WebSocketLink({
-      uri: "ws://localhost:4000/graphql",
+      uri: `${process.env.BACKEND_WS_LINK}graphql`,
       options: {
         reconnect: true,
         connectionParams: {

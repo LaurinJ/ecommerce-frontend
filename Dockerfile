@@ -2,7 +2,7 @@ FROM node:17.2.0-alpine3.14
 
 WORKDIR /frontend
 
-COPY ./package*.json /frontend
+COPY ./package*.json /frontend/
 
 RUN npm install
 

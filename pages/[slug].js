@@ -21,7 +21,7 @@ function Products() {
       }
     : {};
   const page = router.query.page ? Number(router.query.page) : 1;
-  const [getProductsFunc, { data, loading, error }] = useLazyQuery(
+  const [getProductsFunc, { data, loading }] = useLazyQuery(
     GET_PRODUCTS_BY_CATEGORY,
     {
       notifyOnNetworkStatusChange: true,
@@ -56,7 +56,7 @@ function Products() {
       />
       <meta property="og:site_name" content={`${process.env.APP_NAME}`} />
 
-      <meta
+      {/* <meta
         property="og:image"
         content={`${process.env.BACKEND_LINK}static/images/seoblog.jpg`}
       />
@@ -64,7 +64,7 @@ function Products() {
         property="og:image:secure_url"
         content={`${process.env.BACKEND_LINK}static/images/seoblog.jpg`}
       />
-      <meta property="og:image:type" content="image/jpg" />
+      <meta property="og:image:type" content="image/jpg" /> */}
       {/* <meta property="fb:app_id" content={`${FB_APP_ID}`} /> */}
     </Head>
   );
@@ -132,7 +132,7 @@ export async function getServerSideProps({ query }) {
     query: GET_PRODUCTS_BY_CATEGORY,
     variables: {
       skip: page,
-      params: { category: query.slug, ...price, sort: query.sort },
+      params: { category: query.slug || "", ...price, sort: query.sort || "" },
     },
   });
 

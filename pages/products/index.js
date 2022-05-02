@@ -6,6 +6,7 @@ import ProductCard from "../../components/ProductCard";
 import FilterProducts from "../../components/FilterProducts";
 import MobileFilterProducts from "../../components/MobileFilterProducts";
 import Pagination from "../../components/Pagination";
+import SortProducts from "../../components/SortProducts";
 import Loader from "../../components/Loader";
 import { GET_FILTER_PRODUCTS } from "../../queries/Query";
 
@@ -65,11 +66,7 @@ function Products() {
           <div className="flex my-3 justify-between sm:mx-5">
             <MobileFilterProducts />
             <div className="ml-auto">
-              <select className="pl-5 pr-5 md:pr-10 h-full lg:h-10 leading-10 bg-white border-2">
-                <option value="">Default sorting</option>
-                <option value="">Price low-high</option>
-                <option value="">Price high-low</option>
-              </select>
+              <SortProducts />
             </div>
           </div>
           {/* products list */}
