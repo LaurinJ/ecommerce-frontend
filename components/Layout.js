@@ -2,7 +2,7 @@ import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import LeftMenu from "./LeftMenu";
-import BottomMenu from "./BottonMenu";
+import BottomMenu from "./BottomMenu";
 import ChatWrapper from "./ChatWrapper";
 import MenuProvider from "../context/MenuProvider";
 
