@@ -69,8 +69,8 @@ function ContactForm() {
           name="content"
           label="Zpráva"
           prompt="Pošlete nám zprávu"
-          rows="11"
-          class="w-full h-full py-3 px-4 overflow-y-auto  resize-none"
+          // rows="11"
+          class="w-full h-36 lg:h-48 py-3 px-4 overflow-y-auto  resize-none"
           error={err.content}
           value={formValues.content}
           handleChange={handleChange}

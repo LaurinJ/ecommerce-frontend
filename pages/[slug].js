@@ -135,7 +135,6 @@ export async function getServerSideProps({ query }) {
       params: { category: query.slug || "", ...price, sort: query.sort || "" },
     },
   });
-  console.log(apolloClient.cache.extract());
   return {
     props: {
       initialApolloState: apolloClient.cache.extract(),

@@ -68,9 +68,9 @@ function Slider() {
             className={slideIndex === index + 1 ? "slide active-anim" : "slide"}
           >
             <Image
-              width="1500"
-              height="450"
-              layout="responsive"
+              // width="1500"
+              // height="400"
+              layout="fill"
               src={obj.img}
             />
           </div>
