@@ -70,7 +70,7 @@ function Products() {
             </div>
           </div>
           {/* products list */}
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-4 mb-7">
+          <div className="grid grid-cols-1 esm:grid-cols-2 md:grid-cols-4 xl:grid-cols-4 mb-7">
             {data &&
               data.getFilterProducts.products.map((product, i) => {
                 return <ProductCard product={product} key={i} />;

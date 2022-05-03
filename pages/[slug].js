@@ -101,7 +101,7 @@ function Products() {
             </div>
           </div>
           {/* products list */}
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-4 mb-7">
+          <div className="grid grid-cols-1 esm:grid-cols-2 md:grid-cols-4 xl:grid-cols-4 mb-7">
             {data &&
               data.getProductsByCategory.products.map((product, i) => {
                 return <ProductCard product={product} key={i} />;
@@ -135,7 +135,7 @@ export async function getServerSideProps({ query }) {
       params: { category: query.slug || "", ...price, sort: query.sort || "" },
     },
   });
-
+  console.log(apolloClient.cache.extract());
   return {
     props: {
       initialApolloState: apolloClient.cache.extract(),

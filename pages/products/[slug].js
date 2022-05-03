@@ -87,7 +87,7 @@ function singleProduct() {
 
   return (
     <>
-      <div className="md:bg-gray-100 pb-10 mb-28">
+      <div className="md:bg-gray-100 pb-10  sm:mb-10">
         <div className="mx-auto max-w-[1430px] sm:px-5">
           <div className="px-5 sm:px-[15px] w-full md:w-2/4 float-right">
             <div className="p-4 pb-0 sm:pl-10 sm:pt-10 sm:pr-10 space-y-2 bg-white">
@@ -164,7 +164,7 @@ function singleProduct() {
                   PRODUKT SKLADEM. PŘEDPOKLÁDANÉ DORUČENÍ: 3 DNÍ
                 </span>
                 <button
-                  className="max-w-[360px] sm:w-[350px] min-w-i h-auto py-[15px] px-5 text-2xl leading-[1.4rem] font-bold bg-blue-800 text-white"
+                  className="max-w-[360px] sm:w-[350px]  py-[15px] px-5 text-xl sm:text-2xl leading-[1.4rem] font-bold bg-blue-800 text-white"
                   onClick={() => {
                     addCart(count);
                     dispatch({

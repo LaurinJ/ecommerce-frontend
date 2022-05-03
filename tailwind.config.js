@@ -6,9 +6,14 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        esm: "435px",
+      },
+
       height: {
         calc: "calc(100% - 129px)",
       },
+
       backgroundColor: {
         primary: "#0050aa",
         lg_blue: "#f5f8fc",

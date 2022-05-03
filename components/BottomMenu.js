@@ -1,11 +1,13 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { useRouter } from "next/router";
 import MenuContext from "../context/MenuContext";
 import CartContext from "../context/CartContext";
 import Modal from "./Modal";
 import SearchModal from "./SearchModal";
 
-function BottonMenu() {
+function BottomMenu() {
   const context = useContext(MenuContext);
+  const router = useRouter();
   const [searchModal, setSearchModal] = useState(false);
   const { itemCount } = useContext(CartContext);
 
@@ -16,6 +18,10 @@ function BottonMenu() {
   const closeMenu = () => {
     context.setMenu({ state: false });
   };
+
+  useEffect(() => {
+    closeMenu();
+  }, [router]);
 
   return (
     <>
@@ -143,4 +149,4 @@ function BottonMenu() {
   );
 }
 
-export default BottonMenu;
+export default BottomMenu;

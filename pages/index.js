@@ -20,19 +20,19 @@ export default function index() {
       <Slider />
       <div className="flex flex-col mx-auto max-w-[1430px] px-[30px] mt-5">
         <h3 className=" font-bold text-xl mb-5">NEJPRODÁVANĚJŠÍ</h3>
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 mb-7">
+        <div className="grid grid-cols-1 esm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 mb-7">
           {products.map((product, i) => (
             <ProductCard product={product} key={i} />
           ))}
         </div>
         <h3 className=" font-bold text-xl mb-5">SLEVY PRO VÁS</h3>
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 mb-7">
+        <div className="grid grid-cols-1 esm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 mb-7">
           {products.map((product, i) => (
             <ProductCard product={product} key={i} />
           ))}
         </div>
         <h3 className=" font-bold text-xl mb-5">DOPORUČUJEME</h3>
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 mb-7">
+        <div className="grid grid-cols-1 esm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 mb-7">
           {products.map((product, i) => (
             <ProductCard product={product} key={i} />
           ))}
