@@ -33,20 +33,14 @@ function MyApp({ Component, pageProps }) {
 
         <title>Ecommerce app | {process.env.APP_NAME}</title>
         <meta name="description" content="Ecommerce web app" />
-        <link
-          rel="canonical"
-          href={`${process.env.BACKEND_LINK}${router.pathname}`}
-        />
+        <link rel="canonical" href={`${process.env.BACKEND_LINK}`} />
         <meta
           property="og:title"
           content={`Ecommerce web app | ${process.env.APP_NAME}`}
         />
         <meta property="og:description" content="Ecommerce web app" />
         <meta property="og:type" content="webiste" />
-        <meta
-          property="og:url"
-          content={`${process.env.BACKEND_LINK}${router.pathname}`}
-        />
+        <meta property="og:url" content={`${process.env.BACKEND_LINK}`} />
         <meta property="og:site_name" content={`${process.env.APP_NAME}`} />
       </Head>
 
