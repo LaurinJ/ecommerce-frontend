@@ -23,6 +23,7 @@ function AddressForm() {
     phone: 0,
   });
   const [err, setErr] = useState({});
+
   const [order] = useMutation(CREATE_ORDER, {
     onCompleted: (data) => {
       setLocalStorage("order_token", data.createOrUpdateOrder.token);
@@ -209,11 +210,9 @@ function AddressForm() {
           />
         </div>
         {/* button section */}
-        <div className="flex flex-col md:flex-row md:justify-end w-full my-8 pr-3">
+        <div className="flex flex-col esm:flex-row esm:justify-between sm:justify-end w-full space-y-3 esm:space-y-0 px-10 my-8 sm:pr-3">
           <Link href="/checkout/cart">
-            <a className="base_btn_form md:mr-4 mb-4 md:mb-0 justify-center">
-              ZPĚT
-            </a>
+            <a className="base_btn_form sm:mr-4 justify-center">ZPĚT</a>
           </Link>
           <button
             type="submit"

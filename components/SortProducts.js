@@ -30,7 +30,7 @@ function SortProducts() {
 
   return (
     <select
-      className="pl-5 pr-5 md:pr-10 h-full lg:h-10 leading-10 bg-white border-2"
+      className="px-2 esm-5 md:pr-10 h-full lg:h-10 leading-10 bg-white border-2"
       onChange={handleChange}
       defaultValue=""
     >

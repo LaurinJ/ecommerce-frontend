@@ -17,6 +17,7 @@ function BottomMenu() {
 
   const closeMenu = () => {
     context.setMenu({ state: false });
+    setSearchModal(false);
   };
 
   useEffect(() => {
@@ -115,7 +116,7 @@ function BottomMenu() {
                 />
               </svg>
             </span>
-            <span>Search</span>
+            <span>Hledat</span>
           </a>
           <a
             href="#"

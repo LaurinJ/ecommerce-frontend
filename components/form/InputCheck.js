@@ -30,7 +30,7 @@ function InputCheck(props) {
         props.svg
       ) : (
         <img
-          className="h-9 w-16"
+          className="pl-5 h-9 w-16"
           src={`${process.env.IMG_LINK}${props.img}`}
           alt={props.name}
         />

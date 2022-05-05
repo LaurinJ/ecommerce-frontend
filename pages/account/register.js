@@ -124,19 +124,19 @@ function register() {
         </div>
         <div className="relative">
           <hr className="mt-6 mb-4 border-gray-300" />
-          <span className="absolute top-[-14px] left-36 bg-white px-2 ">
+          <span className="absolute top-[-14px] left-1/2 transform -translate-x-1/2 bg-white px-2 ">
             Nebo
           </span>
         </div>
         {/* google and facebook */}
         <div className="flex justify-center space-x-3">
           <LoginGoogle />
-          <div className="w-14 h-14 flex items-center justify-center">
+          {/* <div className="w-14 h-14 flex items-center justify-center">
             <img
               className="hover:w-14 hover:h-14 cursor-pointer"
               src="https://img.icons8.com/color/48/000000/facebook.png"
             />
-          </div>
+          </div> */}
         </div>
         <hr className="my-4 border-gray-300" />
         <span className="w-full block text-base text-center">

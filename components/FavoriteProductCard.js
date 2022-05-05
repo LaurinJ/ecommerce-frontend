@@ -1,4 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import { useMutation } from "@apollo/client";
 import CartContext from "../context/CartContext";
@@ -33,7 +34,9 @@ function FavoriteProductCard({ product }) {
         </div>
         {/* description section */}
         <div className="cartitem_product_info mb-5 min-h-[150px] lg:min-h-[130px]">
-          <h4 className="mb-2 sm:text-lg font-semibold">{product.title}</h4>
+          <Link href={`/products/${product.slug}`}>
+            <h4 className="mb-2 sm:text-lg font-semibold">{product.title}</h4>
+          </Link>
           <div className="my-4 text-sm sm:text-base text-gray-600">
             <span>{product.short_description}</span>
           </div>

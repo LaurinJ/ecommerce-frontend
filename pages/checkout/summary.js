@@ -263,9 +263,9 @@ function summary() {
             </div>
 
             {/* button section */}
-            <div className="flex flex-col md:flex-row md:justify-end w-full my-8">
+            <div className="flex flex-col esm:flex-row esm:justify-between sm:justify-end w-full space-y-3 esm:space-y-0 px-7 my-8 sm:pr-3">
               <Link href="/checkout/payment">
-                <a className="base_btn_form md:mr-4 mb-4 md:mb-0 justify-center">
+                <a className="base_btn_form sm:mr-4 justify-center">
                   ZPĚT K PLATBĚ
                 </a>
               </Link>
