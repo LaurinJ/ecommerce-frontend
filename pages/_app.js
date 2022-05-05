@@ -3,6 +3,7 @@ import { ApolloProvider } from "@apollo/client";
 import { useApollo } from "../apollo-client";
 import App from "next/app";
 import Head from "next/head";
+import Script from "next/script";
 import Layout from "../components/Layout";
 import CartProvider from "../context/CartProvider";
 import NotificationProvider from "../context/NotificationProvider";
@@ -15,7 +16,39 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <React.Fragment>
-      <Head></Head>
+      <Head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-V51PGC1KK5"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', 'G-V51PGC1KK5');
+        `}
+        </Script>
+
+        <title>Ecommerce app | {process.env.APP_NAME}</title>
+        <meta name="description" content="Ecommerce web app" />
+        <link
+          rel="canonical"
+          href={`${process.env.BACKEND_LINK}${router.pathname}`}
+        />
+        <meta
+          property="og:title"
+          content={`Ecommerce web app | ${process.env.APP_NAME}`}
+        />
+        <meta property="og:description" content="Ecommerce web app" />
+        <meta property="og:type" content="webiste" />
+        <meta
+          property="og:url"
+          content={`${process.env.BACKEND_LINK}${router.pathname}`}
+        />
+        <meta property="og:site_name" content={`${process.env.APP_NAME}`} />
+      </Head>
 
       <ApolloProvider client={client}>
         <NotificationProvider>
