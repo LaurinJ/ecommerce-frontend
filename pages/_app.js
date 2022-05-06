@@ -16,21 +16,22 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <React.Fragment>
-      <Head>
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-V51PGC1KK5"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GOOGLE_ANALYTICS_ID}`}
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
         
-          gtag('config', 'G-V51PGC1KK5');
+          gtag('config', '${process.env.GOOGLE_ANALYTICS_ID}', {
+            page_path: window.location.pathname,
+          });
         `}
-        </Script>
-
+      </Script>
+      <Head>
         <title>Ecommerce app | {process.env.APP_NAME}</title>
         <meta name="description" content="Ecommerce web app" />
         <link rel="canonical" href={`${process.env.BACKEND_LINK}`} />
